@@ -2,23 +2,23 @@ package vaccineregistrationsystem;
 
 public class NonCitizen extends People {
 
-    private String Passport;
+    private String PeoplePassport;
 
     public NonCitizen(String Passport,int PeopleID, String PeopleName, String PeopleAddress, String PeopleDOB, String PeopleStatus) {
         super(PeopleID, PeopleName, PeopleAddress, PeopleDOB, PeopleStatus);
-        this.Passport = Passport;
+        this.PeoplePassport = Passport;
     }
 
     public String toString() {
-        return Passport + ";" + super.toString();
+        return PeoplePassport + ";" + super.toString();
     }
 
     public String getPeopleIC() {
-        return Passport;
+        return PeoplePassport;
     }
 
     public void setPeopleIC(String CitizenIC) {
-        this.Passport = Passport;
+        this.PeoplePassport = PeoplePassport;
     }
 ;
 }
