@@ -65,6 +65,7 @@ public class Login extends javax.swing.JFrame {
             }
         });
 
+        chkViewPass.setBackground(new java.awt.Color(212, 227, 247));
         chkViewPass.setFont(new java.awt.Font("Tw Cen MT", 0, 12)); // NOI18N
         chkViewPass.setText("View");
         chkViewPass.addActionListener(new java.awt.event.ActionListener() {
