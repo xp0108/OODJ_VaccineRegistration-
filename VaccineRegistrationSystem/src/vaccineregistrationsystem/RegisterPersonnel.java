@@ -9,8 +9,6 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.util.Scanner;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 
 /**
@@ -24,6 +22,7 @@ public class RegisterPersonnel extends javax.swing.JFrame {
      */
     public RegisterPersonnel() {
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     /**

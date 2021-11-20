@@ -62,10 +62,6 @@ abstract public class People {
         this.PeopleStatus = PeopleStatus;
     }
 
-    public String toString() {
-        return PeopleName + ";" + PeopleDOB + ";" + PeopleAddress + ";";
-    }
-
     abstract public String getPeopleIC();
 
     abstract public void setPeopleIC(String PeopleIC);

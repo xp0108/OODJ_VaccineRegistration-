@@ -26,7 +26,4 @@ public class Personnel {
         this.PersonnelUsername = PersonnelUsername;
     }
 
-    public String toString() {
-        return PersonnelUsername + ";" + PersonnelPassword + ";";
-    }
 }
