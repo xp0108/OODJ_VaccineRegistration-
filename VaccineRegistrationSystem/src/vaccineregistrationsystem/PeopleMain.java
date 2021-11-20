@@ -39,6 +39,7 @@ public class PeopleMain extends javax.swing.JFrame {
         lblPeopleProfileAddress = new javax.swing.JLabel();
         txtPeopleProfileAddress = new javax.swing.JTextField();
         btnPeopleProfileSave = new javax.swing.JButton();
+        btnPeopleProfileRefresh = new javax.swing.JButton();
         lblPeopleProfileOld = new javax.swing.JLabel();
         txtPeopleProfileOld = new javax.swing.JTextField();
         lblPeopleProfileNew = new javax.swing.JLabel();
@@ -46,7 +47,7 @@ public class PeopleMain extends javax.swing.JFrame {
         btnChangePassword = new javax.swing.JButton();
         lblPeoplePeofileAppointment = new javax.swing.JLabel();
         btnPeopleProfileRequestA = new javax.swing.JButton();
-        btnPeopleProfileSave2 = new javax.swing.JButton();
+        btnPeopleProfileStatusA = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -96,6 +97,11 @@ public class PeopleMain extends javax.swing.JFrame {
         btnPeopleProfileSave.setForeground(new java.awt.Color(255, 255, 255));
         btnPeopleProfileSave.setText("Save and Change");
 
+        btnPeopleProfileRefresh.setBackground(new java.awt.Color(0, 0, 0));
+        btnPeopleProfileRefresh.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        btnPeopleProfileRefresh.setForeground(new java.awt.Color(255, 255, 255));
+        btnPeopleProfileRefresh.setText("Refresh");
+
         lblPeopleProfileOld.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         lblPeopleProfileOld.setForeground(new java.awt.Color(0, 0, 0));
         lblPeopleProfileOld.setText("Old Password:");
@@ -124,10 +130,10 @@ public class PeopleMain extends javax.swing.JFrame {
         btnPeopleProfileRequestA.setForeground(new java.awt.Color(255, 255, 255));
         btnPeopleProfileRequestA.setText("Request Appointment");
 
-        btnPeopleProfileSave2.setBackground(new java.awt.Color(0, 0, 0));
-        btnPeopleProfileSave2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        btnPeopleProfileSave2.setForeground(new java.awt.Color(255, 255, 255));
-        btnPeopleProfileSave2.setText("Check Appointment Status");
+        btnPeopleProfileStatusA.setBackground(new java.awt.Color(0, 0, 0));
+        btnPeopleProfileStatusA.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        btnPeopleProfileStatusA.setForeground(new java.awt.Color(255, 255, 255));
+        btnPeopleProfileStatusA.setText("Check Appointment Status");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -167,14 +173,15 @@ public class PeopleMain extends javax.swing.JFrame {
                                     .addComponent(lblPeoplePeofile)
                                     .addGap(131, 131, 131)))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(123, 123, 123)
+                                .addGap(45, 45, 45)
                                 .addComponent(btnPeopleProfileSave)
-                                .addGap(201, 201, 201)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(67, 67, 67)
+                                .addComponent(btnPeopleProfileRefresh)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 73, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblPeoplePeofileAppointment)
                             .addComponent(btnPeopleProfileRequestA, javax.swing.GroupLayout.PREFERRED_SIZE, 311, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnPeopleProfileSave2, javax.swing.GroupLayout.PREFERRED_SIZE, 311, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(btnPeopleProfileStatusA, javax.swing.GroupLayout.PREFERRED_SIZE, 311, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(43, 43, 43))))
         );
         jPanel1Layout.setVerticalGroup(
@@ -202,9 +209,11 @@ public class PeopleMain extends javax.swing.JFrame {
                         .addComponent(lblPeopleProfileAddress)
                         .addGap(18, 18, 18)
                         .addComponent(txtPeopleProfileAddress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(32, 32, 32)
-                        .addComponent(btnPeopleProfileSave)
-                        .addGap(16, 16, 16)
+                        .addGap(30, 30, 30)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnPeopleProfileSave)
+                            .addComponent(btnPeopleProfileRefresh))
+                        .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(lblPeopleProfileOld)
@@ -219,7 +228,7 @@ public class PeopleMain extends javax.swing.JFrame {
                         .addGap(29, 29, 29)
                         .addComponent(btnPeopleProfileRequestA, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(btnPeopleProfileSave2, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnPeopleProfileStatusA, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addComponent(txtPeopleProfileNew, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(21, Short.MAX_VALUE))
@@ -283,9 +292,10 @@ public class PeopleMain extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnChangePassword;
     private javax.swing.JButton btnPeopleProfileBack;
+    private javax.swing.JButton btnPeopleProfileRefresh;
     private javax.swing.JButton btnPeopleProfileRequestA;
     private javax.swing.JButton btnPeopleProfileSave;
-    private javax.swing.JButton btnPeopleProfileSave2;
+    private javax.swing.JButton btnPeopleProfileStatusA;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lblPeoplePeofile;
     private javax.swing.JLabel lblPeoplePeofileAppointment;
