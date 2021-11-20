@@ -42,6 +42,7 @@ public class RegisterPeople extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(204, 153, 255));
+        setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(212, 227, 247));
 
@@ -172,13 +173,13 @@ public class RegisterPeople extends javax.swing.JFrame {
                         .addGap(91, 91, 91)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblDOB)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lblRegisterAddress)
-                            .addComponent(txtRegisterDOB, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(txtRegisterDOB, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(310, 310, 310)
                         .addComponent(btnRegister, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addContainerGap(112, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -248,7 +249,9 @@ public class RegisterPeople extends javax.swing.JFrame {
     }//GEN-LAST:event_txtRegisterNameActionPerformed
 
     private void btnRegisterBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegisterBackActionPerformed
-        // TODO add your handling code here:
+        Login a = new Login();
+        a.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btnRegisterBackActionPerformed
 
     private void btnRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegisterActionPerformed
@@ -303,7 +306,7 @@ public class RegisterPeople extends javax.swing.JFrame {
                 new RegisterPeople().setVisible(true);
             }
         });
-        
+
         try {
             FileWriter fw = new FileWriter("people.txt", true);
         } catch (IOException ex) {
