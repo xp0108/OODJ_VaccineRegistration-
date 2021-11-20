@@ -71,7 +71,7 @@
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="103" alignment="0" groupAlignment="0" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="txtPeopleProfileNew" alignment="0" min="-2" pref="182" max="-2" attributes="0"/>
                                   <Component id="lblPeopleProfileOld" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Component id="txtPeopleProfileOld" alignment="0" min="-2" pref="182" max="-2" attributes="0"/>
@@ -95,17 +95,18 @@
                                       <EmptySpace min="-2" pref="131" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace min="-2" pref="123" max="-2" attributes="0"/>
+                              <Group type="102" attributes="0">
+                                  <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
                                   <Component id="btnPeopleProfileSave" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="201" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="67" max="-2" attributes="0"/>
+                                  <Component id="btnPeopleProfileRefresh" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <EmptySpace max="32767" attributes="0"/>
+                          <EmptySpace pref="73" max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="lblPeoplePeofileAppointment" min="-2" max="-2" attributes="0"/>
                               <Component id="btnPeopleProfileRequestA" min="-2" pref="311" max="-2" attributes="0"/>
-                              <Component id="btnPeopleProfileSave2" min="-2" pref="311" max="-2" attributes="0"/>
+                              <Component id="btnPeopleProfileStatusA" min="-2" pref="311" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
                       </Group>
@@ -141,9 +142,12 @@
                           <Component id="lblPeopleProfileAddress" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="txtPeopleProfileAddress" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
-                          <Component id="btnPeopleProfileSave" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="btnPeopleProfileSave" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="btnPeopleProfileRefresh" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="1" attributes="0">
                               <Group type="102" attributes="0">
                                   <Component id="lblPeopleProfileOld" min="-2" max="-2" attributes="0"/>
@@ -161,7 +165,7 @@
                           <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
                           <Component id="btnPeopleProfileRequestA" min="-2" pref="122" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="btnPeopleProfileSave2" min="-2" pref="122" max="-2" attributes="0"/>
+                          <Component id="btnPeopleProfileStatusA" min="-2" pref="122" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -295,6 +299,20 @@
             <Property name="text" type="java.lang.String" value="Save and Change"/>
           </Properties>
         </Component>
+        <Component class="javax.swing.JButton" name="btnPeopleProfileRefresh">
+          <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="0" green="0" red="0" type="rgb"/>
+            </Property>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Segoe UI" size="18" style="0"/>
+            </Property>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="ff" green="ff" red="ff" type="rgb"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Refresh"/>
+          </Properties>
+        </Component>
         <Component class="javax.swing.JLabel" name="lblPeopleProfileOld">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -376,7 +394,7 @@
             <Property name="text" type="java.lang.String" value="Request Appointment"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JButton" name="btnPeopleProfileSave2">
+        <Component class="javax.swing.JButton" name="btnPeopleProfileStatusA">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="0" green="0" red="0" type="rgb"/>
