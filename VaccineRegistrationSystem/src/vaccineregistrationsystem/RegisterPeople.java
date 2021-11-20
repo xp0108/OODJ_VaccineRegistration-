@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
@@ -268,109 +270,8 @@ public class RegisterPeople extends javax.swing.JFrame {
                     "Date format wrong (yyyy-mm-dd)", "Uh Oh...",
                     JOptionPane.WARNING_MESSAGE);
         } else {
-            try {
-                File file = new File("login.txt");
-                FileWriter fw = new FileWriter(file, true);
-                BufferedWriter bw = new BufferedWriter(fw);
-
-                String name = txtRegisterName.getText();
-                String password = txtRegisterPassword.getText();
-
-                if (rdbCitizen.isSelected()) {
-                    Citizen register = new Citizen(name, password);
-                    bw.write(register.getPeopleName());
-                    bw.write(",");
-                    bw.write(register.getPeoplePassword());
-                    bw.write("\n");
-                } else if (rdbNonCitizen.isSelected()) {
-                    NonCitizen register = new NonCitizen(name, password);
-                    bw.write(register.getPeopleName());
-                    bw.write(",");
-                    bw.write(register.getPeoplePassword());
-                    bw.write("\n");
-                }
-
-                bw.close();
-                fw.close();
-            } catch (Exception ex) {
-                JOptionPane.showMessageDialog(this, "Error saving or loading data!!!", "Error", JOptionPane.ERROR_MESSAGE);
-            }
-
-            try {
-                File file = new File("people.txt");
-                FileWriter fw = new FileWriter(file, true);
-                BufferedWriter bw = new BufferedWriter(fw);
-
-                String CitizenRegex = "^\\d{6}-\\d{2}-\\d{4}$";
-                Pattern CitizenPattern = Pattern.compile(CitizenRegex);
-                Matcher CitizenMatcher = CitizenPattern.matcher(txtRegisterIC.getText());
-
-                String NonCitizenRegex = "[0-9]+";
-                Pattern NonCitizenPattern = Pattern.compile(NonCitizenRegex);
-                Matcher NonCitizenMatcher = NonCitizenPattern.matcher(txtRegisterIC.getText());
-
-                String IC = txtRegisterIC.getText();
-                String name = txtRegisterName.getText();
-                String address = txtRegisterAddress.getText();
-                String dob = txtRegisterDOB.getText();
-
-                if (rdbCitizen.isSelected()) {
-                    if (!CitizenMatcher.find()) {
-                        JOptionPane.showMessageDialog(this,
-                                "IC format wrong (nnnnnn-nn-nnnn)", "Uh Oh...",
-                                JOptionPane.WARNING_MESSAGE);
-                    } else {
-                        Citizen register = new Citizen(IC, name, address, dob);
-                        bw.write(register.getPeopleIC());
-                        bw.write(",");
-                        bw.write(register.getPeopleName());
-                        bw.write(",");
-                        bw.write(register.getPeopleAddress());
-                        bw.write(",");
-                        bw.write(register.getPeopleDOB());
-                        bw.write("\n");
-
-                        bw.close();
-                        fw.close();
-
-                        JOptionPane.showMessageDialog(this, "Register Successful", "Congratulation", JOptionPane.PLAIN_MESSAGE);
-
-                        Login a = new Login();
-                        a.setVisible(true);
-                        this.dispose();
-                    }
-                } else if (rdbNonCitizen.isSelected()) {
-                    if (!NonCitizenMatcher.find()) {
-                        JOptionPane.showMessageDialog(this,
-                                "Passport format wrong (only number)", "Uh Oh...",
-                                JOptionPane.WARNING_MESSAGE);
-                    } else {
-                        NonCitizen register = new NonCitizen(IC, name, address, dob);
-                        bw.write(register.getPeopleIC());
-                        bw.write(",");
-                        bw.write(register.getPeopleName());
-                        bw.write(",");
-                        bw.write(register.getPeopleAddress());
-                        bw.write(",");
-                        bw.write(register.getPeopleDOB());
-                        bw.write("\n");
-
-                        bw.close();
-                        fw.close();
-
-                        JOptionPane.showMessageDialog(this, "Register Successful", "Congratulation", JOptionPane.PLAIN_MESSAGE);
-
-                        Login a = new Login();
-                        a.setVisible(true);
-                        this.dispose();
-                    }
-                }
-
-            } catch (Exception ex) {
-                JOptionPane.showMessageDialog(this, "Error saving or loading data!!!", "Error", JOptionPane.ERROR_MESSAGE);
-            }
+            checkFile(txtRegisterIC.getText(), txtRegisterName.getText(), "people.txt");
         }
-
     }//GEN-LAST:event_btnRegisterActionPerformed
 
     private void txtRegisterDOBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtRegisterDOBActionPerformed
@@ -402,6 +303,148 @@ public class RegisterPeople extends javax.swing.JFrame {
                 new RegisterPeople().setVisible(true);
             }
         });
+        
+        try {
+            FileWriter fw = new FileWriter("people.txt", true);
+        } catch (IOException ex) {
+            System.out.println("Unable to create file due to " + ex);
+        }
+    }
+
+    public static Scanner y;
+
+    public void checkFile(String PeopleIC, String PeopleName, String filepath) {
+        boolean found = false;
+        String tempPeopleIC = txtRegisterIC.getText();
+        String tempPeopleName = txtRegisterName.getText();
+
+        try {
+            y = new Scanner(new File(filepath));
+            y.useDelimiter("[,\n]");
+
+            while (y.hasNext() && !found) {
+                tempPeopleIC = y.next();
+                tempPeopleName = y.next();
+
+                if (tempPeopleIC.trim().equals(PeopleIC.trim()) || tempPeopleName.trim().equals(PeopleName.trim())) {
+                    found = true;
+                }
+            }
+
+            //after check file
+            if (found == true) {
+
+                JOptionPane.showMessageDialog(this, "Username or IC/Passport already exist", "Uh Oh...", JOptionPane.WARNING_MESSAGE);
+
+            } else {
+
+                try {
+                    File file = new File("login.txt");
+                    FileWriter fw = new FileWriter(file, true);
+                    BufferedWriter bw = new BufferedWriter(fw);
+
+                    String name = txtRegisterName.getText();
+                    String password = txtRegisterPassword.getText();
+
+                    if (rdbCitizen.isSelected()) {
+                        Citizen register = new Citizen(name, password);
+                        bw.write(register.getPeopleName());
+                        bw.write(",");
+                        bw.write(register.getPeoplePassword());
+                        bw.write("\n");
+                    } else if (rdbNonCitizen.isSelected()) {
+                        NonCitizen register = new NonCitizen(name, password);
+                        bw.write(register.getPeopleName());
+                        bw.write(",");
+                        bw.write(register.getPeoplePassword());
+                        bw.write("\n");
+                    }
+
+                    bw.close();
+                    fw.close();
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(this, "Error saving or loading data!!!", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+
+                try {
+                    File file = new File("people.txt");
+                    FileWriter fw = new FileWriter(file, true);
+                    BufferedWriter bw = new BufferedWriter(fw);
+
+                    String CitizenRegex = "^\\d{6}-\\d{2}-\\d{4}$";
+                    Pattern CitizenPattern = Pattern.compile(CitizenRegex);
+                    Matcher CitizenMatcher = CitizenPattern.matcher(txtRegisterIC.getText());
+
+                    String NonCitizenRegex = "[0-9]+";
+                    Pattern NonCitizenPattern = Pattern.compile(NonCitizenRegex);
+                    Matcher NonCitizenMatcher = NonCitizenPattern.matcher(txtRegisterIC.getText());
+
+                    String IC = txtRegisterIC.getText();
+                    String name = txtRegisterName.getText();
+                    String address = txtRegisterAddress.getText();
+                    String dob = txtRegisterDOB.getText();
+
+                    if (rdbCitizen.isSelected()) {
+                        if (!CitizenMatcher.find()) {
+                            JOptionPane.showMessageDialog(this,
+                                    "IC format wrong (nnnnnn-nn-nnnn)", "Uh Oh...",
+                                    JOptionPane.WARNING_MESSAGE);
+                        } else {
+                            Citizen register = new Citizen(IC, name, address, dob);
+                            bw.write(register.getPeopleIC());
+                            bw.write(",");
+                            bw.write(register.getPeopleName());
+                            bw.write(",");
+                            bw.write(register.getPeopleAddress());
+                            bw.write(",");
+                            bw.write(register.getPeopleDOB());
+                            bw.write("\n");
+
+                            bw.close();
+                            fw.close();
+
+                            JOptionPane.showMessageDialog(this, "Register Successful", "Congratulation", JOptionPane.PLAIN_MESSAGE);
+
+                            Login a = new Login();
+                            a.setVisible(true);
+                            this.dispose();
+                        }
+                    } else if (rdbNonCitizen.isSelected()) {
+                        if (!NonCitizenMatcher.find()) {
+                            JOptionPane.showMessageDialog(this,
+                                    "Passport format wrong (only number)", "Uh Oh...",
+                                    JOptionPane.WARNING_MESSAGE);
+                        } else {
+                            NonCitizen register = new NonCitizen(IC, name, address, dob);
+                            bw.write(register.getPeopleIC());
+                            bw.write(",");
+                            bw.write(register.getPeopleName());
+                            bw.write(",");
+                            bw.write(register.getPeopleAddress());
+                            bw.write(",");
+                            bw.write(register.getPeopleDOB());
+                            bw.write("\n");
+
+                            bw.close();
+                            fw.close();
+
+                            JOptionPane.showMessageDialog(this, "Register Successful", "Congratulation", JOptionPane.PLAIN_MESSAGE);
+
+                            Login a = new Login();
+                            a.setVisible(true);
+                            this.dispose();
+                        }
+                    }
+
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(this, "Error saving or loading data!!!", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+
+            }
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Something went wrong, please try again!!!", "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
