@@ -2,7 +2,7 @@ package vaccineregistrationsystem;
 
 public class NonCitizen extends People {
 
-    private String Passport;
+    private String PeoplePassport;
     
     NonCitizen() {
     }
@@ -11,9 +11,9 @@ public class NonCitizen extends People {
         super(PeopleName, PeoplePassword);
     }
 
-    public NonCitizen(String Passport, String PeopleName, String PeopleAddress, String PeopleDOB) {
+    public NonCitizen(String PeoplePassport, String PeopleName, String PeopleAddress, String PeopleDOB) {
         super(PeopleName, PeopleAddress, PeopleDOB);
-        this.Passport = Passport;
+        this.PeoplePassport = PeoplePassport;
     }
 
     public String toString() {
