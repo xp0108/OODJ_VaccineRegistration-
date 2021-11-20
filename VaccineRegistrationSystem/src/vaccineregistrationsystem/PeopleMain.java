@@ -49,6 +49,7 @@ public class PeopleMain extends javax.swing.JFrame {
         btnPeopleProfileSave2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(212, 227, 247));
         jPanel1.setForeground(new java.awt.Color(112, 227, 244));
