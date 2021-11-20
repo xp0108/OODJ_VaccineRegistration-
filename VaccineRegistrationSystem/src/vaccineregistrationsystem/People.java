@@ -54,6 +54,14 @@ abstract public class People {
         this.PeoplePassword = PeoplePassword;
     }
 
+    public String getPeopleStatus() {
+        return PeopleStatus;
+    }
+
+    public void setPeopleStatus(String PeopleStatus) {
+        this.PeopleStatus = PeopleStatus;
+    }
+
     public String toString() {
         return PeopleName + ";" + PeopleDOB + ";" + PeopleAddress + ";";
     }

@@ -140,9 +140,11 @@ public class Login extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
-        PeopleMain peoplemain = new PeopleMain();
-        peoplemain.setVisible(true);
-        this.setVisible(false);
+//        PeopleMain peoplemain = new PeopleMain();
+//        peoplemain.setVisible(true);
+//        this.setVisible(false);
+
+        
     }//GEN-LAST:event_btnLoginActionPerformed
 
     private void chkViewPassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkViewPassActionPerformed

@@ -2,31 +2,31 @@ package vaccineregistrationsystem;
 
 public class Personnel {
 
-    private int PersonnelID;
-    private String PersonnelName;
+    private String PersonnelPassword;
+    private String PersonnelUsername;
 
-    Personnel(int PersonnelID, String PersonnelName) {
-        this.PersonnelID = PersonnelID;
-        this.PersonnelName = PersonnelName;
+    Personnel(String PersonnelUsername, String PersonnelPassword) {
+        this.PersonnelPassword = PersonnelPassword;
+        this.PersonnelUsername = PersonnelUsername;
     }
 
-    public int getPersonnelID() {
-        return PersonnelID;
+    public String getPersonnelPassword() {
+        return PersonnelPassword;
     }
 
-    public String getPersonnelName() {
-        return PersonnelName;
+    public String getPersonnelUsername() {
+        return PersonnelUsername;
     }
 
-    public void setPersonnelID(int PersonnelID) {
-        this.PersonnelID = PersonnelID;
+    public void setPersonnelPassword(String PersonnelPassword) {
+        this.PersonnelPassword = PersonnelPassword;
     }
 
-    public void setPersonnelName(String PersonnelName) {
-        this.PersonnelName = PersonnelName;
+    public void setPersonnelUsername(String PersonnelUsername) {
+        this.PersonnelUsername = PersonnelUsername;
     }
 
     public String toString() {
-        return PersonnelID + ";" + PersonnelName + ";";
+        return PersonnelUsername + ";" + PersonnelPassword + ";";
     }
 }
