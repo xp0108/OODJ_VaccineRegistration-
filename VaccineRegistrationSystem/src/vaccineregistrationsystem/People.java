@@ -2,22 +2,24 @@ package vaccineregistrationsystem;
 
 abstract public class People {
 
-    private int PeopleID;
     private String PeopleName;
+    private String PeoplePassword;
     private String PeopleAddress;
     private String PeopleDOB;
     private String PeopleStatus;
 
-    People(int PeopleID, String PeopleName, String PeopleAddress, String PeopleDOB, String PeopleStatus) {
-        this.PeopleID = PeopleID;
+    People() {
+    }
+
+    People(String PeopleName, String PeoplePassword) {
+        this.PeopleName = PeopleName;
+        this.PeoplePassword = PeoplePassword;
+    }
+
+    People(String PeopleName, String PeopleAddress, String PeopleDOB) {
         this.PeopleName = PeopleName;
         this.PeopleAddress = PeopleAddress;
         this.PeopleDOB = PeopleDOB;
-        this.PeopleStatus = PeopleStatus;
-    }
-
-    public int getPeopleID() {
-        return PeopleID;
     }
 
     public String getPeopleName() {
@@ -32,14 +34,6 @@ abstract public class People {
         return PeopleDOB;
     }
 
-    public String getPeopleStatus() {
-        return PeopleStatus;
-    }
-
-    public void setPeopleID(int PeopleID) {
-        this.PeopleID = PeopleID;
-    }
-
     public void setPersonnelName(String PeopleName) {
         this.PeopleName = PeopleName;
     }
@@ -52,12 +46,16 @@ abstract public class People {
         this.PeopleDOB = PeopleDOB;
     }
 
-    public void setPeopleStatus(String PeopleStatus) {
-        this.PeopleStatus = PeopleStatus;
+    public String getPeoplePassword() {
+        return PeoplePassword;
+    }
+
+    public void setPeoplePassword(String PeoplePassword) {
+        this.PeoplePassword = PeoplePassword;
     }
 
     public String toString() {
-        return PeopleID + ";" + PeopleName + ";" + PeopleDOB + ";" + PeopleAddress + ";" + PeopleStatus + ";";
+        return PeopleName + ";" + PeopleDOB + ";" + PeopleAddress + ";";
     }
 
     abstract public String getPeopleIC();

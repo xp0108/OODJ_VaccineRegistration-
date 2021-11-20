@@ -1,8 +1,11 @@
 package vaccineregistrationsystem;
 
+import java.awt.Color;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 
 public class RegisterPeople extends javax.swing.JFrame {
@@ -18,20 +21,22 @@ public class RegisterPeople extends javax.swing.JFrame {
         GroupCitizenType = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         lblRegisterTitle = new javax.swing.JLabel();
-        lblRegisterUsername = new javax.swing.JLabel();
-        txtRagisterUsername = new javax.swing.JTextField();
+        lblRegisterName = new javax.swing.JLabel();
+        txtRegisterName = new javax.swing.JTextField();
         lblRegisterPassword = new javax.swing.JLabel();
         txtRegisterPassword = new javax.swing.JTextField();
         lblCitizenType = new javax.swing.JLabel();
         rdbCitizen = new javax.swing.JRadioButton();
         rdbNonCitizen = new javax.swing.JRadioButton();
-        lblBOD = new javax.swing.JLabel();
+        lblDOB = new javax.swing.JLabel();
+        txtRegisterDOB = new javax.swing.JTextField();
         lblRegisterAddress = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         txtRegisterAddress = new javax.swing.JTextArea();
         btnRegister = new javax.swing.JButton();
         btnRegisterBack = new javax.swing.JButton();
-        txtRegisterBOD = new javax.swing.JTextField();
+        lblRegisterIC = new javax.swing.JLabel();
+        txtRegisterIC = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(204, 153, 255));
@@ -42,14 +47,14 @@ public class RegisterPeople extends javax.swing.JFrame {
         lblRegisterTitle.setForeground(new java.awt.Color(0, 0, 0));
         lblRegisterTitle.setText("Register");
 
-        lblRegisterUsername.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        lblRegisterUsername.setForeground(new java.awt.Color(0, 0, 0));
-        lblRegisterUsername.setText("Username:");
+        lblRegisterName.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        lblRegisterName.setForeground(new java.awt.Color(0, 0, 0));
+        lblRegisterName.setText("Username:");
 
-        txtRagisterUsername.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        txtRagisterUsername.addActionListener(new java.awt.event.ActionListener() {
+        txtRegisterName.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        txtRegisterName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtRagisterUsernameActionPerformed(evt);
+                txtRegisterNameActionPerformed(evt);
             }
         });
 
@@ -75,15 +80,34 @@ public class RegisterPeople extends javax.swing.JFrame {
         rdbNonCitizen.setForeground(new java.awt.Color(0, 0, 0));
         rdbNonCitizen.setText("Non-Citizen");
 
-        lblBOD.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        lblBOD.setForeground(new java.awt.Color(0, 0, 0));
-        lblBOD.setText("Birth Date:");
+        lblDOB.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        lblDOB.setForeground(new java.awt.Color(0, 0, 0));
+        lblDOB.setText("Birth Date:");
+
+        txtRegisterDOB.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        txtRegisterDOB.setForeground(new java.awt.Color(204, 204, 204));
+        txtRegisterDOB.setText("yyyy-mm-dd");
+        txtRegisterDOB.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtRegisterDOBFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtRegisterDOBFocusLost(evt);
+            }
+        });
+        txtRegisterDOB.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtRegisterDOBActionPerformed(evt);
+            }
+        });
 
         lblRegisterAddress.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         lblRegisterAddress.setForeground(new java.awt.Color(0, 0, 0));
         lblRegisterAddress.setText("Address:");
 
         txtRegisterAddress.setColumns(20);
+        txtRegisterAddress.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        txtRegisterAddress.setForeground(new java.awt.Color(0, 0, 0));
         txtRegisterAddress.setRows(5);
         jScrollPane1.setViewportView(txtRegisterAddress);
 
@@ -107,10 +131,14 @@ public class RegisterPeople extends javax.swing.JFrame {
             }
         });
 
-        txtRegisterBOD.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        txtRegisterBOD.addActionListener(new java.awt.event.ActionListener() {
+        lblRegisterIC.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        lblRegisterIC.setForeground(new java.awt.Color(0, 0, 0));
+        lblRegisterIC.setText("IC/Passport");
+
+        txtRegisterIC.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        txtRegisterIC.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtRegisterBODActionPerformed(evt);
+                txtRegisterICActionPerformed(evt);
             }
         });
 
@@ -129,24 +157,26 @@ public class RegisterPeople extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(121, 121, 121)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblRegisterUsername)
+                            .addComponent(lblRegisterName)
                             .addComponent(rdbNonCitizen)
                             .addComponent(rdbCitizen)
                             .addComponent(lblCitizenType)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addComponent(txtRegisterPassword, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(txtRagisterUsername, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(lblRegisterPassword))
+                                .addComponent(txtRegisterName, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(lblRegisterPassword)
+                            .addComponent(lblRegisterIC)
+                            .addComponent(txtRegisterIC, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(91, 91, 91)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblBOD)
+                            .addComponent(lblDOB)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lblRegisterAddress)
-                            .addComponent(txtRegisterBOD, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(txtRegisterDOB, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(310, 310, 310)
                         .addComponent(btnRegister, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(118, Short.MAX_VALUE))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -160,12 +190,12 @@ public class RegisterPeople extends javax.swing.JFrame {
                         .addComponent(btnRegisterBack)))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblRegisterUsername)
-                    .addComponent(lblBOD))
+                    .addComponent(lblRegisterName)
+                    .addComponent(lblDOB))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtRagisterUsername, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtRegisterBOD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtRegisterName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtRegisterDOB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -177,12 +207,16 @@ public class RegisterPeople extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(rdbCitizen)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(rdbNonCitizen))
+                        .addComponent(rdbNonCitizen)
+                        .addGap(18, 18, 18)
+                        .addComponent(lblRegisterIC)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtRegisterIC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(lblRegisterAddress)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane1)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
                 .addComponent(btnRegister)
                 .addGap(28, 28, 28))
         );
@@ -207,32 +241,159 @@ public class RegisterPeople extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtRagisterUsernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtRagisterUsernameActionPerformed
+    private void txtRegisterNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtRegisterNameActionPerformed
 
-    }//GEN-LAST:event_txtRagisterUsernameActionPerformed
+    }//GEN-LAST:event_txtRegisterNameActionPerformed
 
     private void btnRegisterBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegisterBackActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnRegisterBackActionPerformed
 
     private void btnRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegisterActionPerformed
-        try {
-            File file = new File("people.txt");
-            FileWriter fw = new FileWriter(file.getAbsoluteFile());
-            BufferedWriter bw = new BufferedWriter(fw);
-            
-            
-            
-            bw.close();
-            fw.close();
-        } catch  (Exception ex) {
-            JOptionPane.showMessageDialog(this, "Error saving or loading data!!!", "Error", JOptionPane.ERROR_MESSAGE);
+        String dateRegex = "^\\d{4}-\\d{2}-\\d{2}$";
+        Pattern datePattern = Pattern.compile(dateRegex);
+        Matcher dateMatcher = datePattern.matcher(txtRegisterDOB.getText());
+
+        if (txtRegisterName.getText().isEmpty() || txtRegisterPassword.getText().isEmpty() || txtRegisterIC.getText().isEmpty()
+                || txtRegisterDOB.getText().isEmpty() || txtRegisterAddress.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this,
+                    "Please fill up all the fills", "Uh Oh...",
+                    JOptionPane.WARNING_MESSAGE);
+        } else if (GroupCitizenType.isSelected(null)) {
+            JOptionPane.showMessageDialog(this,
+                    "Please choose Citizen Type", "Uh Oh...",
+                    JOptionPane.WARNING_MESSAGE);
+        } else if (!dateMatcher.find()) {
+            JOptionPane.showMessageDialog(this,
+                    "Date format wrong (yyyy-mm-dd)", "Uh Oh...",
+                    JOptionPane.WARNING_MESSAGE);
+        } else {
+            try {
+                File file = new File("login.txt");
+                FileWriter fw = new FileWriter(file, true);
+                BufferedWriter bw = new BufferedWriter(fw);
+
+                String name = txtRegisterName.getText();
+                String password = txtRegisterPassword.getText();
+
+                if (rdbCitizen.isSelected()) {
+                    Citizen register = new Citizen(name, password);
+                    bw.write(register.getPeopleName());
+                    bw.write(",");
+                    bw.write(register.getPeoplePassword());
+                    bw.write("\n");
+                } else if (rdbNonCitizen.isSelected()) {
+                    NonCitizen register = new NonCitizen(name, password);
+                    bw.write(register.getPeopleName());
+                    bw.write(",");
+                    bw.write(register.getPeoplePassword());
+                    bw.write("\n");
+                }
+
+                bw.close();
+                fw.close();
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(this, "Error saving or loading data!!!", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+
+            try {
+                File file = new File("people.txt");
+                FileWriter fw = new FileWriter(file, true);
+                BufferedWriter bw = new BufferedWriter(fw);
+
+                String CitizenRegex = "^\\d{6}-\\d{2}-\\d{4}$";
+                Pattern CitizenPattern = Pattern.compile(CitizenRegex);
+                Matcher CitizenMatcher = CitizenPattern.matcher(txtRegisterIC.getText());
+
+                String NonCitizenRegex = "[0-9]+";
+                Pattern NonCitizenPattern = Pattern.compile(NonCitizenRegex);
+                Matcher NonCitizenMatcher = NonCitizenPattern.matcher(txtRegisterIC.getText());
+
+                String IC = txtRegisterIC.getText();
+                String name = txtRegisterName.getText();
+                String address = txtRegisterAddress.getText();
+                String dob = txtRegisterDOB.getText();
+
+                if (rdbCitizen.isSelected()) {
+                    if (!CitizenMatcher.find()) {
+                        JOptionPane.showMessageDialog(this,
+                                "IC format wrong (nnnnnn-nn-nnnn)", "Uh Oh...",
+                                JOptionPane.WARNING_MESSAGE);
+                    } else {
+                        Citizen register = new Citizen(IC, name, address, dob);
+                        bw.write(register.getPeopleIC());
+                        bw.write(",");
+                        bw.write(register.getPeopleName());
+                        bw.write(",");
+                        bw.write(register.getPeopleAddress());
+                        bw.write(",");
+                        bw.write(register.getPeopleDOB());
+                        bw.write("\n");
+
+                        bw.close();
+                        fw.close();
+
+                        JOptionPane.showMessageDialog(this, "Register Successful", "Congratulation", JOptionPane.PLAIN_MESSAGE);
+
+                        Login a = new Login();
+                        a.setVisible(true);
+                        this.dispose();
+                    }
+                } else if (rdbNonCitizen.isSelected()) {
+                    if (!NonCitizenMatcher.find()) {
+                        JOptionPane.showMessageDialog(this,
+                                "Passport format wrong (only number)", "Uh Oh...",
+                                JOptionPane.WARNING_MESSAGE);
+                    } else {
+                        NonCitizen register = new NonCitizen(IC, name, address, dob);
+                        bw.write(register.getPeopleIC());
+                        bw.write(",");
+                        bw.write(register.getPeopleName());
+                        bw.write(",");
+                        bw.write(register.getPeopleAddress());
+                        bw.write(",");
+                        bw.write(register.getPeopleDOB());
+                        bw.write("\n");
+
+                        bw.close();
+                        fw.close();
+
+                        JOptionPane.showMessageDialog(this, "Register Successful", "Congratulation", JOptionPane.PLAIN_MESSAGE);
+
+                        Login a = new Login();
+                        a.setVisible(true);
+                        this.dispose();
+                    }
+                }
+
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(this, "Error saving or loading data!!!", "Error", JOptionPane.ERROR_MESSAGE);
+            }
         }
+
     }//GEN-LAST:event_btnRegisterActionPerformed
 
-    private void txtRegisterBODActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtRegisterBODActionPerformed
+    private void txtRegisterDOBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtRegisterDOBActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtRegisterBODActionPerformed
+    }//GEN-LAST:event_txtRegisterDOBActionPerformed
+
+    private void txtRegisterICActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtRegisterICActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtRegisterICActionPerformed
+
+    private void txtRegisterDOBFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtRegisterDOBFocusGained
+        if (txtRegisterDOB.getText().equals("yyyy-mm-dd")) {
+            txtRegisterDOB.setText("");
+            txtRegisterDOB.setForeground(new Color(0, 0, 0));
+        }
+    }//GEN-LAST:event_txtRegisterDOBFocusGained
+
+    private void txtRegisterDOBFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtRegisterDOBFocusLost
+        if (txtRegisterDOB.getText().equals("")) {
+            txtRegisterDOB.setText("yyyy-mm-dd");
+            txtRegisterDOB.setForeground(new Color(153, 153, 153));
+        }
+    }//GEN-LAST:event_txtRegisterDOBFocusLost
 
     public static void main(String args[]) {
 
@@ -249,17 +410,19 @@ public class RegisterPeople extends javax.swing.JFrame {
     private javax.swing.JButton btnRegisterBack;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JLabel lblBOD;
     private javax.swing.JLabel lblCitizenType;
+    private javax.swing.JLabel lblDOB;
     private javax.swing.JLabel lblRegisterAddress;
+    private javax.swing.JLabel lblRegisterIC;
+    private javax.swing.JLabel lblRegisterName;
     private javax.swing.JLabel lblRegisterPassword;
     private javax.swing.JLabel lblRegisterTitle;
-    private javax.swing.JLabel lblRegisterUsername;
     private javax.swing.JRadioButton rdbCitizen;
     private javax.swing.JRadioButton rdbNonCitizen;
-    private javax.swing.JTextField txtRagisterUsername;
     private javax.swing.JTextArea txtRegisterAddress;
-    private javax.swing.JTextField txtRegisterBOD;
+    private javax.swing.JTextField txtRegisterDOB;
+    private javax.swing.JTextField txtRegisterIC;
+    private javax.swing.JTextField txtRegisterName;
     private javax.swing.JTextField txtRegisterPassword;
     // End of variables declaration//GEN-END:variables
 
