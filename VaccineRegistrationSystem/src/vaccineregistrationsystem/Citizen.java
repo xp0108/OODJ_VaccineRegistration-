@@ -4,8 +4,15 @@ public class Citizen extends People {
 
     private String CitizenIC;
 
-    public Citizen(String CitizenIC, int PeopleID, String PeopleName, String PeopleAddress, String PeopleDOB, String PeopleStatus) {
-        super(PeopleID, PeopleName, PeopleAddress, PeopleDOB, PeopleStatus);
+    Citizen() {
+    }
+
+    Citizen(String PeopleName, String PeoplePassword) {
+        super(PeopleName, PeoplePassword);
+    }
+    
+    public Citizen(String CitizenIC, String PeopleName, String PeopleAddress, String PeopleDOB) {
+        super(PeopleName, PeopleAddress, PeopleDOB);
         this.CitizenIC = CitizenIC;
     }
 

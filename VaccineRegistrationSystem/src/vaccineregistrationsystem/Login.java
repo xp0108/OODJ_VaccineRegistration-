@@ -40,6 +40,7 @@ public class Login extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Covid-19 Vaccine Registration System | Login");
+        setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(212, 227, 247));
 
@@ -65,6 +66,7 @@ public class Login extends javax.swing.JFrame {
             }
         });
 
+        chkViewPass.setBackground(new java.awt.Color(212, 227, 247));
         chkViewPass.setFont(new java.awt.Font("Tw Cen MT", 0, 12)); // NOI18N
         chkViewPass.setText("View");
         chkViewPass.addActionListener(new java.awt.event.ActionListener() {
@@ -138,8 +140,8 @@ public class Login extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
-        RegisterPeople registerPeople = new RegisterPeople();
-        registerPeople.setVisible(true);
+        PeopleMain peoplemain = new PeopleMain();
+        peoplemain.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_btnLoginActionPerformed
 
