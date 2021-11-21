@@ -272,8 +272,8 @@ public class RegisterPeople extends javax.swing.JFrame {
         Pattern datePattern = Pattern.compile(dateRegex);
         Matcher dateMatcher = datePattern.matcher(txtRegisterDOB.getText());
 
-        if (txtRegisterName.getText().isEmpty() || txtRegisterPassword.getText().isEmpty() || txtRegisterIC.getText().isEmpty()
-                || txtRegisterDOB.getText().isEmpty() || txtRegisterAddress.getText().isEmpty()) {
+        if (txtRegisterName.getText().isBlank() || txtRegisterPassword.getText().isBlank() || txtRegisterIC.getText().isBlank()
+                || txtRegisterDOB.getText().isBlank() || txtRegisterAddress.getText().isBlank()) {
             JOptionPane.showMessageDialog(this,
                     "Please fill up all the fills", "Uh Oh...",
                     JOptionPane.WARNING_MESSAGE);
@@ -322,6 +322,12 @@ public class RegisterPeople extends javax.swing.JFrame {
 
         try {
             FileWriter fw = new FileWriter("people.txt", true);
+        } catch (IOException ex) {
+            System.out.println("Unable to create file due to " + ex);
+        }
+
+        try {
+            FileWriter fw = new FileWriter("login.txt", true);
         } catch (IOException ex) {
             System.out.println("Unable to create file due to " + ex);
         }
