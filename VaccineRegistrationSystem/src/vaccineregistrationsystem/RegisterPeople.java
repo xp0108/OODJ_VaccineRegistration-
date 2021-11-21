@@ -21,6 +21,7 @@ public class RegisterPeople extends javax.swing.JFrame {
     private void initComponents() {
 
         GroupCitizenType = new javax.swing.ButtonGroup();
+        jCheckBox1 = new javax.swing.JCheckBox();
         jPanel1 = new javax.swing.JPanel();
         lblRegisterTitle = new javax.swing.JLabel();
         lblRegisterName = new javax.swing.JLabel();
@@ -38,6 +39,8 @@ public class RegisterPeople extends javax.swing.JFrame {
         lblRegisterIC = new javax.swing.JLabel();
         txtRegisterIC = new javax.swing.JTextField();
         txtRegisterAddress = new javax.swing.JTextField();
+
+        jCheckBox1.setText("jCheckBox1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(204, 153, 255));
@@ -474,6 +477,7 @@ public class RegisterPeople extends javax.swing.JFrame {
     private javax.swing.ButtonGroup GroupCitizenType;
     private javax.swing.JButton btnRegister;
     private javax.swing.JButton btnRegisterBack;
+    private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lblCitizenType;
     private javax.swing.JLabel lblDOB;
