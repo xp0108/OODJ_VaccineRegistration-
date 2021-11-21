@@ -5,8 +5,6 @@
  */
 package vaccineregistrationsystem;
 
-<<<<<<< Updated upstream
-=======
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -19,11 +17,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
->>>>>>> Stashed changes
-/**
- *
- * @author User
- */
 public class Login extends javax.swing.JFrame {
 
     /**
@@ -182,9 +175,14 @@ public class Login extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
-        PeopleMain peoplemain = new PeopleMain();
-        peoplemain.setVisible(true);
-        this.setVisible(false);
+        String txtPassowrdToStr = txtPassword.getPassword().toString();
+        if (txtUsername.getText().isEmpty() || txtPassowrdToStr.isEmpty()) {
+            JOptionPane.showMessageDialog(this,
+                    "Please fill up all the fills", "Uh Oh...",
+                    JOptionPane.WARNING_MESSAGE);
+        } else {
+            VerifyLogin(txtUsername.getText(), txtPassowrdToStr);
+        }
     }//GEN-LAST:event_btnLoginActionPerformed
 
     private void chkViewPassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkViewPassActionPerformed
@@ -201,9 +199,6 @@ public class Login extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnRegisterActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -247,8 +242,6 @@ public class Login extends javax.swing.JFrame {
             System.out.println("Unable to create file due to " + ex);
         }
     }
-<<<<<<< Updated upstream
-=======
     
     public static Scanner scanner;
 
@@ -281,7 +274,6 @@ public class Login extends javax.swing.JFrame {
         }
 
     }
->>>>>>> Stashed changes
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnLogin;

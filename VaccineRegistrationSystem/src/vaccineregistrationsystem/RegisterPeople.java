@@ -322,7 +322,7 @@ public class RegisterPeople extends javax.swing.JFrame {
         } catch (IOException ex) {
             System.out.println("Unable to create file due to " + ex);
         }
-        
+
         try {
             FileWriter fw = new FileWriter("login.txt", true);
         } catch (IOException ex) {
