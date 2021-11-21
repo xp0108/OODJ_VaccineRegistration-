@@ -176,7 +176,7 @@ public class Login extends javax.swing.JFrame {
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
         String txtPassowrdToStr = txtPassword.getPassword().toString();
-        if (txtUsername.getText().isEmpty() || txtPassowrdToStr.isEmpty()) {
+        if (txtUsername.getText().isEmpty() || txtPassowrdToStr.isBlank()) {
             JOptionPane.showMessageDialog(this,
                     "Please fill up all the fills", "Uh Oh...",
                     JOptionPane.WARNING_MESSAGE);

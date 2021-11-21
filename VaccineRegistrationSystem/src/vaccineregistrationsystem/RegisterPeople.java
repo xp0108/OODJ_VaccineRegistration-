@@ -269,8 +269,8 @@ public class RegisterPeople extends javax.swing.JFrame {
         Pattern datePattern = Pattern.compile(dateRegex);
         Matcher dateMatcher = datePattern.matcher(txtRegisterDOB.getText());
 
-        if (txtRegisterName.getText().isEmpty() || txtRegisterPassword.getText().isEmpty() || txtRegisterIC.getText().isEmpty()
-                || txtRegisterDOB.getText().isEmpty() || txtRegisterAddress.getText().isEmpty()) {
+        if (txtRegisterName.getText().isBlank() || txtRegisterPassword.getText().isBlank() || txtRegisterIC.getText().isBlank()
+                || txtRegisterDOB.getText().isBlank() || txtRegisterAddress.getText().isBlank()) {
             JOptionPane.showMessageDialog(this,
                     "Please fill up all the fills", "Uh Oh...",
                     JOptionPane.WARNING_MESSAGE);
@@ -370,12 +370,16 @@ public class RegisterPeople extends javax.swing.JFrame {
                         bw.write(register.getPeopleName());
                         bw.write(",");
                         bw.write(register.getPeoplePassword());
+                        bw.write(",");
+                        bw.write("People");
                         bw.write("\n");
                     } else if (rdbNonCitizen.isSelected()) {
                         NonCitizen register = new NonCitizen(name, password);
                         bw.write(register.getPeopleName());
                         bw.write(",");
                         bw.write(register.getPeoplePassword());
+                        bw.write(",");
+                        bw.write("People");
                         bw.write("\n");
                     }
 

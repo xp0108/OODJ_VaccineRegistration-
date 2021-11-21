@@ -84,6 +84,11 @@ public class PeopleMain extends javax.swing.JFrame {
         btnPeopleProfileRefresh.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         btnPeopleProfileRefresh.setForeground(new java.awt.Color(255, 255, 255));
         btnPeopleProfileRefresh.setText("Refresh");
+        btnPeopleProfileRefresh.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPeopleProfileRefreshActionPerformed(evt);
+            }
+        });
 
         lblPeopleProfileOld.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         lblPeopleProfileOld.setForeground(new java.awt.Color(0, 0, 0));
@@ -236,6 +241,10 @@ public class PeopleMain extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnPeopleProfileRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPeopleProfileRefreshActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnPeopleProfileRefreshActionPerformed
 
     public static void main(String args[]) {
 
