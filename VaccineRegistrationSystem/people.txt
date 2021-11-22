@@ -1,6 +1,2 @@
 990124-14-5101,Onn,Cheras,1999-01-24
-990124-14-5101,Onn,Taman Midah,1999-01-24
-34513142,asdsa,asfddasfdsad
-afasdfasf
-asdfddas,1111-11-11
-010824-12-1111,txp,asd,2001-23-12
+999999-99-9999,woon,donno,8888-88-88

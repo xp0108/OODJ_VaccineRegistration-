@@ -269,19 +269,20 @@ public class Login extends javax.swing.JFrame {
                     isLoginSuccess = true;
 
                     if (isPeople.equals(loginarr[2])) {
-                        PeopleMain people = new PeopleMain();
+
+                        PeopleMain people = new PeopleMain(new Citizen(username, password));
                         people.setVisible(true);
                         this.setVisible(false);
                         break;
+                        
                     } else {
+
                         RegisterPersonnel personnel = new RegisterPersonnel();
                         personnel.setVisible(true);
                         this.setVisible(false);
                         break;
                     }
-
                 }
-
             }
             if (isLoginSuccess == false) {
                 JOptionPane.showMessageDialog(null, "USERNAME/PASSWORD WRONG", "WARNING!!", JOptionPane.WARNING_MESSAGE);
