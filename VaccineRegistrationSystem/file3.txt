@@ -1,0 +1,7 @@
+Onn,onn,People
+txp,123,People
+pei,123,Personnel
+xcvxcv,xcv,People
+990124-14-5101,Onn,Cheras,1999-01-24,No Vaccinated
+990124-14-5101,Onn,Taman Midah,1999-01-24,No Vaccinated
+010824-12-1111,txp,asd,2001-23-12,No Vaccinated

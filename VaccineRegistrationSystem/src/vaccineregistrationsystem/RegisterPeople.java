@@ -424,6 +424,8 @@ public class RegisterPeople extends javax.swing.JFrame {
                             bw.write(register.getPeopleAddress());
                             bw.write(",");
                             bw.write(register.getPeopleDOB());
+                            bw.write(",");
+                            bw.write("No Vaccinated");
                             bw.write("\n");
 
                             bw.close();
@@ -449,6 +451,8 @@ public class RegisterPeople extends javax.swing.JFrame {
                             bw.write(register.getPeopleAddress());
                             bw.write(",");
                             bw.write(register.getPeopleDOB());
+                            bw.write(",");
+                            bw.write("No Vaccinated");
                             bw.write("\n");
 
                             bw.close();
