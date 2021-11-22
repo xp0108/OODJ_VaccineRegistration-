@@ -217,12 +217,7 @@ public class RegisterPersonnel extends javax.swing.JFrame {
                     String password = txtPassword.getText();
 
                     Personnel register = new Personnel(username, password);
-                    bw.write(register.getPersonnelUsername());
-                    bw.write(",");
-                    bw.write(register.getPersonnelPassword());
-                    bw.write(",");
-                    bw.write("Personnel");
-                    bw.write("\n");
+                    bw.write(register.toString());
 
                     bw.close();
                     fw.close();

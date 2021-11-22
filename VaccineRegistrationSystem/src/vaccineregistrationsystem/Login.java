@@ -5,16 +5,12 @@
  */
 package vaccineregistrationsystem;
 
+import java.awt.HeadlessException;
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.RandomAccessFile;
 import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -233,6 +229,7 @@ public class Login extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 new Login().setVisible(true);
             }
@@ -257,39 +254,39 @@ public class Login extends javax.swing.JFrame {
         try {
             String file = "login.txt";
 
-            FileReader fr = new FileReader(file);
-            BufferedReader br = new BufferedReader(fr);
-            String line;
-            boolean isLoginSuccess = false;
-            while ((line = br.readLine()) != null) {
-                String[] loginarr = line.split(",");
-                String isPeople = "People";
+            try (FileReader fr = new FileReader(file); BufferedReader br = new BufferedReader(fr)) {
 
-                if (username.equals(loginarr[0]) && password.equals(loginarr[1])) {
-                    isLoginSuccess = true;
+                String line;
+                boolean isLoginSuccess = false;
+                while ((line = br.readLine()) != null) {
+                    String[] loginarr = line.split(",");
+                    String isPeople = "People";
 
-                    if (isPeople.equals(loginarr[2])) {
-                        PeopleMain people = new PeopleMain();
-                        people.setVisible(true);
-                        this.setVisible(false);
-                        break;
-                    } else {
-                        RegisterPersonnel personnel = new RegisterPersonnel();
-                        personnel.setVisible(true);
-                        this.setVisible(false);
-                        break;
+                    if (username.equals(loginarr[0]) && password.equals(loginarr[1])) {
+                        isLoginSuccess = true;
+
+                        if (isPeople.equals(loginarr[2])) {
+                            PeopleMain people = new PeopleMain();
+                            people.setVisible(true);
+                            this.setVisible(false);
+                            break;
+                        } else {
+                            PersonnelMain personnel = new PersonnelMain();
+                            personnel.setVisible(true);
+                            this.setVisible(false);
+                            break;
+                        }
+
                     }
 
                 }
-
+                if (isLoginSuccess == false) {
+                    JOptionPane.showMessageDialog(null, "USERNAME/PASSWORD WRONG", "WARNING!!", JOptionPane.WARNING_MESSAGE);
+                }
             }
-            if (isLoginSuccess == false) {
-                JOptionPane.showMessageDialog(null, "USERNAME/PASSWORD WRONG", "WARNING!!", JOptionPane.WARNING_MESSAGE);
-            }
-            fr.close();
 
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (HeadlessException | IOException e) {
+            System.out.println(e);
         }
 
     }
