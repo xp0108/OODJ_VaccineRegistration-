@@ -182,7 +182,7 @@ public class Login extends javax.swing.JFrame {
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
 
-        String txtPassowrdToStr = txtPassword.getPassword().toString();
+        String txtPassowrdToStr = String.valueOf(txtPassword.getPassword());
         if (txtUsername.getText().isEmpty() || txtPassowrdToStr.isBlank()) {
 
             JOptionPane.showMessageDialog(this,
@@ -237,20 +237,20 @@ public class Login extends javax.swing.JFrame {
                 new Login().setVisible(true);
             }
         });
-        
+
         try {
             FileWriter fw = new FileWriter("people.txt", true);
         } catch (IOException ex) {
             System.out.println("Unable to create file due to " + ex);
         }
-        
+
         try {
             FileWriter fw = new FileWriter("login.txt", true);
         } catch (IOException ex) {
             System.out.println("Unable to create file due to " + ex);
         }
     }
-    
+
     public static Scanner scanner;
 
     public void VerifyLogin(String username, String password) {
@@ -259,18 +259,30 @@ public class Login extends javax.swing.JFrame {
 
             FileReader fr = new FileReader(file);
             BufferedReader br = new BufferedReader(fr);
-            String line, user, pass, type;
+            String line;
             boolean isLoginSuccess = false;
             while ((line = br.readLine()) != null) {
-                user = line.split(",")[1];
-                pass = line.split(",")[2];
+                String[] loginarr = line.split(",");
+                String isPeople = "People";
 
-                if (user.equals(username) && pass.equals(password)) {
+                if (username.equals(loginarr[0]) && password.equals(loginarr[1])) {
                     isLoginSuccess = true;
-                    this.dispose();
                     JOptionPane.showMessageDialog(null, "Yesss", "WARNING!!", JOptionPane.WARNING_MESSAGE);
-                    break;
+
+                    if (isPeople.equals(loginarr[2])) {
+                        RegisterPeople people = new RegisterPeople();
+                        people.setVisible(true);
+                        this.setVisible(false);
+                        break;
+                    } else {
+                        RegisterPersonnel personnel = new RegisterPersonnel();
+                        personnel.setVisible(true);
+                        this.setVisible(false);
+                        break;
+                    }
+
                 }
+
             }
             if (isLoginSuccess == false) {
                 JOptionPane.showMessageDialog(null, "USERNAME/PASSWORD WRONG", "WARNING!!", JOptionPane.WARNING_MESSAGE);
