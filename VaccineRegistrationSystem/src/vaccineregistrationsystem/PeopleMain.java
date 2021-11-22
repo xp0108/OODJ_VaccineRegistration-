@@ -1,9 +1,19 @@
 package vaccineregistrationsystem;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.util.Scanner;
+import javax.swing.JOptionPane;
+import static vaccineregistrationsystem.RegisterPeople.y;
+
 public class PeopleMain extends javax.swing.JFrame {
 
-    public PeopleMain() {
+    Citizen login;
+
+    public PeopleMain(Citizen login) {
         initComponents();
+        this.login = login;
     }
 
     @SuppressWarnings("unchecked")
@@ -248,23 +258,44 @@ public class PeopleMain extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnPeopleProfileRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPeopleProfileRefreshActionPerformed
-        // TODO add your handling code here:
+        try {
+            boolean found = false;
+            String tempPeopleIC, tempPeopleName, tempAddress, tempDOB;
+
+            y = new Scanner(new File("people.txt"));
+            y.useDelimiter("[,\n]");
+
+            while (y.hasNext() && !found) {
+                tempPeopleIC = y.next();
+                tempPeopleName = y.next();
+                tempAddress = y.next();
+                tempDOB = y.next();
+
+                if (tempPeopleName.trim().equals(login.getPeopleName())) {
+                    found = true;   
+                }
+                if (found == true) {
+                    JOptionPane.showMessageDialog(this, tempPeopleName);
+                    txtPeopleProfileName.setText(tempPeopleName);
+                } else {
+                   
+                }
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "No");
+        }
     }//GEN-LAST:event_btnPeopleProfileRefreshActionPerformed
 
     private void btnPeopleProfileBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPeopleProfileBackActionPerformed
         Login login = new Login();
         login.setVisible(true);
         this.setVisible(false);
-
     }//GEN-LAST:event_btnPeopleProfileBackActionPerformed
 
-    public static void main(String args[]) {
+    public static Scanner y;
 
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new PeopleMain().setVisible(true);
-            }
-        });
+    public void readFile(String PeopleFile) {
+        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

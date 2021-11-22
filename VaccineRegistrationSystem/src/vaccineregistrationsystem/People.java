@@ -1,5 +1,8 @@
 package vaccineregistrationsystem;
 
+import java.util.Scanner;
+import javax.swing.JOptionPane;
+
 abstract public class People {
 
     private String PeopleName;
@@ -34,7 +37,7 @@ abstract public class People {
         return PeopleDOB;
     }
 
-    public void setPersonnelName(String PeopleName) {
+    public void setPeopleName(String PeopleName) {
         this.PeopleName = PeopleName;
     }
 
@@ -65,4 +68,5 @@ abstract public class People {
     abstract public String getPeopleIC();
 
     abstract public void setPeopleIC(String PeopleIC);
+    
 }
