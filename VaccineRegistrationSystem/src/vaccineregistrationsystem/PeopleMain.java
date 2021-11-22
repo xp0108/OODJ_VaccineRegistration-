@@ -41,7 +41,12 @@ public class PeopleMain extends javax.swing.JFrame {
         btnPeopleProfileBack.setBackground(new java.awt.Color(0, 0, 0));
         btnPeopleProfileBack.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         btnPeopleProfileBack.setForeground(new java.awt.Color(255, 255, 255));
-        btnPeopleProfileBack.setText("Back");
+        btnPeopleProfileBack.setText("LOGOUT");
+        btnPeopleProfileBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPeopleProfileBackActionPerformed(evt);
+            }
+        });
 
         lblPeoplePeofile.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
         lblPeoplePeofile.setForeground(new java.awt.Color(0, 0, 0));
@@ -245,6 +250,13 @@ public class PeopleMain extends javax.swing.JFrame {
     private void btnPeopleProfileRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPeopleProfileRefreshActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnPeopleProfileRefreshActionPerformed
+
+    private void btnPeopleProfileBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPeopleProfileBackActionPerformed
+        Login login = new Login();
+        login.setVisible(true);
+        this.setVisible(false);
+
+    }//GEN-LAST:event_btnPeopleProfileBackActionPerformed
 
     public static void main(String args[]) {
 

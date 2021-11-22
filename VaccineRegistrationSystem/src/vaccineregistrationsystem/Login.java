@@ -267,10 +267,9 @@ public class Login extends javax.swing.JFrame {
 
                 if (username.equals(loginarr[0]) && password.equals(loginarr[1])) {
                     isLoginSuccess = true;
-                    JOptionPane.showMessageDialog(null, "Yesss", "WARNING!!", JOptionPane.WARNING_MESSAGE);
 
                     if (isPeople.equals(loginarr[2])) {
-                        RegisterPeople people = new RegisterPeople();
+                        PeopleMain people = new PeopleMain();
                         people.setVisible(true);
                         this.setVisible(false);
                         break;
