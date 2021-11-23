@@ -398,7 +398,98 @@ public class ManagePeople extends javax.swing.JFrame {
     }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
-        // TODO add your handling code here:
+        DefaultTableModel model = (DefaultTableModel) tablePeople.getModel();
+
+        if (tablePeople.getSelectedRowCount() == 1) {
+            int deletePeopleOption = JOptionPane.showConfirmDialog(this, "Wanted to Delete this People record ?", "Delete Record",
+                    JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+            if (deletePeopleOption == JOptionPane.YES_OPTION) {
+
+                // delete from table
+                int i = tablePeople.getSelectedRow();
+                if (i >= 0) {
+                    // remove a row from jtable
+                    model.removeRow(i);
+                    System.out.println("Delete from table");
+                }
+
+                //DELETE IN people.txt
+                String peopleFile = "people.txt";
+                String pIC = txtIC.getText();
+
+                String tempPeopleFile = "TempPeople.txt";
+                File oldPeopleFile = new File("people.txt");
+                File newPeopleFile = new File(tempPeopleFile);
+
+                String ic;
+                String name;
+                String add;
+                String dob;
+                String status;
+
+                try (FileWriter fw = new FileWriter(newPeopleFile, true); BufferedWriter bw = new BufferedWriter(fw); Scanner ss = new Scanner(oldPeopleFile);) {
+                    ss.useDelimiter("[,\n]");
+                    while (ss.hasNext()) {
+                        ic = ss.next();
+                        name = ss.next();
+                        add = ss.next();
+                        dob = ss.next();
+                        status = ss.next();
+
+                        if (!pIC.trim().equals(ic.trim())) {
+                            bw.write(ic);
+                            bw.write(",");
+                            bw.write(name);
+                            bw.write(",");
+                            bw.write(add);
+                            bw.write(",");
+                            bw.write(dob);
+                            bw.write(",");
+                            bw.write(status);
+                            bw.write("\n");
+                        }
+                    }
+
+                    ss.close();
+                    fw.close();
+                    bw.close();
+
+                    oldPeopleFile.delete();
+                    File dump = new File(peopleFile);
+                    newPeopleFile.renameTo(dump);
+                    JOptionPane.showMessageDialog(null, "People record delete successfully !");
+
+                    //clean txt
+                    txtName.setText("");
+                    txtIC.setText("");
+                    txtDOB.setText("");
+                    taAddress.setText("");
+                    cmbStatus.setSelectedIndex(0);
+
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(null, "Edit People record fail due to " + e);
+                }
+
+//                //DELETE FROM login.txt
+//                String loginFile = "login.txt";
+//
+//                String tempLoginFile = "TempLogin.txt";
+//                File oldLoginFile = new File("login.txt");
+//                File newLoginFile = new File(tempLoginFile);
+            } else {
+                Login loginPage = new Login();
+                loginPage.setVisible(false);
+                JOptionPane.showMessageDialog(null, "Cancel delete People record");
+                this.setVisible(true);
+            }
+        } else {
+            if (tablePeople.getRowCount() == 0) {
+                JOptionPane.showMessageDialog(this, "Table if Empty");
+            } else {
+                JOptionPane.showMessageDialog(this, "Please select a Row for Delete");
+            }
+        }
+
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
