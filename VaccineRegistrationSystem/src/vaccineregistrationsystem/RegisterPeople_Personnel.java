@@ -4,15 +4,14 @@ import java.awt.Color;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
-import java.io.IOException;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 
-public class RegisterPeople extends javax.swing.JFrame {
+public class RegisterPeople_Personnel extends javax.swing.JFrame {
 
-    public RegisterPeople() {
+    public RegisterPeople_Personnel() {
         initComponents();
     }
 
@@ -262,7 +261,7 @@ public class RegisterPeople extends javax.swing.JFrame {
     }//GEN-LAST:event_txtRegisterNameActionPerformed
 
     private void btnRegisterBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegisterBackActionPerformed
-        Login a = new Login();
+        ManagePeople a = new ManagePeople();
         a.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnRegisterBackActionPerformed
