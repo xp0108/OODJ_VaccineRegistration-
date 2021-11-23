@@ -333,7 +333,7 @@ public class ManagePeople extends javax.swing.JFrame {
                 String dob;
                 String status;
 
-                try (FileWriter fw = new FileWriter(newPeopleFile, true); BufferedWriter bw = new BufferedWriter(fw); PrintWriter pw = new PrintWriter(bw); Scanner ss = new Scanner(oldPeopleFile);) {
+                try (FileWriter fw = new FileWriter(newPeopleFile, true); BufferedWriter bw = new BufferedWriter(fw); Scanner ss = new Scanner(oldPeopleFile);) {
 
                     ss.useDelimiter("[,\n]");
 
@@ -345,16 +345,32 @@ public class ManagePeople extends javax.swing.JFrame {
                         status = ss.next();
 
                         if (pIC.trim().equals(ic.trim())) {
-                            pw.print(pIC + "," + nameE + "," + addressE + "," + dobE + "," + statusE);
+                            bw.write(pIC);
+                            bw.write(",");
+                            bw.write(nameE);
+                            bw.write(",");
+                            bw.write(addressE);
+                            bw.write(",");
+                            bw.write(dobE);
+                            bw.write(",");
+                            bw.write(statusE);
+                            bw.write("\n");
                         } else {
-                            pw.print(ic + "," + name + "," + add + "," + dob + "," + status);
+                            bw.write(ic);
+                            bw.write(",");
+                            bw.write(name);
+                            bw.write(",");
+                            bw.write(add);
+                            bw.write(",");
+                            bw.write(dob);
+                            bw.write(",");
+                            bw.write(status);
+                            bw.write("\n");
 
                         }
                     }
 
                     ss.close();
-                    pw.flush();
-                    pw.close();
                     fw.close();
                     bw.close();
                     System.out.println("flie close");
