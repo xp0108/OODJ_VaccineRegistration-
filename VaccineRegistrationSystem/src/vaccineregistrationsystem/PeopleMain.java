@@ -1,8 +1,13 @@
 package vaccineregistrationsystem;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.PrintWriter;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -132,6 +137,11 @@ public class PeopleMain extends javax.swing.JFrame {
         btnChangePassword.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         btnChangePassword.setForeground(new java.awt.Color(255, 255, 255));
         btnChangePassword.setText("Change Password");
+        btnChangePassword.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnChangePasswordActionPerformed(evt);
+            }
+        });
 
         lblPeoplePeofileAppointment.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
         lblPeoplePeofileAppointment.setForeground(new java.awt.Color(0, 0, 0));
@@ -270,6 +280,7 @@ public class PeopleMain extends javax.swing.JFrame {
 
         readFile("people.txt");
 
+
     }//GEN-LAST:event_btnPeopleProfileRefreshActionPerformed
 
     private void btnPeopleProfileBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPeopleProfileBackActionPerformed
@@ -288,8 +299,15 @@ public class PeopleMain extends javax.swing.JFrame {
                     "Date format wrong (yyyy-mm-dd)", "Uh Oh...",
                     JOptionPane.WARNING_MESSAGE);
         } else {
+
+            deleteFile("people.txt", txtPeopleProfileIC.getText());
+            updateFile(login.getPeopleIC());
         }
     }//GEN-LAST:event_btnPeopleProfileSaveActionPerformed
+
+    private void btnChangePasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChangePasswordActionPerformed
+
+    }//GEN-LAST:event_btnChangePasswordActionPerformed
 
     public static Scanner y;
 
@@ -308,7 +326,7 @@ public class PeopleMain extends javax.swing.JFrame {
                 tempDOB = y.next();
                 y.next();
 
-                if (tempPeopleName.trim().equals(login.getPeopleName())) {
+                if (tempPeopleIC.trim().equals(login.getPeopleIC())) {
                     found = true;
                 }
                 if (found == true) {
@@ -318,12 +336,15 @@ public class PeopleMain extends javax.swing.JFrame {
                     txtPeopleProfileAddress.setText(tempAddress);
                 }
             }
+
+            y.close();
+
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "No");
         }
     }
 
-    public void updateFile(String pathFile, String IC) {
+    public void deleteFile(String pathFile, String IC) {
         try {
 
             File inFile = new File(pathFile);
@@ -338,22 +359,74 @@ public class PeopleMain extends javax.swing.JFrame {
             File tempFile = new File(inFile.getAbsolutePath() + ".tmp");
 
             FileReader fr = new FileReader(pathFile);
+
             BufferedReader br = new BufferedReader(fr);
+
+            PrintWriter pw = new PrintWriter(new FileWriter(tempFile));
+
             String line = null;
 
             while ((line = br.readLine()) != null) {
                 String[] poepleDetail = line.split(",");
 
-                if (IC.equals(poepleDetail[0])) {
-                    
-                    
-                    
-                }
+                if (!IC.trim().equals(poepleDetail[0])) {
 
+                    pw.println(line);
+                    pw.flush();
+
+                }
+            }
+
+            pw.close();
+            br.close();
+            fr.close();
+
+            if (!inFile.delete()) {
+                System.out.println("Could not delete file");
+                return;
+            }
+
+            // Rename the new file to the filename the original file had.
+            if (!tempFile.renameTo(inFile)) {
+                System.out.println("Could not rename file");
             }
 
         } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "No");
+            e.printStackTrace();
+        }
+    }
 
+    public void updateFile(String ic) {
+        try {
+            File file = new File("people.txt");
+            FileWriter fw = new FileWriter(file, true);
+            BufferedWriter bw = new BufferedWriter(fw);
+
+            String name = txtPeopleProfileName.getText();
+            String address = txtPeopleProfileAddress.getText();
+            String dob = txtPeopleProfileDOB.getText();
+
+            Citizen change = new Citizen(ic, name, address, dob);
+            bw.write(change.getPeopleIC());
+            bw.write(",");
+            bw.write(change.getPeopleName());
+            bw.write(",");
+            bw.write(change.getPeopleAddress());
+            bw.write(",");
+            bw.write(change.getPeopleDOB());
+            bw.write(",");
+            bw.write("No Vaccinated");
+            bw.write("\n");
+
+            JOptionPane.showMessageDialog(this, "Successful Change", "Congratulation", JOptionPane.PLAIN_MESSAGE);
+
+            bw.close();
+            fw.close();
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "No");
+            e.printStackTrace();
         }
     }
 

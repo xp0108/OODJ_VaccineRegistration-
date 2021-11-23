@@ -132,7 +132,7 @@ public class RegisterPeople extends javax.swing.JFrame {
 
         lblRegisterIC.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         lblRegisterIC.setForeground(new java.awt.Color(0, 0, 0));
-        lblRegisterIC.setText("IC/Passport");
+        lblRegisterIC.setText("IC/Passport:");
 
         txtRegisterIC.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         txtRegisterIC.addActionListener(new java.awt.event.ActionListener() {
@@ -166,16 +166,16 @@ public class RegisterPeople extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lblRegisterIC)
-                                    .addComponent(txtRegisterIC, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(lblRegisterName)
+                                    .addComponent(txtRegisterName, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(lblDOB)
                                     .addComponent(txtRegisterDOB, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lblRegisterName)
-                                    .addComponent(txtRegisterName, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(lblRegisterIC)
+                                    .addComponent(txtRegisterIC, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(89, 89, 89)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(txtRegisterPassword, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE)
@@ -205,29 +205,29 @@ public class RegisterPeople extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(lblRegisterName)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtRegisterName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(lblRegisterPassword)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtRegisterPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
-                .addComponent(lblCitizenType)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(rdbCitizen)
-                    .addComponent(rdbNonCitizen))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(txtRegisterPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(lblRegisterIC)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtRegisterIC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtRegisterIC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(lblCitizenType)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(rdbCitizen)
+                            .addComponent(rdbNonCitizen))
+                        .addGap(18, 18, 18)
                         .addComponent(lblDOB)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtRegisterDOB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(txtRegisterDOB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(lblRegisterName)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtRegisterName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addComponent(lblRegisterAddress)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -347,20 +347,20 @@ public class RegisterPeople extends javax.swing.JFrame {
                     FileWriter fw = new FileWriter(file, true);
                     BufferedWriter bw = new BufferedWriter(fw);
 
-                    String name = txtRegisterName.getText();
+                    String ic = txtRegisterIC.getText();
                     String password = txtRegisterPassword.getText();
 
                     if (rdbCitizen.isSelected()) {
-                        Citizen register = new Citizen(name, password);
-                        bw.write(register.getPeopleName());
+                        Citizen register = new Citizen(ic, password);
+                        bw.write(register.getPeopleIC());
                         bw.write(",");
                         bw.write(register.getPeoplePassword());
                         bw.write(",");
                         bw.write("People");
                         bw.write("\n");
                     } else if (rdbNonCitizen.isSelected()) {
-                        NonCitizen register = new NonCitizen(name, password);
-                        bw.write(register.getPeopleName());
+                        NonCitizen register = new NonCitizen(ic, password);
+                        bw.write(register.getPeopleIC());
                         bw.write(",");
                         bw.write(register.getPeoplePassword());
                         bw.write(",");
@@ -370,7 +370,7 @@ public class RegisterPeople extends javax.swing.JFrame {
 
                     bw.close();
                     fw.close();
-                    
+
                 } catch (Exception ex) {
                     JOptionPane.showMessageDialog(this, "Error saving or loading data!!!", "Error", JOptionPane.ERROR_MESSAGE);
                 }
@@ -411,9 +411,6 @@ public class RegisterPeople extends javax.swing.JFrame {
                             bw.write("No Vaccinated");
                             bw.write("\n");
 
-                            bw.close();
-                            fw.close();
-
                             JOptionPane.showMessageDialog(this, "Register Successful", "Congratulation", JOptionPane.PLAIN_MESSAGE);
 
                             Login a = new Login();
@@ -438,9 +435,6 @@ public class RegisterPeople extends javax.swing.JFrame {
                             bw.write("No Vaccinated");
                             bw.write("\n");
 
-                            bw.close();
-                            fw.close();
-
                             JOptionPane.showMessageDialog(this, "Register Successful", "Congratulation", JOptionPane.PLAIN_MESSAGE);
 
                             Login a = new Login();
@@ -449,8 +443,11 @@ public class RegisterPeople extends javax.swing.JFrame {
                         }
                     }
 
+                    bw.close();
+                    fw.close();
+
                 } catch (Exception ex) {
-                    JOptionPane.showMessageDialog(this, "Error saving or loading data!!!", "Error", JOptionPane.ERROR_MESSAGE);
+                    System.out.println(ex);
                 }
 
             }

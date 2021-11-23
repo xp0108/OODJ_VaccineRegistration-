@@ -43,7 +43,7 @@ public class Login extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        txtUsername = new javax.swing.JTextField();
+        txtIC = new javax.swing.JTextField();
         txtPassword = new javax.swing.JPasswordField();
         btnLogin = new javax.swing.JButton();
         chkViewPass = new javax.swing.JCheckBox();
@@ -66,13 +66,13 @@ public class Login extends javax.swing.JFrame {
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel3.setText("User Name:");
+        jLabel3.setText("IC/Passport:");
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(0, 0, 0));
         jLabel4.setText("Password:");
 
-        txtUsername.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        txtIC.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
         txtPassword.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
@@ -133,7 +133,7 @@ public class Login extends javax.swing.JFrame {
                             .addComponent(jLabel3))
                         .addGap(54, 54, 54)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtUsername)
+                            .addComponent(txtIC)
                             .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addComponent(chkViewPass)
@@ -149,7 +149,7 @@ public class Login extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtIC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(23, 23, 23)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
@@ -179,13 +179,16 @@ public class Login extends javax.swing.JFrame {
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
 
         String txtPassowrdToStr = String.valueOf(txtPassword.getPassword());
-        if (txtUsername.getText().isEmpty() || txtPassowrdToStr.isBlank()) {
+        
+        if (txtIC.getText().isEmpty() || txtPassowrdToStr.isBlank()) {
 
             JOptionPane.showMessageDialog(this,
                     "Please fill up all the fills", "Uh Oh...",
                     JOptionPane.WARNING_MESSAGE);
         } else {
-            VerifyLogin(txtUsername.getText(), txtPassowrdToStr);
+            
+            VerifyLogin(txtIC.getText(), txtPassowrdToStr);
+            
         }
     }//GEN-LAST:event_btnLoginActionPerformed
 
@@ -237,12 +240,14 @@ public class Login extends javax.swing.JFrame {
 
         try {
             FileWriter fw = new FileWriter("people.txt", true);
+            fw.close();
         } catch (IOException ex) {
             System.out.println("Unable to create file due to " + ex);
         }
 
         try {
             FileWriter fw = new FileWriter("login.txt", true);
+            fw.close();
         } catch (IOException ex) {
             System.out.println("Unable to create file due to " + ex);
         }
@@ -250,7 +255,7 @@ public class Login extends javax.swing.JFrame {
 
     public static Scanner scanner;
 
-    public void VerifyLogin(String username, String password) {
+    public void VerifyLogin(String IC, String password) {
         try {
             String file = "login.txt";
 
@@ -263,12 +268,12 @@ public class Login extends javax.swing.JFrame {
                 String[] loginarr = line.split(",");
                 String isPeople = "People";
 
-                if (username.equals(loginarr[0]) && password.equals(loginarr[1])) {
+                if (IC.equals(loginarr[0]) && password.equals(loginarr[1])) {
                     isLoginSuccess = true;
 
                     if (isPeople.equals(loginarr[2])) {
 
-                        PeopleMain people = new PeopleMain(new Citizen(username, password));
+                        PeopleMain people = new PeopleMain(new Citizen(IC, password));
                         people.setVisible(true);
                         this.setVisible(false);
                         break;
@@ -282,6 +287,10 @@ public class Login extends javax.swing.JFrame {
                     }
                 }
             }
+            
+            br.close();
+            fr.close();
+            
             if (isLoginSuccess == false) {
                 JOptionPane.showMessageDialog(null, "USERNAME/PASSWORD WRONG", "WARNING!!", JOptionPane.WARNING_MESSAGE);
             }
@@ -301,7 +310,7 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JTextField txtIC;
     private javax.swing.JPasswordField txtPassword;
-    private javax.swing.JTextField txtUsername;
     // End of variables declaration//GEN-END:variables
 }
