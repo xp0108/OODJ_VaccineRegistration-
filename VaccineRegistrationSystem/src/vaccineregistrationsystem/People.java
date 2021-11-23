@@ -14,8 +14,7 @@ abstract public class People {
     People() {
     }
 
-    People(String PeopleName, String PeoplePassword) {
-        this.PeopleName = PeopleName;
+    People(String PeoplePassword) {
         this.PeoplePassword = PeoplePassword;
     }
 

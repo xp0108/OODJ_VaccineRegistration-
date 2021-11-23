@@ -7,8 +7,9 @@ public class Citizen extends People {
     Citizen() {
     }
 
-    Citizen(String PeopleName, String PeoplePassword) {
-        super(PeopleName, PeoplePassword);
+    Citizen(String CitizenIC, String PeoplePassword) {
+        super(PeoplePassword);
+        this.CitizenIC = CitizenIC;
     }
     
     public Citizen(String CitizenIC, String PeopleName, String PeopleAddress, String PeopleDOB) {

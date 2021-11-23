@@ -370,7 +370,11 @@ public class ManagePeople extends javax.swing.JFrame {
                 String dob;
                 String add;
 
-                try (FileWriter fw = new FileWriter(newPeopleFile, true); BufferedWriter bw = new BufferedWriter(fw); PrintWriter pw = new PrintWriter(bw); Scanner ss = new Scanner(oldPeopleFile);) {
+                try (FileWriter fw = new FileWriter(newPeopleFile, true);
+                        BufferedWriter bw = new BufferedWriter(fw);
+                        PrintWriter pw = new PrintWriter(bw);
+                        Scanner ss = new Scanner(oldPeopleFile);) {
+                    
                     ss.useDelimiter(",");
 
                     while (ss.hasNext()) {
@@ -468,6 +472,8 @@ public class ManagePeople extends javax.swing.JFrame {
                 model.addRow(dataRow);
 
             }
+
+            br.close();
 
         } catch (IOException ex) {
             Logger.getLogger(ManagePeople.class.getName()).log(Level.SEVERE, null, ex);

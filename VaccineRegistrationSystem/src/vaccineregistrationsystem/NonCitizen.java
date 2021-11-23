@@ -7,8 +7,9 @@ public class NonCitizen extends People {
     NonCitizen() {
     }
 
-    NonCitizen(String PeopleName, String PeoplePassword) {
-        super(PeopleName, PeoplePassword);
+    NonCitizen(String PeoplePassport, String PeoplePassword) {
+        super(PeoplePassword);
+        this.PeoplePassport = PeoplePassport;
     }
 
     public NonCitizen(String PeoplePassport, String PeopleName, String PeopleAddress, String PeopleDOB) {
