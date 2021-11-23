@@ -295,7 +295,7 @@ public class ManagePeople extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegisterActionPerformed
-        RegisterPeople a = new RegisterPeople();
+        RegisterPeople_Personnel a = new RegisterPeople_Personnel();
         a.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnRegisterActionPerformed
