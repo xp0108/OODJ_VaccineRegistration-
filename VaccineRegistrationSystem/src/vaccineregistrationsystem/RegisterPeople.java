@@ -347,25 +347,39 @@ public class RegisterPeople extends javax.swing.JFrame {
                     FileWriter fw = new FileWriter(file, true);
                     BufferedWriter bw = new BufferedWriter(fw);
 
+                    String CitizenRegex = "^\\d{6}-\\d{2}-\\d{4}$";
+                    Pattern CitizenPattern = Pattern.compile(CitizenRegex);
+                    Matcher CitizenMatcher = CitizenPattern.matcher(txtRegisterIC.getText());
+
+                    String NonCitizenRegex = "[0-9]+";
+                    Pattern NonCitizenPattern = Pattern.compile(NonCitizenRegex);
+                    Matcher NonCitizenMatcher = NonCitizenPattern.matcher(txtRegisterIC.getText());
+
                     String ic = txtRegisterIC.getText();
                     String password = txtRegisterPassword.getText();
 
-                    if (rdbCitizen.isSelected()) {
-                        Citizen register = new Citizen(ic, password);
-                        bw.write(register.getPeopleIC());
-                        bw.write(",");
-                        bw.write(register.getPeoplePassword());
-                        bw.write(",");
-                        bw.write("People");
-                        bw.write("\n");
-                    } else if (rdbNonCitizen.isSelected()) {
-                        NonCitizen register = new NonCitizen(ic, password);
-                        bw.write(register.getPeopleIC());
-                        bw.write(",");
-                        bw.write(register.getPeoplePassword());
-                        bw.write(",");
-                        bw.write("People");
-                        bw.write("\n");
+                    if (!CitizenMatcher.find()) {
+                        JOptionPane.showMessageDialog(this,
+                                "IC format wrong (nnnnnn-nn-nnnn)", "Uh Oh...",
+                                JOptionPane.WARNING_MESSAGE);
+                    } else {
+                        if (rdbCitizen.isSelected()) {
+                            Citizen register = new Citizen(ic, password);
+                            bw.write(register.getPeopleIC());
+                            bw.write(",");
+                            bw.write(register.getPeoplePassword());
+                            bw.write(",");
+                            bw.write("People");
+                            bw.write("\n");
+                        } else if (rdbNonCitizen.isSelected()) {
+                            NonCitizen register = new NonCitizen(ic, password);
+                            bw.write(register.getPeopleIC());
+                            bw.write(",");
+                            bw.write(register.getPeoplePassword());
+                            bw.write(",");
+                            bw.write("People");
+                            bw.write("\n");
+                        }
                     }
 
                     bw.close();
@@ -395,9 +409,7 @@ public class RegisterPeople extends javax.swing.JFrame {
 
                     if (rdbCitizen.isSelected()) {
                         if (!CitizenMatcher.find()) {
-                            JOptionPane.showMessageDialog(this,
-                                    "IC format wrong (nnnnnn-nn-nnnn)", "Uh Oh...",
-                                    JOptionPane.WARNING_MESSAGE);
+                            System.out.println("IC format wrong (nnnnnn-nn-nnnn)");
                         } else {
                             Citizen register = new Citizen(IC, name, address, dob);
                             bw.write(register.getPeopleIC());
