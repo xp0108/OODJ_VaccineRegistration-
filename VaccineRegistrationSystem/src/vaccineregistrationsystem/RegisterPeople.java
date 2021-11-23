@@ -358,12 +358,12 @@ public class RegisterPeople extends javax.swing.JFrame {
                     String ic = txtRegisterIC.getText();
                     String password = txtRegisterPassword.getText();
 
-                    if (!CitizenMatcher.find()) {
-                        JOptionPane.showMessageDialog(this,
-                                "IC format wrong (nnnnnn-nn-nnnn)", "Uh Oh...",
-                                JOptionPane.WARNING_MESSAGE);
-                    } else {
-                        if (rdbCitizen.isSelected()) {
+                    if (rdbCitizen.isSelected()) {
+                        if (!CitizenMatcher.find()) {
+                            JOptionPane.showMessageDialog(this,
+                                    "IC format wrong (nnnnnn-nn-nnnn)", "Uh Oh...",
+                                    JOptionPane.WARNING_MESSAGE);
+                        } else {
                             Citizen register = new Citizen(ic, password);
                             bw.write(register.getPeopleIC());
                             bw.write(",");
@@ -371,7 +371,13 @@ public class RegisterPeople extends javax.swing.JFrame {
                             bw.write(",");
                             bw.write("People");
                             bw.write("\n");
-                        } else if (rdbNonCitizen.isSelected()) {
+                        }
+                    } else if (rdbNonCitizen.isSelected()) {
+                        if (!NonCitizenMatcher.find()) {
+                            JOptionPane.showMessageDialog(this,
+                                    "Passport format wrong (only number)", "Uh Oh...",
+                                    JOptionPane.WARNING_MESSAGE);
+                        } else {
                             NonCitizen register = new NonCitizen(ic, password);
                             bw.write(register.getPeopleIC());
                             bw.write(",");
@@ -380,6 +386,7 @@ public class RegisterPeople extends javax.swing.JFrame {
                             bw.write("People");
                             bw.write("\n");
                         }
+
                     }
 
                     bw.close();
@@ -431,9 +438,7 @@ public class RegisterPeople extends javax.swing.JFrame {
                         }
                     } else if (rdbNonCitizen.isSelected()) {
                         if (!NonCitizenMatcher.find()) {
-                            JOptionPane.showMessageDialog(this,
-                                    "Passport format wrong (only number)", "Uh Oh...",
-                                    JOptionPane.WARNING_MESSAGE);
+                            System.out.println("Passport format wrong (only number)");
                         } else {
                             NonCitizen register = new NonCitizen(IC, name, address, dob);
                             bw.write(register.getPeopleIC());
