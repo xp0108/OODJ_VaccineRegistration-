@@ -1,5 +1,2 @@
 Onn,onn,People
 woon,woon,People
-txp,123,People
-pei,123,Personnel
-xcvxcv,xcv,People

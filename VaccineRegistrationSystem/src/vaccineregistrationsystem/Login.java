@@ -258,6 +258,7 @@ public class Login extends javax.swing.JFrame {
             BufferedReader br = new BufferedReader(fr);
             String line;
             boolean isLoginSuccess = false;
+            
             while ((line = br.readLine()) != null) {
                 String[] loginarr = line.split(",");
                 String isPeople = "People";

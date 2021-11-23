@@ -312,27 +312,6 @@ public class RegisterPeople extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_txtRegisterDOBFocusLost
 
-    public static void main(String args[]) {
-
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new RegisterPeople().setVisible(true);
-            }
-        });
-
-        try {
-            FileWriter fw = new FileWriter("people.txt", true);
-        } catch (IOException ex) {
-            System.out.println("Unable to create file due to " + ex);
-        }
-
-        try {
-            FileWriter fw = new FileWriter("login.txt", true);
-        } catch (IOException ex) {
-            System.out.println("Unable to create file due to " + ex);
-        }
-    }
-
     public static Scanner y;
 
     public void checkFile(String PeopleIC, String PeopleName, String filepath) {
@@ -347,6 +326,9 @@ public class RegisterPeople extends javax.swing.JFrame {
             while (y.hasNext() && !found) {
                 tempPeopleIC = y.next();
                 tempPeopleName = y.next();
+                y.next();
+                y.next();
+                y.next();
 
                 if (tempPeopleIC.trim().equals(PeopleIC.trim()) || tempPeopleName.trim().equals(PeopleName.trim())) {
                     found = true;
@@ -388,6 +370,7 @@ public class RegisterPeople extends javax.swing.JFrame {
 
                     bw.close();
                     fw.close();
+                    
                 } catch (Exception ex) {
                     JOptionPane.showMessageDialog(this, "Error saving or loading data!!!", "Error", JOptionPane.ERROR_MESSAGE);
                 }
@@ -473,7 +456,8 @@ public class RegisterPeople extends javax.swing.JFrame {
             }
 
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Something went wrong, please try again!!!", "Error", JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 

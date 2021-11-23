@@ -4,6 +4,8 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 import static vaccineregistrationsystem.RegisterPeople.y;
 
@@ -14,6 +16,7 @@ public class PeopleMain extends javax.swing.JFrame {
     public PeopleMain(Citizen login) {
         initComponents();
         this.login = login;
+        readFile("people.txt");
     }
 
     @SuppressWarnings("unchecked")
@@ -68,6 +71,7 @@ public class PeopleMain extends javax.swing.JFrame {
 
         txtPeopleProfileIC.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         txtPeopleProfileIC.setForeground(new java.awt.Color(0, 0, 0));
+        txtPeopleProfileIC.setEnabled(false);
 
         lblPeopleProfileName.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         lblPeopleProfileName.setForeground(new java.awt.Color(0, 0, 0));
@@ -94,6 +98,11 @@ public class PeopleMain extends javax.swing.JFrame {
         btnPeopleProfileSave.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         btnPeopleProfileSave.setForeground(new java.awt.Color(255, 255, 255));
         btnPeopleProfileSave.setText("Save and Change");
+        btnPeopleProfileSave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPeopleProfileSaveActionPerformed(evt);
+            }
+        });
 
         btnPeopleProfileRefresh.setBackground(new java.awt.Color(0, 0, 0));
         btnPeopleProfileRefresh.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -258,32 +267,9 @@ public class PeopleMain extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnPeopleProfileRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPeopleProfileRefreshActionPerformed
-        try {
-            boolean found = false;
-            String tempPeopleIC, tempPeopleName, tempAddress, tempDOB;
 
-            y = new Scanner(new File("people.txt"));
-            y.useDelimiter("[,\n]");
+        readFile("people.txt");
 
-            while (y.hasNext() && !found) {
-                tempPeopleIC = y.next();
-                tempPeopleName = y.next();
-                tempAddress = y.next();
-                tempDOB = y.next();
-
-                if (tempPeopleName.trim().equals(login.getPeopleName())) {
-                    found = true;   
-                }
-                if (found == true) {
-                    JOptionPane.showMessageDialog(this, tempPeopleName);
-                    txtPeopleProfileName.setText(tempPeopleName);
-                } else {
-                   
-                }
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "No");
-        }
     }//GEN-LAST:event_btnPeopleProfileRefreshActionPerformed
 
     private void btnPeopleProfileBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPeopleProfileBackActionPerformed
@@ -292,10 +278,83 @@ public class PeopleMain extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_btnPeopleProfileBackActionPerformed
 
+    private void btnPeopleProfileSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPeopleProfileSaveActionPerformed
+        String dateRegex = "^\\d{4}-\\d{2}-\\d{2}$";
+        Pattern datePattern = Pattern.compile(dateRegex);
+        Matcher dateMatcher = datePattern.matcher(txtPeopleProfileDOB.getText());
+
+        if (!dateMatcher.find()) {
+            JOptionPane.showMessageDialog(this,
+                    "Date format wrong (yyyy-mm-dd)", "Uh Oh...",
+                    JOptionPane.WARNING_MESSAGE);
+        } else {
+        }
+    }//GEN-LAST:event_btnPeopleProfileSaveActionPerformed
+
     public static Scanner y;
 
     public void readFile(String PeopleFile) {
-        
+        try {
+            boolean found = false;
+            String tempPeopleIC, tempPeopleName, tempAddress, tempDOB;
+
+            y = new Scanner(new File(PeopleFile));
+            y.useDelimiter("[,\n]");
+
+            while (y.hasNext() && !found) {
+                tempPeopleIC = y.next();
+                tempPeopleName = y.next();
+                tempAddress = y.next();
+                tempDOB = y.next();
+                y.next();
+
+                if (tempPeopleName.trim().equals(login.getPeopleName())) {
+                    found = true;
+                }
+                if (found == true) {
+                    txtPeopleProfileIC.setText(tempPeopleIC);
+                    txtPeopleProfileName.setText(tempPeopleName);
+                    txtPeopleProfileDOB.setText(tempDOB);
+                    txtPeopleProfileAddress.setText(tempAddress);
+                }
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "No");
+        }
+    }
+
+    public void updateFile(String pathFile, String IC) {
+        try {
+
+            File inFile = new File(pathFile);
+
+            if (!inFile.isFile()) {
+                System.out.println("Parameter is not an existing file");
+                return;
+            }
+
+            // Construct the new file that will later be renamed to the original
+            // filename.
+            File tempFile = new File(inFile.getAbsolutePath() + ".tmp");
+
+            FileReader fr = new FileReader(pathFile);
+            BufferedReader br = new BufferedReader(fr);
+            String line = null;
+
+            while ((line = br.readLine()) != null) {
+                String[] poepleDetail = line.split(",");
+
+                if (IC.equals(poepleDetail[0])) {
+                    
+                    
+                    
+                }
+
+            }
+
+        } catch (Exception e) {
+
+        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
