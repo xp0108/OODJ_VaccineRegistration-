@@ -306,10 +306,10 @@ public class ManagePeople extends javax.swing.JFrame {
         if (tablePeople.getSelectedRowCount() == 1) {
             //single row selected than update
             String pIC = txtIC.getText();
-
             String nameE = txtName.getText();
             String dobE = txtDOB.getText();
             String addressE = taAddress.getText();
+            String statusE = String.valueOf(cmbStatus.getSelectedItem());
 
             if (nameE.equals("") || dobE.equals("") || addressE.equals("")) {
                 JOptionPane.showMessageDialog(null, "Please fill up the all the details.", "Empty text field found !", JOptionPane.ERROR_MESSAGE);
@@ -320,6 +320,7 @@ public class ManagePeople extends javax.swing.JFrame {
                 model.setValueAt(nameE, tablePeople.getSelectedRow(), 1);
                 model.setValueAt(addressE, tablePeople.getSelectedRow(), 2);
                 model.setValueAt(dobE, tablePeople.getSelectedRow(), 3);
+                model.setValueAt(statusE, tablePeople.getSelectedRow(), 4);
 
                 String file = "people.txt";
                 String tempPeopleFile = "TempPeople.txt";
@@ -328,27 +329,25 @@ public class ManagePeople extends javax.swing.JFrame {
 
                 String ic;
                 String name;
-                String dob;
                 String add;
+                String dob;
+                String status;
 
-                try (FileWriter fw = new FileWriter(newPeopleFile, true);
-                        BufferedWriter bw = new BufferedWriter(fw);
-                        PrintWriter pw = new PrintWriter(bw);
-                        Scanner ss = new Scanner(oldPeopleFile);) {
+                try (FileWriter fw = new FileWriter(newPeopleFile, true); BufferedWriter bw = new BufferedWriter(fw); PrintWriter pw = new PrintWriter(bw); Scanner ss = new Scanner(oldPeopleFile);) {
 
-                    ss.useDelimiter(",");
+                    ss.useDelimiter("[,\n]");
 
                     while (ss.hasNext()) {
                         ic = ss.next();
                         name = ss.next();
-                        dob = ss.next();
                         add = ss.next();
+                        dob = ss.next();
+                        status = ss.next();
 
-                        if (pIC.equals(ic)) {
-                            pw.print(pIC + "," + nameE + "," + dobE + ",");
-
+                        if (pIC.trim().equals(ic.trim())) {
+                            pw.print(pIC + "," + nameE + "," + addressE + "," + dobE + "," + statusE);
                         } else {
-//                            pw.print(name + ";" + ic + ";" + gender + ";" + contactNo + ";" + email + ";");
+                            pw.print(ic + "," + name + "," + add + "," + dob + "," + status);
 
                         }
                     }
@@ -369,7 +368,7 @@ public class ManagePeople extends javax.swing.JFrame {
 
                     JOptionPane.showMessageDialog(this, "Record Updated Successfully");
                 } catch (Exception e) {
-                    JOptionPane.showMessageDialog(null, "Edit Booking record fail due to " + e);
+                    JOptionPane.showMessageDialog(null, "Edit People record fail due to " + e);
                 }
 
             }
