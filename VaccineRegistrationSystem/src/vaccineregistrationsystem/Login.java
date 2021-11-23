@@ -280,7 +280,7 @@ public class Login extends javax.swing.JFrame {
                         
                     } else {
 
-                        RegisterPersonnel personnel = new RegisterPersonnel();
+                        PersonnelMain personnel = new PersonnelMain();
                         personnel.setVisible(true);
                         this.setVisible(false);
                         break;

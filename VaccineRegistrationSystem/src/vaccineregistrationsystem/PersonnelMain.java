@@ -16,6 +16,7 @@ public class PersonnelMain extends javax.swing.JFrame {
      */
     public PersonnelMain() {
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     /**
