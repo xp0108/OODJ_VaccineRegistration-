@@ -1,10 +1,12 @@
 package vaccineregistrationsystem;
 
+import java.awt.HeadlessException;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -103,6 +105,7 @@ public class PeopleMain extends javax.swing.JFrame {
         btnPeopleProfileSave.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         btnPeopleProfileSave.setForeground(new java.awt.Color(255, 255, 255));
         btnPeopleProfileSave.setText("Save and Change");
+        btnPeopleProfileSave.setEnabled(false);
         btnPeopleProfileSave.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnPeopleProfileSaveActionPerformed(evt);
@@ -302,10 +305,19 @@ public class PeopleMain extends javax.swing.JFrame {
 
             deleteFile("people.txt", txtPeopleProfileIC.getText());
             updateFile(login.getPeopleIC());
+
         }
     }//GEN-LAST:event_btnPeopleProfileSaveActionPerformed
 
     private void btnChangePasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChangePasswordActionPerformed
+
+        if (txtPeopleProfileOld.getText().isBlank() || txtPeopleProfileNew.getText().isBlank()) {
+            JOptionPane.showMessageDialog(this,
+                    "Please fill up Old Password and New Password", "Uh Oh...",
+                    JOptionPane.WARNING_MESSAGE);
+        } else {
+            verifyOld(txtPeopleProfileOld.getText());
+        }
 
     }//GEN-LAST:event_btnChangePasswordActionPerformed
 
@@ -314,7 +326,7 @@ public class PeopleMain extends javax.swing.JFrame {
     public void readFile(String PeopleFile) {
         try {
             boolean found = false;
-            String tempPeopleIC, tempPeopleName, tempAddress, tempDOB;
+            String tempPeopleIC, tempPeopleName, tempAddress, tempDOB, tempStatus;
 
             y = new Scanner(new File(PeopleFile));
             y.useDelimiter("[,\n]");
@@ -324,16 +336,24 @@ public class PeopleMain extends javax.swing.JFrame {
                 tempPeopleName = y.next();
                 tempAddress = y.next();
                 tempDOB = y.next();
-                y.next();
+                tempStatus = y.next();
 
                 if (tempPeopleIC.trim().equals(login.getPeopleIC())) {
                     found = true;
                 }
+
                 if (found == true) {
                     txtPeopleProfileIC.setText(tempPeopleIC);
                     txtPeopleProfileName.setText(tempPeopleName);
                     txtPeopleProfileDOB.setText(tempDOB);
                     txtPeopleProfileAddress.setText(tempAddress);
+                    System.out.println(tempStatus.trim());
+                }
+
+                if (tempStatus.trim().equals("No Vaccinated")) {
+
+                    btnPeopleProfileSave.setEnabled(true);
+
                 }
             }
 
@@ -359,9 +379,7 @@ public class PeopleMain extends javax.swing.JFrame {
             File tempFile = new File(inFile.getAbsolutePath() + ".tmp");
 
             FileReader fr = new FileReader(pathFile);
-
             BufferedReader br = new BufferedReader(fr);
-
             PrintWriter pw = new PrintWriter(new FileWriter(tempFile));
 
             String line = null;
@@ -420,6 +438,70 @@ public class PeopleMain extends javax.swing.JFrame {
             bw.write("\n");
 
             JOptionPane.showMessageDialog(this, "Successful Change", "Congratulation", JOptionPane.PLAIN_MESSAGE);
+
+            bw.close();
+            fw.close();
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "No");
+            e.printStackTrace();
+        }
+    }
+
+    public void verifyOld(String old) {
+        try {
+            String file = "login.txt";
+
+            FileReader fr = new FileReader(file);
+            BufferedReader br = new BufferedReader(fr);
+            String line;
+            boolean checkPassword = false;
+
+            while ((line = br.readLine()) != null) {
+                String[] loginarr = line.split(",");
+
+                if (login.getPeopleIC().equals(loginarr[0]) && old.equals(loginarr[1])) {
+                    checkPassword = true;
+
+                    br.close();
+                    fr.close();
+                    deleteFile(file, txtPeopleProfileIC.getText());
+                    updateLoginFile(login.getPeopleIC());
+
+                }
+
+                if (checkPassword == false) {
+                    JOptionPane.showMessageDialog(null, "Old Password is not match", "WARNING!!", JOptionPane.WARNING_MESSAGE);
+                }
+
+            }
+
+            br.close();
+            fr.close();
+
+        } catch (IOException e) {
+            System.out.println(e);
+        }
+    }
+
+    public void updateLoginFile(String ic) {
+        try {
+
+            File file = new File("login.txt");
+            FileWriter fw = new FileWriter(file, true);
+            BufferedWriter bw = new BufferedWriter(fw);
+
+            String passwordNew = txtPeopleProfileNew.getText();
+
+            Citizen newPassword = new Citizen(ic, passwordNew);
+            bw.write(newPassword.getPeopleIC());
+            bw.write(",");
+            bw.write(newPassword.getPeoplePassword());
+            bw.write(",");
+            bw.write("People");
+            bw.write("\n");
+
+            JOptionPane.showMessageDialog(this, "Successful Change Password", "Congratulation", JOptionPane.PLAIN_MESSAGE);
 
             bw.close();
             fw.close();
