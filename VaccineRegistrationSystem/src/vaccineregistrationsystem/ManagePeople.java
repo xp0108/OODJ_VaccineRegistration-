@@ -12,7 +12,6 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -65,12 +64,12 @@ public class ManagePeople extends javax.swing.JFrame {
         taAddress = new javax.swing.JTextArea();
         btnRegister = new javax.swing.JButton();
         btnUpdate = new javax.swing.JButton();
-        btnDelete = new javax.swing.JButton();
         btnBack = new javax.swing.JButton();
         cmbStatus = new javax.swing.JComboBox<>();
         lblRegisterName7 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Covid-19 Vaccine Registration System |  Manage People");
 
         jPanel1.setBackground(new java.awt.Color(212, 227, 247));
 
@@ -110,6 +109,7 @@ public class ManagePeople extends javax.swing.JFrame {
         lblRegisterName2.setText("IC/Passport:");
 
         txtIC.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        txtIC.setEnabled(false);
 
         lblRegisterName3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         lblRegisterName3.setForeground(new java.awt.Color(0, 0, 0));
@@ -152,16 +152,6 @@ public class ManagePeople extends javax.swing.JFrame {
             }
         });
 
-        btnDelete.setBackground(new java.awt.Color(0, 0, 0));
-        btnDelete.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        btnDelete.setForeground(new java.awt.Color(255, 255, 255));
-        btnDelete.setText("Delete");
-        btnDelete.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnDeleteActionPerformed(evt);
-            }
-        });
-
         btnBack.setBackground(new java.awt.Color(0, 0, 0));
         btnBack.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         btnBack.setForeground(new java.awt.Color(255, 255, 255));
@@ -172,12 +162,12 @@ public class ManagePeople extends javax.swing.JFrame {
             }
         });
 
-        cmbStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-Vaccination Status-", "No Vaccinated", "Dose 1", "Dose 2" }));
         cmbStatus.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        cmbStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-Vaccination Status-", "No Vaccinated", "Dose 1", "Dose 2" }));
 
-        lblRegisterName7.setText("Status:");
         lblRegisterName7.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         lblRegisterName7.setForeground(new java.awt.Color(0, 0, 0));
+        lblRegisterName7.setText("Status:");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -208,9 +198,8 @@ public class ManagePeople extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtDOB, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE)))))
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(290, Short.MAX_VALUE)
@@ -222,9 +211,7 @@ public class ManagePeople extends javax.swing.JFrame {
                         .addGap(72, 72, 72))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(41, 41, 41)
-                        .addComponent(btnDelete)
-                        .addGap(112, 112, 112)
+                        .addGap(236, 236, 236)
                         .addComponent(btnRegister, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -262,15 +249,12 @@ public class ManagePeople extends javax.swing.JFrame {
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(lblRegisterName3)
                                     .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lblRegisterName6))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addComponent(lblRegisterName6)))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 149, Short.MAX_VALUE)))
                         .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnUpdate)
-                            .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btnUpdate)
                         .addGap(18, 18, 18))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -397,101 +381,6 @@ public class ManagePeople extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnUpdateActionPerformed
 
-    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
-        DefaultTableModel model = (DefaultTableModel) tablePeople.getModel();
-
-        if (tablePeople.getSelectedRowCount() == 1) {
-            int deletePeopleOption = JOptionPane.showConfirmDialog(this, "Wanted to Delete this People record ?", "Delete Record",
-                    JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-            if (deletePeopleOption == JOptionPane.YES_OPTION) {
-
-                // delete from table
-                int i = tablePeople.getSelectedRow();
-                if (i >= 0) {
-                    // remove a row from jtable
-                    model.removeRow(i);
-                    System.out.println("Delete from table");
-                }
-
-                //DELETE IN people.txt
-                String peopleFile = "people.txt";
-                String pIC = txtIC.getText();
-
-                String tempPeopleFile = "TempPeople.txt";
-                File oldPeopleFile = new File("people.txt");
-                File newPeopleFile = new File(tempPeopleFile);
-
-                String ic;
-                String name;
-                String add;
-                String dob;
-                String status;
-
-                try (FileWriter fw = new FileWriter(newPeopleFile, true); BufferedWriter bw = new BufferedWriter(fw); Scanner ss = new Scanner(oldPeopleFile);) {
-                    ss.useDelimiter("[,\n]");
-                    while (ss.hasNext()) {
-                        ic = ss.next();
-                        name = ss.next();
-                        add = ss.next();
-                        dob = ss.next();
-                        status = ss.next();
-
-                        if (!pIC.trim().equals(ic.trim())) {
-                            bw.write(ic);
-                            bw.write(",");
-                            bw.write(name);
-                            bw.write(",");
-                            bw.write(add);
-                            bw.write(",");
-                            bw.write(dob);
-                            bw.write(",");
-                            bw.write(status);
-                            bw.write("\n");
-                        }
-                    }
-
-                    ss.close();
-                    fw.close();
-                    bw.close();
-
-                    oldPeopleFile.delete();
-                    File dump = new File(peopleFile);
-                    newPeopleFile.renameTo(dump);
-                    JOptionPane.showMessageDialog(null, "People record delete successfully !");
-
-                    //clean txt
-                    txtName.setText("");
-                    txtIC.setText("");
-                    txtDOB.setText("");
-                    taAddress.setText("");
-                    cmbStatus.setSelectedIndex(0);
-
-                } catch (Exception e) {
-                    JOptionPane.showMessageDialog(null, "Edit People record fail due to " + e);
-                }
-
-//                //DELETE FROM login.txt
-//                String loginFile = "login.txt";
-//
-//                String tempLoginFile = "TempLogin.txt";
-//                File oldLoginFile = new File("login.txt");
-//                File newLoginFile = new File(tempLoginFile);
-            } else {
-                Login loginPage = new Login();
-                loginPage.setVisible(false);
-                JOptionPane.showMessageDialog(null, "Cancel delete People record");
-                this.setVisible(true);
-            }
-        } else {
-            if (tablePeople.getRowCount() == 0) {
-                JOptionPane.showMessageDialog(this, "Table if Empty");
-            } else {
-                JOptionPane.showMessageDialog(this, "Please select a Row for Delete");
-            }
-        }
-
-    }//GEN-LAST:event_btnDeleteActionPerformed
-
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
         PersonnelMain personnel = new PersonnelMain();
         personnel.setVisible(true);
@@ -585,7 +474,6 @@ public class ManagePeople extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBack;
-    private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnRegister;
     private javax.swing.JButton btnUpdate;
     private javax.swing.JComboBox<String> cmbStatus;

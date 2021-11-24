@@ -43,6 +43,7 @@ public class RegisterPersonnel extends javax.swing.JFrame {
         btnRegister = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Covid-19 Vaccine Registration System |  Personnel Registeration");
 
         jPanel1.setBackground(new java.awt.Color(212, 227, 247));
 

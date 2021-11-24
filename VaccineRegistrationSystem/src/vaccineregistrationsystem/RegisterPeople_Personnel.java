@@ -42,6 +42,7 @@ public class RegisterPeople_Personnel extends javax.swing.JFrame {
         jCheckBox1.setText("jCheckBox1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Covid-19 Vaccine Registration System |  Registeration People ");
         setBackground(new java.awt.Color(204, 153, 255));
         setResizable(false);
 
