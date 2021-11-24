@@ -468,6 +468,7 @@ public class RegisterPeople extends javax.swing.JFrame {
                 }
 
             }
+            y.close();
 
         } catch (Exception e) {
             e.printStackTrace();
