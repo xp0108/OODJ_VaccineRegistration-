@@ -37,6 +37,7 @@ public class PersonnelMain extends javax.swing.JFrame {
         btnLogout = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Covid-19 Vaccine Registration System |  Personnel Menu");
 
         jPanel1.setBackground(new java.awt.Color(212, 227, 247));
 
@@ -53,7 +54,7 @@ public class PersonnelMain extends javax.swing.JFrame {
         btnCentre.setBackground(new java.awt.Color(0, 0, 0));
         btnCentre.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         btnCentre.setForeground(new java.awt.Color(255, 255, 255));
-        btnCentre.setText("Manage Vaccine Centre");
+        btnCentre.setText("Manage Vaccine Supply");
         btnCentre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCentreActionPerformed(evt);
@@ -151,15 +152,21 @@ public class PersonnelMain extends javax.swing.JFrame {
     }//GEN-LAST:event_btnPeopleActionPerformed
 
     private void btnCentreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCentreActionPerformed
-        // TODO add your handling code here:
+        ManageVaccine manageVaccine = new ManageVaccine();
+        manageVaccine.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_btnCentreActionPerformed
 
     private void btnAppoitmentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAppoitmentActionPerformed
-        // TODO add your handling code here:
+        ManageAppointment manageAppointment = new ManageAppointment();
+        manageAppointment.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_btnAppoitmentActionPerformed
 
     private void btnPersonnelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPersonnelActionPerformed
-        // TODO add your handling code here:
+        ManagePersonnel managePersonnel = new ManagePersonnel();
+        managePersonnel.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_btnPersonnelActionPerformed
 
     private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed
