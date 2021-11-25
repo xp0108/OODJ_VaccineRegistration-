@@ -35,6 +35,7 @@ public class PersonnelMain extends javax.swing.JFrame {
         btnPersonnel = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         btnLogout = new javax.swing.JButton();
+        btnCentre1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Personnel Menu");
@@ -96,6 +97,16 @@ public class PersonnelMain extends javax.swing.JFrame {
             }
         });
 
+        btnCentre1.setBackground(new java.awt.Color(0, 0, 0));
+        btnCentre1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        btnCentre1.setForeground(new java.awt.Color(255, 255, 255));
+        btnCentre1.setText("Manage Vaccine Centre");
+        btnCentre1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCentre1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -109,11 +120,12 @@ public class PersonnelMain extends javax.swing.JFrame {
                             .addComponent(btnPeople, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btnAppoitment, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btnCentre, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnPersonnel, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(btnPersonnel, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnCentre1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(46, 46, 46))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(btnLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(112, 112, 112))))
+                        .addGap(109, 109, 109))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -129,8 +141,10 @@ public class PersonnelMain extends javax.swing.JFrame {
                 .addGap(27, 27, 27)
                 .addComponent(btnCentre, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(26, 26, 26)
+                .addComponent(btnCentre1, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(btnLogout)
-                .addContainerGap(27, Short.MAX_VALUE))
+                .addContainerGap(28, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -141,7 +155,7 @@ public class PersonnelMain extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -176,6 +190,12 @@ public class PersonnelMain extends javax.swing.JFrame {
         login.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_btnLogoutActionPerformed
+
+    private void btnCentre1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCentre1ActionPerformed
+        ManageCentre manageCentre = new ManageCentre();
+        manageCentre.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_btnCentre1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -215,6 +235,7 @@ public class PersonnelMain extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAppoitment;
     private javax.swing.JButton btnCentre;
+    private javax.swing.JButton btnCentre1;
     private javax.swing.JButton btnLogout;
     private javax.swing.JButton btnPeople;
     private javax.swing.JButton btnPersonnel;
