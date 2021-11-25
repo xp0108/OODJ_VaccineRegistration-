@@ -11,22 +11,23 @@ public class Citizen extends People {
         super(PeoplePassword);
         this.CitizenIC = CitizenIC;
     }
-    
+
     public Citizen(String CitizenIC, String PeopleName, String PeopleAddress, String PeopleDOB) {
         super(PeopleName, PeopleAddress, PeopleDOB);
         this.CitizenIC = CitizenIC;
     }
-
-    public String toString() {
-        return CitizenIC + ";" + super.toString();
-    }
-
+    
     public String getPeopleIC() {
         return CitizenIC;
     }
-    
-    public void setPeopleIC(String CitizenIC){
-          this.CitizenIC = CitizenIC;
-    };
+
+    public void setPeopleIC(String CitizenIC) {
+        this.CitizenIC = CitizenIC;
+    }
+
+    @Override
+    public String toString() {
+        return CitizenIC + "," + PeopleName + "," + PeopleAddress + "," + PeopleDOB + ",No Vaccinated\n";
+    }
 
 }

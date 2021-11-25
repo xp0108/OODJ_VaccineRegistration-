@@ -419,16 +419,7 @@ public class RegisterPeople extends javax.swing.JFrame {
                             System.out.println("IC format wrong (nnnnnn-nn-nnnn)");
                         } else {
                             Citizen register = new Citizen(IC, name, address, dob);
-                            bw.write(register.getPeopleIC());
-                            bw.write(",");
-                            bw.write(register.getPeopleName());
-                            bw.write(",");
-                            bw.write(register.getPeopleAddress());
-                            bw.write(",");
-                            bw.write(register.getPeopleDOB());
-                            bw.write(",");
-                            bw.write("No Vaccinated");
-                            bw.write("\n");
+                            bw.write(register.toString());
 
                             JOptionPane.showMessageDialog(this, "Register Successful", "Congratulation", JOptionPane.PLAIN_MESSAGE);
 
@@ -441,16 +432,7 @@ public class RegisterPeople extends javax.swing.JFrame {
                             System.out.println("Passport format wrong (only number)");
                         } else {
                             NonCitizen register = new NonCitizen(IC, name, address, dob);
-                            bw.write(register.getPeopleIC());
-                            bw.write(",");
-                            bw.write(register.getPeopleName());
-                            bw.write(",");
-                            bw.write(register.getPeopleAddress());
-                            bw.write(",");
-                            bw.write(register.getPeopleDOB());
-                            bw.write(",");
-                            bw.write("No Vaccinated");
-                            bw.write("\n");
+                            bw.write(register.toString());
 
                             JOptionPane.showMessageDialog(this, "Register Successful", "Congratulation", JOptionPane.PLAIN_MESSAGE);
 
