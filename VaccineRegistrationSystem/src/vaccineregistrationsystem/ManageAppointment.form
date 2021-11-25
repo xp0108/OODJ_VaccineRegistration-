@@ -108,9 +108,11 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="lblRegisterName5" alignment="1" min="-2" max="-2" attributes="0"/>
                       <Component id="lblRegisterName6" alignment="1" min="-2" max="-2" attributes="0"/>
+                      <Component id="lblRegisterName7" alignment="1" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Component id="cmbCentre" max="32767" attributes="0"/>
                       <Component id="dpAppDate" max="32767" attributes="0"/>
                       <Component id="cmbAppStatus" pref="195" max="32767" attributes="0"/>
                   </Group>
@@ -134,23 +136,38 @@
                       <Component id="jPanel3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="lblRegisterName2" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="txtAppID" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="dpAppDate" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="lblRegisterName5" alignment="3" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="lblRegisterName3" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="txtIC" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="lblRegisterName6" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="cmbAppStatus" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="1" attributes="0">
+                      <Group type="102" attributes="0">
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="lblRegisterName2" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="txtAppID" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="lblRegisterName3" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="txtIC" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <Group type="102" attributes="0">
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="lblRegisterName6" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="cmbAppStatus" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="lblRegisterName7" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="cmbCentre" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="lblRegisterName4" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="txtName" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" alignment="3" groupAlignment="3" attributes="0">
+                          <Component id="dpAppDate" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblRegisterName5" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
                   <EmptySpace pref="27" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
@@ -219,16 +236,22 @@
                 <Component class="javax.swing.JTable" name="tableDose1">
                   <Properties>
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                      <Table columnCount="5" rowCount="0">
+                      <Table columnCount="6" rowCount="0">
                         <Column editable="true" title="ID" type="java.lang.Object"/>
                         <Column editable="true" title="IC/Passport" type="java.lang.Object"/>
                         <Column editable="true" title="Name" type="java.lang.Object"/>
-                        <Column editable="true" title="Date" type="java.lang.Object"/>
                         <Column editable="true" title="Status" type="java.lang.Object"/>
+                        <Column editable="true" title="Centre" type="java.lang.Object"/>
+                        <Column editable="true" title="Date" type="java.lang.Object"/>
                       </Table>
                     </Property>
                     <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
                       <TableColumnModel selectionModel="0">
+                        <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                          <Title/>
+                          <Editor/>
+                          <Renderer/>
+                        </Column>
                         <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                           <Title/>
                           <Editor/>
@@ -332,16 +355,22 @@
                 <Component class="javax.swing.JTable" name="tableDose2">
                   <Properties>
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                      <Table columnCount="5" rowCount="0">
+                      <Table columnCount="6" rowCount="0">
                         <Column editable="true" title="ID" type="java.lang.Object"/>
                         <Column editable="true" title="IC/Passport" type="java.lang.Object"/>
                         <Column editable="true" title="Name" type="java.lang.Object"/>
-                        <Column editable="true" title="Date" type="java.lang.Object"/>
                         <Column editable="true" title="Status" type="java.lang.Object"/>
+                        <Column editable="true" title="Centre" type="java.lang.Object"/>
+                        <Column editable="true" title="Date" type="java.lang.Object"/>
                       </Table>
                     </Property>
                     <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
                       <TableColumnModel selectionModel="0">
+                        <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                          <Title/>
+                          <Editor/>
+                          <Renderer/>
+                        </Column>
                         <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                           <Title/>
                           <Editor/>
@@ -550,6 +579,39 @@
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnBackActionPerformed"/>
           </Events>
+        </Component>
+        <Component class="javax.swing.JLabel" name="lblRegisterName7">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Segoe UI" size="18" style="0"/>
+            </Property>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="0" green="0" red="0" type="rgb"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Centre:"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JComboBox" name="cmbCentre">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Segoe UI" size="14" style="0"/>
+            </Property>
+            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+              <StringArray count="7">
+                <StringItem index="0" value="-Centre-"/>
+                <StringItem index="1" value="Centre 1"/>
+                <StringItem index="2" value="Centre 2"/>
+                <StringItem index="3" value="Centre 3"/>
+                <StringItem index="4" value="Centre 4"/>
+                <StringItem index="5" value="Centre 5"/>
+                <StringItem index="6" value="Centre 6"/>
+              </StringArray>
+            </Property>
+            <Property name="toolTipText" type="java.lang.String" value=""/>
+          </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+          </AuxValues>
         </Component>
       </SubComponents>
     </Container>

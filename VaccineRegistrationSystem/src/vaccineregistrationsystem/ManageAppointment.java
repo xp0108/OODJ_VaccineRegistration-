@@ -54,6 +54,8 @@ public class ManageAppointment extends javax.swing.JFrame {
         btnUpdate = new javax.swing.JButton();
         btnRemove = new javax.swing.JButton();
         btnBack = new javax.swing.JButton();
+        lblRegisterName7 = new javax.swing.JLabel();
+        cmbCentre = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Covid-19 Vaccine Registration System |  Manage Vaccine Appointment");
@@ -72,7 +74,7 @@ public class ManageAppointment extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "IC/Passport", "Name", "Date", "Status"
+                "ID", "IC/Passport", "Name", "Status", "Centre", "Date"
             }
         ));
         jScrollPane1.setViewportView(tableDose1);
@@ -115,7 +117,7 @@ public class ManageAppointment extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "IC/Passport", "Name", "Date", "Status"
+                "ID", "IC/Passport", "Name", "Status", "Centre", "Date"
             }
         ));
         jScrollPane2.setViewportView(tableDose2);
@@ -215,6 +217,14 @@ public class ManageAppointment extends javax.swing.JFrame {
             }
         });
 
+        lblRegisterName7.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        lblRegisterName7.setForeground(new java.awt.Color(0, 0, 0));
+        lblRegisterName7.setText("Centre:");
+
+        cmbCentre.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        cmbCentre.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-Centre-", "Centre 1", "Centre 2", "Centre 3", "Centre 4", "Centre 5", "Centre 6" }));
+        cmbCentre.setToolTipText("");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -265,9 +275,11 @@ public class ManageAppointment extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblRegisterName5, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(lblRegisterName6, javax.swing.GroupLayout.Alignment.TRAILING))
+                    .addComponent(lblRegisterName6, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lblRegisterName7, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(cmbCentre, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(dpAppDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(cmbAppStatus, 0, 195, Short.MAX_VALUE))
                 .addGap(116, 116, 116))
@@ -286,21 +298,30 @@ public class ManageAppointment extends javax.swing.JFrame {
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(29, 29, 29)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblRegisterName2)
-                    .addComponent(txtAppID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(dpAppDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblRegisterName5))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblRegisterName3)
-                    .addComponent(txtIC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblRegisterName6)
-                    .addComponent(cmbAppStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblRegisterName2)
+                            .addComponent(txtAppID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblRegisterName3)
+                            .addComponent(txtIC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblRegisterName6)
+                            .addComponent(cmbAppStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblRegisterName7)
+                            .addComponent(cmbCentre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblRegisterName4)
-                    .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(dpAppDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lblRegisterName5)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnUpdate)
@@ -570,6 +591,7 @@ public class ManageAppointment extends javax.swing.JFrame {
     private javax.swing.JButton btnRemove;
     private javax.swing.JButton btnUpdate;
     private javax.swing.JComboBox<String> cmbAppStatus;
+    private javax.swing.JComboBox<String> cmbCentre;
     private com.github.lgooddatepicker.components.DatePicker dpAppDate;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -585,6 +607,7 @@ public class ManageAppointment extends javax.swing.JFrame {
     private javax.swing.JLabel lblRegisterName4;
     private javax.swing.JLabel lblRegisterName5;
     private javax.swing.JLabel lblRegisterName6;
+    private javax.swing.JLabel lblRegisterName7;
     private javax.swing.JTable tableDose1;
     private javax.swing.JTable tableDose2;
     private javax.swing.JTextField txtAppID;
