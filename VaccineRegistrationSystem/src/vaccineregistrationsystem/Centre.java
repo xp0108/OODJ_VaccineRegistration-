@@ -2,18 +2,24 @@ package vaccineregistrationsystem;
 
 public class Centre {
 
-    private int CentreID, CentreAmount;
+    private int CentreAmount;
     private String CentreName, CentreAddress;
 
 //    AGGREGATION
     private Vaccine vaccine;
 
+    public Centre(String CentreName, String CentreAddress, Vaccine vaccine, int CentreAmount) {
+        this.vaccine = vaccine;
+        this.CentreName = CentreName;
+        this.CentreAddress = CentreAddress;
+        this.CentreAmount = CentreAmount;
+    }
+
 /// Constructor
     public Centre() {
     }
 
-    public Centre(int CentreID, String CentreName, String CentreAddress, int CentreAmount) {
-        this.CentreID = CentreID;
+    public Centre(String CentreName, String CentreAddress, int CentreAmount) {
         this.CentreName = CentreName;
         this.CentreAddress = CentreAddress;
         this.CentreAmount = CentreAmount;
@@ -21,14 +27,6 @@ public class Centre {
     }
 
 //    GETTER SETTER
-    public int getCentreID() {
-        return CentreID;
-    }
-
-    public void setCentreID(int CentreID) {
-        this.CentreID = CentreID;
-    }
-
     public int getCentreAmount() {
         return CentreAmount;
     }
@@ -57,9 +55,4 @@ public class Centre {
     public void setVaccine(Vaccine vaccine) {
         this.vaccine = vaccine;
     }
-
-    public int getVaccineID() {
-        return vaccine.getVaccineID();
-    }
-
 }

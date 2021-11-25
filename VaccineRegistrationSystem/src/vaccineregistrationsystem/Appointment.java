@@ -1,7 +1,7 @@
 package vaccineregistrationsystem;
 
 public class Appointment {
-    
+
     public String appPeopleIC;
     public String appPeopleName;
     public String appdate;
@@ -49,23 +49,23 @@ public class Appointment {
         this.appcentre = appcentre;
     }
 
-    public void none() {
-        Status apptry = new Status(); //composition
-        apptry.none();
+    public void pending() {
+        AppointmentStatus appPending = new AppointmentStatus(); //composition
+        appPending.pending();
     }
-    
-    public void dose1() {
-        Status apptry = new Status(); //composition
-        apptry.dose1();
+
+    public void active() {
+        AppointmentStatus appActive = new AppointmentStatus(); //composition
+        appActive.active();
     }
-    
-    public void dose2() {
-        Status apptry = new Status(); //composition
-        apptry.dose2();
+
+    public void done() {
+        AppointmentStatus appDane = new AppointmentStatus(); //composition
+        appDane.done();
     }
-    
+
     public String toString() {
         return appPeopleIC + "," + appPeopleName + "," + appcentre + "," + appdate;
     }
-    
+
 }

@@ -30,8 +30,6 @@ public class ManageVaccine extends javax.swing.JFrame {
         txtSearch = new javax.swing.JTextField();
         lblRegisterName1 = new javax.swing.JLabel();
         txtPassword = new javax.swing.JTextField();
-        lblRegisterName2 = new javax.swing.JLabel();
-        txtUsername = new javax.swing.JTextField();
         lblRegisterName3 = new javax.swing.JLabel();
         txtPassword1 = new javax.swing.JTextField();
         lblRegisterName4 = new javax.swing.JLabel();
@@ -47,17 +45,17 @@ public class ManageVaccine extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(212, 227, 247));
 
-        jLabel3.setFont(new java.awt.Font("Algerian", 1, 24)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(0, 0, 0));
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText("Manage Covid-19 Vaccine Supply");
+        jLabel3.setFont(new java.awt.Font("Algerian", 1, 24)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(0, 0, 0));
 
         tableVaccine.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "ID", "Vaccine Type", "Duration", "Amount"
+                "Vaccine Type", "Duration", "Amount"
             }
         ));
         jScrollPane1.setViewportView(tableVaccine);
@@ -69,70 +67,64 @@ public class ManageVaccine extends javax.swing.JFrame {
             }
         });
 
+        lblRegisterName1.setText("Vaccine ID/Type:");
         lblRegisterName1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         lblRegisterName1.setForeground(new java.awt.Color(0, 0, 0));
-        lblRegisterName1.setText("Vaccine ID/Type:");
 
         txtPassword.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
-        lblRegisterName2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        lblRegisterName2.setForeground(new java.awt.Color(0, 0, 0));
-        lblRegisterName2.setText("Vaccine ID");
-
-        txtUsername.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-
+        lblRegisterName3.setText("Vaccine Type:");
         lblRegisterName3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         lblRegisterName3.setForeground(new java.awt.Color(0, 0, 0));
-        lblRegisterName3.setText("Vaccine Type:");
 
         txtPassword1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
+        lblRegisterName4.setText("Vaccine Duration:");
         lblRegisterName4.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         lblRegisterName4.setForeground(new java.awt.Color(0, 0, 0));
-        lblRegisterName4.setText("Vaccine Duration:");
 
+        lblRegisterName5.setText("Vaccine Amount:");
         lblRegisterName5.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         lblRegisterName5.setForeground(new java.awt.Color(0, 0, 0));
-        lblRegisterName5.setText("Vaccine Amount:");
 
         cmbAppStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-Number of Month-", "1", "2", "3", "4", "5", "6", "7", "8" }));
         cmbAppStatus.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         cmbAppStatus.setToolTipText("");
 
+        btnUpdate.setText("Add");
         btnUpdate.setBackground(new java.awt.Color(0, 0, 0));
         btnUpdate.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         btnUpdate.setForeground(new java.awt.Color(255, 255, 255));
-        btnUpdate.setText("Add");
         btnUpdate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnUpdateActionPerformed(evt);
             }
         });
 
+        btnUpdate1.setText("Update");
         btnUpdate1.setBackground(new java.awt.Color(0, 0, 0));
         btnUpdate1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         btnUpdate1.setForeground(new java.awt.Color(255, 255, 255));
-        btnUpdate1.setText("Update");
         btnUpdate1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnUpdate1ActionPerformed(evt);
             }
         });
 
+        btnUpdate2.setText("Remove");
         btnUpdate2.setBackground(new java.awt.Color(0, 0, 0));
         btnUpdate2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         btnUpdate2.setForeground(new java.awt.Color(255, 255, 255));
-        btnUpdate2.setText("Remove");
         btnUpdate2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnUpdate2ActionPerformed(evt);
             }
         });
 
+        btnBack.setText("Back");
         btnBack.setBackground(new java.awt.Color(0, 0, 0));
         btnBack.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnBack.setForeground(new java.awt.Color(255, 255, 255));
-        btnBack.setText("Back");
         btnBack.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBackActionPerformed(evt);
@@ -151,26 +143,21 @@ public class ManageVaccine extends javax.swing.JFrame {
                 .addContainerGap())
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(17, 17, 17)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(lblRegisterName3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(lblRegisterName2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addComponent(lblRegisterName3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                        .addGap(12, 12, 12)
                         .addComponent(lblRegisterName5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtPassword1, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtPassword1, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                         .addComponent(lblRegisterName4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(cmbAppStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(65, Short.MAX_VALUE))
+                .addContainerGap(100, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -202,25 +189,18 @@ public class ManageVaccine extends javax.swing.JFrame {
                             .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(26, 26, 26)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(lblRegisterName2)
-                                    .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(28, 28, 28)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(lblRegisterName3)
-                                    .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(lblRegisterName4)
-                                    .addComponent(cmbAppStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(29, 29, 29)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(lblRegisterName5)
-                                    .addComponent(txtPassword1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+                        .addGap(23, 23, 23)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblRegisterName4)
+                            .addComponent(cmbAppStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(lblRegisterName3)
+                                .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(28, 28, 28)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblRegisterName5)
+                            .addComponent(txtPassword1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnUpdate)
                             .addComponent(btnUpdate1)
@@ -319,7 +299,6 @@ public class ManageVaccine extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblRegisterName1;
-    private javax.swing.JLabel lblRegisterName2;
     private javax.swing.JLabel lblRegisterName3;
     private javax.swing.JLabel lblRegisterName4;
     private javax.swing.JLabel lblRegisterName5;
@@ -327,6 +306,5 @@ public class ManageVaccine extends javax.swing.JFrame {
     private javax.swing.JTextField txtPassword;
     private javax.swing.JTextField txtPassword1;
     private javax.swing.JTextField txtSearch;
-    private javax.swing.JTextField txtUsername;
     // End of variables declaration//GEN-END:variables
 }
