@@ -17,10 +17,6 @@ public class NonCitizen extends People {
         this.PeoplePassport = PeoplePassport;
     }
 
-    public String toString() {
-        return PeoplePassport + ";" + super.toString();
-    }
-
     public String getPeopleIC() {
         return PeoplePassport;
     }
@@ -28,5 +24,10 @@ public class NonCitizen extends People {
     public void setPeopleIC(String CitizenIC) {
         this.PeoplePassport = PeoplePassport;
     }
-;
+    
+    @Override
+    public String toString() {
+        return PeoplePassport + "," + PeopleName + "," + PeopleAddress + "," + PeopleDOB + ",No Vaccinated\n";
+    }
+
 }

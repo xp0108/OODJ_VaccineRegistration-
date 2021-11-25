@@ -427,16 +427,7 @@ public class PeopleMain extends javax.swing.JFrame {
             String dob = txtPeopleProfileDOB.getText();
 
             Citizen change = new Citizen(ic, name, address, dob);
-            bw.write(change.getPeopleIC());
-            bw.write(",");
-            bw.write(change.getPeopleName());
-            bw.write(",");
-            bw.write(change.getPeopleAddress());
-            bw.write(",");
-            bw.write(change.getPeopleDOB());
-            bw.write(",");
-            bw.write("No Vaccinated");
-            bw.write("\n");
+            bw.write(change.toString());
 
             JOptionPane.showMessageDialog(this, "Successful Change", "Congratulation", JOptionPane.PLAIN_MESSAGE);
 
@@ -471,14 +462,14 @@ public class PeopleMain extends javax.swing.JFrame {
 
                 }
 
-                if (checkPassword == false) {
-                    JOptionPane.showMessageDialog(null, "Old Password is not match", "WARNING!!", JOptionPane.WARNING_MESSAGE);
-                }
-
             }
 
             br.close();
             fr.close();
+
+            if (checkPassword == false) {
+                JOptionPane.showMessageDialog(null, "Old Password is not match", "WARNING!!", JOptionPane.WARNING_MESSAGE);
+            }
 
         } catch (IOException e) {
             System.out.println(e);

@@ -5,11 +5,11 @@ import javax.swing.JOptionPane;
 
 abstract public class People {
 
-    private String PeopleName;
-    private String PeoplePassword;
-    private String PeopleAddress;
-    private String PeopleDOB;
-    private String PeopleStatus;
+    protected String PeopleName;
+    protected String PeoplePassword;
+    protected String PeopleAddress;
+    protected String PeopleDOB;
+    protected String PeopleStatus;
 
     People() {
     }
@@ -67,5 +67,10 @@ abstract public class People {
     abstract public String getPeopleIC();
 
     abstract public void setPeopleIC(String PeopleIC);
+    
+    @Override
+    public String toString() {
+        return PeopleName + "," + PeopleAddress + "," + PeopleDOB + ",No Vaccinated\n";
+    }
     
 }
