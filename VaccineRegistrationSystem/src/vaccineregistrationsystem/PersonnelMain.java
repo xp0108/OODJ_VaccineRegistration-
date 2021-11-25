@@ -72,10 +72,10 @@ public class PersonnelMain extends javax.swing.JFrame {
             }
         });
 
-        btnPersonnel.setText("Manage Personnel");
         btnPersonnel.setBackground(new java.awt.Color(0, 0, 0));
         btnPersonnel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         btnPersonnel.setForeground(new java.awt.Color(255, 255, 255));
+        btnPersonnel.setText("Add Personnel");
         btnPersonnel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnPersonnelActionPerformed(evt);
@@ -180,7 +180,7 @@ public class PersonnelMain extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAppoitmentActionPerformed
 
     private void btnPersonnelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPersonnelActionPerformed
-        ManagePersonnel managePersonnel = new ManagePersonnel();
+        RegisterPersonnel managePersonnel = new RegisterPersonnel();
         managePersonnel.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_btnPersonnelActionPerformed
