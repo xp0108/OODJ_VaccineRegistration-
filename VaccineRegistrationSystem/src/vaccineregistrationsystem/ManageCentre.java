@@ -460,10 +460,12 @@ public class ManageCentre extends javax.swing.JFrame {
 
     private void txtSearchKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchKeyReleased
         DefaultTableModel model = (DefaultTableModel) tableCentre.getModel();
-        String search = txtSearch.getText().toLowerCase();
+        String search = txtSearch.getText();
         TableRowSorter<DefaultTableModel> tr = new TableRowSorter<DefaultTableModel>(model);
         tableCentre.setRowSorter(tr);
         tr.setRowFilter(RowFilter.regexFilter(search));
+
+      
     }//GEN-LAST:event_txtSearchKeyReleased
 
     private void btnBack1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBack1ActionPerformed
@@ -481,7 +483,6 @@ public class ManageCentre extends javax.swing.JFrame {
     }//GEN-LAST:event_btnClearActionPerformed
 
     private void cmbVaccineTypePopupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_cmbVaccineTypePopupMenuWillBecomeVisible
-
         ShowCmbVeccineTypeData();
     }//GEN-LAST:event_cmbVaccineTypePopupMenuWillBecomeVisible
 
