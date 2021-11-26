@@ -20,7 +20,7 @@ import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
-import static vaccineregistrationsystem.ManageVaccine.scnnaer;
+import static vaccineregistrationsystem.ManageVaccine.scanner;
 
 public class ManageCentre extends javax.swing.JFrame {
 
@@ -397,11 +397,11 @@ public class ManageCentre extends javax.swing.JFrame {
         String tmpCentreName = txtCentreName.getText();
 
         try {
-            scnnaer = new Scanner(new File("centre.txt"));
-            scnnaer.useDelimiter("[,\n]");
+            scanner = new Scanner(new File("centre.txt"));
+            scanner.useDelimiter("[,\n]");
 
-            while (scnnaer.hasNext() && !found) {
-                tmpCentreName = scnnaer.next();
+            while (scanner.hasNext() && !found) {
+                tmpCentreName = scanner.next();
 
                 if (tmpCentreName.trim().equals(CentreName.trim())) {
                     found = true;

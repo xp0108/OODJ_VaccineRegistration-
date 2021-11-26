@@ -65,6 +65,7 @@ abstract public class People {
 
     abstract public void setPeopleIC(String PeopleIC);
     
+    @Override
     public String toString() {
         return PeopleName + "," + PeopleAddress + "," + PeopleDOB + ",No Vaccinated\n";
     }
