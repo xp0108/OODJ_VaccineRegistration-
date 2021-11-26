@@ -318,11 +318,144 @@ public class ManageCentre extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
-        // TODO add your handling code here:
+        DefaultTableModel model = (DefaultTableModel) tableCentre.getModel();
+
+        if (tableCentre.getSelectedRowCount() == 1) {
+            //single row selected than update
+            String pCentreName = txtCentreName.getText();
+            String centreAddE = taCentreAdd.getText();
+            String vaccineTypeE = String.valueOf(cmbVaccineType.getSelectedItem());
+            int amountE = Integer.parseInt(txtAmount.getText());
+
+            if (pCentreName.equals("") || txtAmount.getText().equals("") || taCentreAdd.getText().equals("")) {
+                JOptionPane.showMessageDialog(null, "Please fill up the all the details.", "Empty text field found !", JOptionPane.ERROR_MESSAGE);
+
+            } else {
+                //update table
+                model.setValueAt(pCentreName, tableCentre.getSelectedRow(), 0);
+                model.setValueAt(centreAddE, tableCentre.getSelectedRow(), 1);
+                model.setValueAt(vaccineTypeE, tableCentre.getSelectedRow(), 2);
+                model.setValueAt(amountE, tableCentre.getSelectedRow(), 3);
+
+                String file = "centre.txt";
+                String tempCentreFile = "TempCentre.txt";
+                File oldCentreFile = new File(file);
+                File newCentreFile = new File(tempCentreFile);
+
+                try ( FileWriter fw = new FileWriter(newCentreFile, true);  BufferedWriter bw = new BufferedWriter(fw);  Scanner ss = new Scanner(oldCentreFile);) {
+
+                    ss.useDelimiter("[,\n]");
+
+                    while (ss.hasNext()) {
+                        String centreName = ss.next();
+                        String centreAdd = ss.next();
+                        String vaccineType = ss.next();
+                        int amount = ss.nextInt();
+
+                        if (pCentreName.trim().equals(centreName.trim())) {
+                            Vaccine vacineTypeEE = new Vaccine(vaccineTypeE);
+                            Centre modyCentre = new Centre(pCentreName, centreAddE, vacineTypeEE, amountE);
+                            bw.write(modyCentre.toString());
+                        } else {
+                            Vaccine vacineTypee = new Vaccine(vaccineType);
+                            Centre oriCentre = new Centre(centreName, centreAdd, vacineTypee, amount);
+                            bw.write(oriCentre.toString());
+
+                        }
+                    }
+
+                    ss.close();
+                    bw.close();
+                    fw.close();
+
+                    oldCentreFile.delete();
+
+                    File dump = new File(file);
+                    newCentreFile.renameTo(dump);
+                    JOptionPane.showMessageDialog(this, "Record Updated Successfully");
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(null, "Edit Centre record fail due to " + e);
+                    System.out.println(e);
+                }
+
+            }
+        } else {
+            if (tableCentre.getRowCount() == 0) {
+                JOptionPane.showMessageDialog(this, "Table if Empty");
+            } else {
+                JOptionPane.showMessageDialog(this, "Please select a Row for Update");
+            }
+        }
     }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void btnRemoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveActionPerformed
-        // TODO add your handling code here:
+        DefaultTableModel model = (DefaultTableModel) tableCentre.getModel();
+
+        if (tableCentre.getSelectedRowCount() == 1) {
+            int deleteBookingOption = JOptionPane.showConfirmDialog(this, "Wanted to Delete this booking record ?", "Delete Record",
+                    JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+            if (deleteBookingOption == JOptionPane.YES_OPTION) {
+
+                // delete from table
+                int i = tableCentre.getSelectedRow();
+                if (i >= 0) {
+                    // remove a row from jtable
+                    model.removeRow(i);
+                    System.out.println("Delete from table");
+                }
+
+                String file = "centre.txt";
+                String pCentreName = txtCentreName.getText();
+
+                String tempCentreFile = "TempCentre.txt";
+                File oldCentreFile = new File(file);
+                File newCentreFile = new File(tempCentreFile);
+
+                try ( FileWriter fw = new FileWriter(newCentreFile, true);  BufferedWriter bw = new BufferedWriter(fw);  Scanner ss = new Scanner(oldCentreFile);) {
+
+                    ss.useDelimiter("[,\n]");
+                    while (ss.hasNext()) {
+                        String centreName = ss.next();
+                        String centreAdd = ss.next();
+                        String vaccineType = ss.next();
+                        int amount = ss.nextInt();
+
+                        if (!pCentreName.trim().equals(centreName.trim())) {
+                            Vaccine vacineTypee = new Vaccine(vaccineType);
+                            Centre oriCentre = new Centre(centreName, centreAdd, vacineTypee, amount);
+                            bw.write(oriCentre.toString());
+                        }
+                    }
+
+                    ss.close();
+                    bw.close();
+                    fw.close();
+
+                    oldCentreFile.delete();
+                    File dump = new File(file);
+                    newCentreFile.renameTo(dump);
+
+                    //clean txt
+                    txtCentreName.setText("");
+                    txtAmount.setText("");
+                    cmbVaccineType.setSelectedIndex(-1);
+                    taCentreAdd.setText("");
+                    txtCentreName.setEnabled(true);
+
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(null, "Edit Vaccine record fail due to " + e);
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Cancel delete Centre record");
+
+            }
+        } else {
+            if (tableCentre.getRowCount() == 0) {
+                JOptionPane.showMessageDialog(this, "Table if Empty");
+            } else {
+                JOptionPane.showMessageDialog(this, "Please select a Row for Delete");
+            }
+        }
     }//GEN-LAST:event_btnRemoveActionPerformed
 
     private void txtSearchKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchKeyReleased
@@ -357,10 +490,9 @@ public class ManageCentre extends javax.swing.JFrame {
         TableModel model = tableCentre.getModel();
 
         txtCentreName.setText(model.getValueAt(i, 0).toString());
-        txtAmount.setText(model.getValueAt(i, 1).toString());
+        taCentreAdd.setText(model.getValueAt(i, 1).toString());
         cmbVaccineType.setSelectedItem(model.getValueAt(i, 2).toString());
-        taCentreAdd.setText(model.getValueAt(i, 3).toString());
-        txtCentreName.setText(model.getValueAt(i, 4).toString());
+        txtAmount.setText(model.getValueAt(i, 3).toString());
 
         //disable to edit
         txtCentreName.setEnabled(false);
@@ -411,7 +543,7 @@ public class ManageCentre extends javax.swing.JFrame {
             //after check file
             if (found == true) {
 
-                JOptionPane.showMessageDialog(this, "Vaccine already exist", "Uh Oh...", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Centre already exist", "Uh Oh...", JOptionPane.WARNING_MESSAGE);
 
             } else {
 
@@ -440,6 +572,7 @@ public class ManageCentre extends javax.swing.JFrame {
                 txtAmount.setText("");
                 cmbVaccineType.setSelectedIndex(-1);
                 taCentreAdd.setText("");
+                txtCentreName.setEnabled(false);
             }
 
         } catch (Exception e) {

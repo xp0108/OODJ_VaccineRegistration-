@@ -303,8 +303,8 @@ public class ManageVaccine extends javax.swing.JFrame {
         if (tableVaccine.getSelectedRowCount() == 1) {
             //single row selected than update
             String pVaccineType = txtVaccineType.getText();
-            int amountE = Integer.valueOf((String) cmbDuration.getSelectedItem());
-            int durationE = Integer.parseInt(txtAmount.getText());
+            int durationE = Integer.valueOf((String) cmbDuration.getSelectedItem());
+            int amountE = Integer.parseInt(txtAmount.getText());
 
             if (pVaccineType.equals("") || txtAmount.getText().equals("")) {
                 JOptionPane.showMessageDialog(null, "Please fill up the all the details.", "Empty text field found !", JOptionPane.ERROR_MESSAGE);
@@ -320,40 +320,29 @@ public class ManageVaccine extends javax.swing.JFrame {
                 File oldVaccineFile = new File(file);
                 File newVaccineFile = new File(tempVaccineFile);
 
-                try ( FileWriter fw = new FileWriter(newVaccineFile, true);  
-                        BufferedWriter bw = new BufferedWriter(fw);  
-                        Scanner ss = new Scanner(file);) {
+                try ( FileWriter fw = new FileWriter(newVaccineFile, true);  BufferedWriter bw = new BufferedWriter(fw);  Scanner ss = new Scanner(oldVaccineFile);) {
 
                     ss.useDelimiter("[,\n]");
 
                     while (ss.hasNext()) {
                         String vaccineType = ss.next();
-                        String amount = ss.next();
-                        String duration = ss.next();
+                        int amount = ss.nextInt();
+                        int duration = ss.nextInt();
 
                         if (pVaccineType.trim().equals(vaccineType.trim())) {
-                            bw.write(pVaccineType);
-                            bw.write(",");
-                            bw.write(durationE);
-                            bw.write(",");
-                            bw.write(amountE);
-                            bw.write("\n");
+                            Vaccine modyVaccine = new Vaccine(pVaccineType, durationE, amountE);
+                            bw.write(modyVaccine.toString());
                         } else {
-//                            Vaccine remainVaccine = new Vaccine(vaccineType, amount, duration);
-//                            bw.write(remainVaccine.toString());
-                            bw.write(vaccineType);
-                            bw.write(",");
-                            bw.write(duration);
-                            bw.write(",");
-                            bw.write(amount);
-                            bw.write("\n");
+                            Vaccine remainVaccine = new Vaccine(vaccineType, amount, duration);
+                            bw.write(remainVaccine.toString());
+
                         }
                     }
 
                     ss.close();
                     bw.close();
                     fw.close();
-                    
+
                     System.out.println("flie close");
 
                     oldVaccineFile.delete();
@@ -383,7 +372,7 @@ public class ManageVaccine extends javax.swing.JFrame {
         DefaultTableModel model = (DefaultTableModel) tableVaccine.getModel();
 
         if (tableVaccine.getSelectedRowCount() == 1) {
-            int deleteBookingOption = JOptionPane.showConfirmDialog(this, "Wanted to Delete this Vaccine record ?", "Delete Record",
+            int deleteBookingOption = JOptionPane.showConfirmDialog(this, "Wanted to Delete this booking record ?", "Delete Record",
                     JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
             if (deleteBookingOption == JOptionPane.YES_OPTION) {
 
@@ -394,10 +383,6 @@ public class ManageVaccine extends javax.swing.JFrame {
                     model.removeRow(i);
                     System.out.println("Delete from table");
                 }
-                //clean txt
-                txtVaccineType.setText("");
-                txtAmount.setText("");
-                cmbDuration.setSelectedIndex(0);
 
                 String file = "vaccine.txt";
                 String pVaccineType = txtVaccineType.getText();
@@ -406,41 +391,41 @@ public class ManageVaccine extends javax.swing.JFrame {
                 File oldVaccineFile = new File(file);
                 File newVaccineFile = new File(tempVaccineFile);
 
-                try ( FileWriter fw = new FileWriter(newVaccineFile, true);  BufferedWriter bw = new BufferedWriter(fw);  Scanner scanner = new Scanner(new File(file));) {
-                    scanner.useDelimiter("[,\n]");
-                    while (scanner.hasNext()) {
-                        String vaccineType = scanner.next();
-                        String amount = scanner.next();
-                        String duration = scanner.next();
+                try ( FileWriter fw = new FileWriter(newVaccineFile, true);  BufferedWriter bw = new BufferedWriter(fw);  Scanner ss = new Scanner(oldVaccineFile);) {
 
-                        if (!pVaccineType.equals(vaccineType)) {
-                            bw.write(pVaccineType);
-                            bw.write(vaccineType);
-                            bw.write(",");
-                            bw.write(duration);
-                            bw.write(",");
-                            bw.write(amount);
-                            bw.write("\n");
+                    ss.useDelimiter("[,\n]");
+                    while (ss.hasNext()) {
+                        String vaccineType = ss.next();
+                        int amount = ss.nextInt();
+                        int duration = ss.nextInt();
+
+                        if (!pVaccineType.trim().equals(vaccineType.trim())) {
+                            Vaccine remainVaccine = new Vaccine(vaccineType, amount, duration);
+                            bw.write(remainVaccine.toString());
                         }
                     }
 
-                    scanner.close();
-                    fw.close();
+                    ss.close();
                     bw.close();
+                    fw.close();
 
                     oldVaccineFile.delete();
                     File dump = new File(file);
                     newVaccineFile.renameTo(dump);
-                    JOptionPane.showMessageDialog(null, "Booking record delete successfully !");
+                    JOptionPane.showMessageDialog(null, "Vaccine record delete successfully !");
+
+                    //clean txt
+                    txtVaccineType.setText("");
+                    txtAmount.setText("");
+                    cmbDuration.setSelectedIndex(0);
+                    txtVaccineType.setEnabled(true);
 
                 } catch (Exception e) {
-                    JOptionPane.showMessageDialog(null, "Edit Booking record fail due to " + e);
+                    JOptionPane.showMessageDialog(null, "Edit Vaccine record fail due to " + e);
                 }
             } else {
-//                assignmentjp_bookingsystem.Login loginPage = new assignmentjp_bookingsystem.Login();
-//                loginPage.setVisible(false);
-//                JOptionPane.showMessageDialog(null, "Cancel delete booking record");
-//                this.setVisible(true);
+                JOptionPane.showMessageDialog(null, "Cancel delete Vaccine record");
+
             }
         } else {
             if (tableVaccine.getRowCount() == 0) {

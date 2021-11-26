@@ -1,4 +1,3 @@
-Sinoc,3,100
-AZ,8,100
-sin,2,22
-Pfizer,4,20
+asd,4,111
+AZ,3,1000
+Pfizer,3,2000
