@@ -392,9 +392,9 @@ public class ManageCentre extends javax.swing.JFrame {
         DefaultTableModel model = (DefaultTableModel) tableCentre.getModel();
 
         if (tableCentre.getSelectedRowCount() == 1) {
-            int deleteBookingOption = JOptionPane.showConfirmDialog(this, "Wanted to Delete this booking record ?", "Delete Record",
+            int deleteCentreOption = JOptionPane.showConfirmDialog(this, "Wanted to Delete this Centre record ?", "Delete Record",
                     JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-            if (deleteBookingOption == JOptionPane.YES_OPTION) {
+            if (deleteCentreOption == JOptionPane.YES_OPTION) {
 
                 // delete from table
                 int i = tableCentre.getSelectedRow();
@@ -465,7 +465,7 @@ public class ManageCentre extends javax.swing.JFrame {
         tableCentre.setRowSorter(tr);
         tr.setRowFilter(RowFilter.regexFilter(search));
 
-      
+
     }//GEN-LAST:event_txtSearchKeyReleased
 
     private void btnBack1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBack1ActionPerformed
