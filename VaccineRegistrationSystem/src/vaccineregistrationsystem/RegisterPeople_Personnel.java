@@ -312,7 +312,7 @@ public class RegisterPeople_Personnel extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_txtRegisterDOBFocusLost
 
-    public static Scanner y;
+    public static Scanner scanner;
 
     public void checkFile(String PeopleIC, String PeopleName, String filepath) {
         boolean found = false;
@@ -320,15 +320,15 @@ public class RegisterPeople_Personnel extends javax.swing.JFrame {
         String tempPeopleName = txtRegisterName.getText();
 
         try {
-            y = new Scanner(new File(filepath));
-            y.useDelimiter("[,\n]");
+            scanner = new Scanner(new File(filepath));
+            scanner.useDelimiter("[,\n]");
 
-            while (y.hasNext() && !found) {
-                tempPeopleIC = y.next();
-                tempPeopleName = y.next();
-                y.next();
-                y.next();
-                y.next();
+            while (scanner.hasNext() && !found) {
+                tempPeopleIC = scanner.next();
+                tempPeopleName = scanner.next();
+                scanner.next();
+                scanner.next();
+                scanner.next();
 
                 if (tempPeopleIC.trim().equals(PeopleIC.trim()) || tempPeopleName.trim().equals(PeopleName.trim())) {
                     found = true;
