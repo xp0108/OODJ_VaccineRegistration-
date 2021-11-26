@@ -1,7 +1,20 @@
 package vaccineregistrationsystem;
 
+import java.awt.Font;
+import java.awt.HeadlessException;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
 /**
@@ -16,6 +29,8 @@ public class ManageAppointment extends javax.swing.JFrame {
     public ManageAppointment() {
         initComponents();
         setLocationRelativeTo(null);
+        ShowDose1();
+        ShowDose2();
         tableDose1.setDefaultEditor(Object.class, null);
         tableDose2.setDefaultEditor(Object.class, null);
     }
@@ -54,7 +69,7 @@ public class ManageAppointment extends javax.swing.JFrame {
         btnBack = new javax.swing.JButton();
         lblRegisterName7 = new javax.swing.JLabel();
         cmbCentre = new javax.swing.JComboBox<>();
-        btnAdd = new javax.swing.JButton();
+        btnClear = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Covid-19 Vaccine Registration System |  Manage Vaccine Appointment");
@@ -76,6 +91,11 @@ public class ManageAppointment extends javax.swing.JFrame {
                 "IC/Passport", "Name", "Centre", "Date", "Status"
             }
         ));
+        tableDose1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tableDose1MouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tableDose1);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -119,6 +139,11 @@ public class ManageAppointment extends javax.swing.JFrame {
                 "IC/Passport", "Name", "Centre", "Date", "Status"
             }
         ));
+        tableDose2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tableDose2MouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(tableDose2);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -147,14 +172,12 @@ public class ManageAppointment extends javax.swing.JFrame {
         lblRegisterName3.setForeground(new java.awt.Color(0, 0, 0));
 
         txtIC.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        txtIC.setEnabled(false);
 
         lblRegisterName4.setText("Name:");
         lblRegisterName4.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         lblRegisterName4.setForeground(new java.awt.Color(0, 0, 0));
 
         txtName.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        txtName.setEnabled(false);
 
         lblRegisterName1.setText("Search IC/Passport:");
         lblRegisterName1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -167,6 +190,8 @@ public class ManageAppointment extends javax.swing.JFrame {
             }
         });
 
+        dpAppDate.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+
         lblRegisterName5.setText("Appointment Date:");
         lblRegisterName5.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         lblRegisterName5.setForeground(new java.awt.Color(0, 0, 0));
@@ -175,7 +200,7 @@ public class ManageAppointment extends javax.swing.JFrame {
         lblRegisterName6.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         lblRegisterName6.setForeground(new java.awt.Color(0, 0, 0));
 
-        cmbAppStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-Appointment Status-", "Panding", "Active", "Done", "Cancel" }));
+        cmbAppStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-Appointment Status-", "Pending", "Active", "Done", "Cancel" }));
         cmbAppStatus.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         cmbAppStatus.setToolTipText("");
 
@@ -213,17 +238,26 @@ public class ManageAppointment extends javax.swing.JFrame {
         lblRegisterName7.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         lblRegisterName7.setForeground(new java.awt.Color(0, 0, 0));
 
-        cmbCentre.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-Centre-", "Centre 1", "Centre 2", "Centre 3", "Centre 4", "Centre 5", "Centre 6" }));
+        cmbCentre.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-Centre-" }));
         cmbCentre.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         cmbCentre.setToolTipText("");
+        cmbCentre.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
+            public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
+            }
+            public void popupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {
+            }
+            public void popupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {
+                cmbCentrePopupMenuWillBecomeVisible(evt);
+            }
+        });
 
-        btnAdd.setBackground(new java.awt.Color(0, 0, 0));
-        btnAdd.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        btnAdd.setForeground(new java.awt.Color(255, 255, 255));
-        btnAdd.setText("Add");
-        btnAdd.addActionListener(new java.awt.event.ActionListener() {
+        btnClear.setText("Clear");
+        btnClear.setBackground(new java.awt.Color(0, 0, 0));
+        btnClear.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        btnClear.setForeground(new java.awt.Color(255, 255, 255));
+        btnClear.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAddActionPerformed(evt);
+                btnClearActionPerformed(evt);
             }
         });
 
@@ -246,12 +280,12 @@ public class ManageAppointment extends javax.swing.JFrame {
                                 .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
                                 .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnClear)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnRemove)
-                                .addGap(251, 251, 251)
+                                .addGap(255, 255, 255)
                                 .addComponent(btnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(3, 3, 3))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
@@ -324,10 +358,10 @@ public class ManageAppointment extends javax.swing.JFrame {
                     .addComponent(lblRegisterName5))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnBack)
                     .addComponent(btnUpdate)
                     .addComponent(btnRemove, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnBack)
-                    .addComponent(btnAdd))
+                    .addComponent(btnClear))
                 .addContainerGap())
         );
 
@@ -348,11 +382,17 @@ public class ManageAppointment extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtSearchKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchKeyReleased
-        DefaultTableModel model = (DefaultTableModel) tableDose1.getModel();
-        String search = txtSearch.getText().toLowerCase();
-        TableRowSorter<DefaultTableModel> tr = new TableRowSorter<DefaultTableModel>(model);
-        tableDose1.setRowSorter(tr);
-        tr.setRowFilter(RowFilter.regexFilter(search));
+        DefaultTableModel modelDose1 = (DefaultTableModel) tableDose1.getModel();
+        String searchDose1 = txtSearch.getText();
+        TableRowSorter<DefaultTableModel> tr1 = new TableRowSorter<DefaultTableModel>(modelDose1);
+        tableDose1.setRowSorter(tr1);
+        tr1.setRowFilter(RowFilter.regexFilter(searchDose1));
+
+        DefaultTableModel modelDose2 = (DefaultTableModel) tableDose2.getModel();
+        String searchDose2 = txtSearch.getText().toString();
+        TableRowSorter<DefaultTableModel> tr2 = new TableRowSorter<DefaultTableModel>(modelDose2);
+        tableDose1.setRowSorter(tr2);
+        tr2.setRowFilter(RowFilter.regexFilter(searchDose2));
     }//GEN-LAST:event_txtSearchKeyReleased
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
@@ -552,13 +592,124 @@ public class ManageAppointment extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_btnBackActionPerformed
 
-    private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnAddActionPerformed
+    private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
+        txtIC.setText("");
+        txtName.setText("");
+        cmbAppStatus.setSelectedIndex(0);
+        cmbCentre.setSelectedIndex(0);
+        dpAppDate.setText("");
 
-    /**
-     * @param args the command line arguments
-     */
+    }//GEN-LAST:event_btnClearActionPerformed
+
+    private void cmbCentrePopupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_cmbCentrePopupMenuWillBecomeVisible
+
+        try {
+            String file = "centre.txt";
+            BufferedReader br = new BufferedReader(new FileReader(file));
+            List<String> centreList = new ArrayList<String>();
+            String line;
+            try {
+                while ((line = br.readLine()) != null) {
+                    String[] loginarr = line.split("[,\n]");
+                    centreList.add(loginarr[0]);
+                }
+            } catch (FileNotFoundException e) {
+                System.err.println("Error, file " + file + " didn't exist.");
+            } finally {
+                br.close();
+            }
+            DefaultComboBoxModel<String> lineArray = new DefaultComboBoxModel(centreList.toArray());
+
+            cmbCentre.setModel(lineArray);
+        } catch (HeadlessException | IOException e) {
+            System.out.println(e);
+        }
+    }//GEN-LAST:event_cmbCentrePopupMenuWillBecomeVisible
+
+    private void tableDose1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableDose1MouseClicked
+        int i = tableDose1.getSelectedRow();
+        TableModel model = tableDose1.getModel();
+
+        txtIC.setText(model.getValueAt(i, 0).toString());
+        txtName.setText(model.getValueAt(i, 1).toString());
+        cmbCentre.setSelectedItem(model.getValueAt(i, 2).toString());
+        dpAppDate.setText(model.getValueAt(i, 3).toString());
+        cmbAppStatus.setSelectedItem(model.getValueAt(i, 4).toString());
+
+        //disable to edit
+        txtIC.setEnabled(false);
+        txtName.setEnabled(false);
+    }//GEN-LAST:event_tableDose1MouseClicked
+
+    private void tableDose2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableDose2MouseClicked
+        int i = tableDose2.getSelectedRow();
+        TableModel model = tableDose2.getModel();
+
+        txtIC.setText(model.getValueAt(i, 0).toString());
+        txtName.setText(model.getValueAt(i, 1).toString());
+        cmbCentre.setSelectedItem(model.getValueAt(i, 2).toString());
+        dpAppDate.setText(model.getValueAt(i, 3).toString());
+        cmbAppStatus.setSelectedItem(model.getValueAt(i, 4).toString());
+
+        //disable to edit
+        txtIC.setEnabled(false);
+        txtName.setEnabled(false);
+    }//GEN-LAST:event_tableDose2MouseClicked
+
+    public void ShowDose1() {
+        // show data in the JTable
+        File fileDose1 = new File("dose1.txt");
+        try ( BufferedReader br = new BufferedReader(new FileReader(fileDose1));) {
+            tableDose1.getTableHeader().setFont(new Font("SansSerif", Font.BOLD, 15));
+
+            DefaultTableModel model = (DefaultTableModel) tableDose1.getModel();
+
+            Object[] data = br.lines().toArray();
+
+            // extratct data from lines
+            // set data to jtable model
+            for (int i = 0; i < data.length; i++) {
+                String line = data[i].toString().trim();
+                String[] dataRow = line.split("[,\n]");
+
+                model.addRow(dataRow);
+
+            }
+            br.close();
+
+        } catch (IOException ex) {
+            Logger.getLogger(ManageCentre.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+
+    public void ShowDose2() {
+        // show data in the JTable
+        File fileDose2 = new File("dose2.txt");
+        try ( BufferedReader br = new BufferedReader(new FileReader(fileDose2));) {
+            tableDose1.getTableHeader().setFont(new Font("SansSerif", Font.BOLD, 15));
+
+            DefaultTableModel model = (DefaultTableModel) tableDose2.getModel();
+
+            Object[] data = br.lines().toArray();
+
+            // extratct data from lines
+            // set data to jtable model
+            for (int i = 0; i < data.length; i++) {
+                String line = data[i].toString().trim();
+                String[] dataRow = line.split("[,\n]");
+
+                model.addRow(dataRow);
+
+            }
+            br.close();
+
+        } catch (IOException ex) {
+            Logger.getLogger(ManageCentre.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -592,8 +743,8 @@ public class ManageAppointment extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnBack;
+    private javax.swing.JButton btnClear;
     private javax.swing.JButton btnRemove;
     private javax.swing.JButton btnUpdate;
     private javax.swing.JComboBox<String> cmbAppStatus;

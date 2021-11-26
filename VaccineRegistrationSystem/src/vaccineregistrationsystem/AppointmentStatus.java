@@ -1,11 +1,10 @@
 package vaccineregistrationsystem;
 
-
 public class AppointmentStatus {
 
-    public String pending = "Pending";
-    public String active = "Active";
-    public String done = "Done";
+    private String pending = "Pending";
+    private String active = "Active";
+    private String done = "Done";
 
     public String pending() {
         return pending;

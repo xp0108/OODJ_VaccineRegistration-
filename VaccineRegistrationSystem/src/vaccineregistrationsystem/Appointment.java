@@ -2,10 +2,11 @@ package vaccineregistrationsystem;
 
 public class Appointment {
 
-    public String appPeopleIC;
-    public String appPeopleName;
-    public String appdate;
-    public Centre appcentre;
+    private String appPeopleIC;
+    private String appPeopleName;
+    private String appdate;
+    private Centre appcentre;
+    private AppointmentStatus appointmentStatus;
 
     public Appointment() {
     }
@@ -49,23 +50,24 @@ public class Appointment {
         this.appcentre = appcentre;
     }
 
-    public void pending() {
+    public String pending() {
         AppointmentStatus appPending = new AppointmentStatus(); //composition
-        appPending.pending();
+//        appPending.pending();
+        return appPending.pending();
     }
 
-    public void active() {
+    public String active() {
         AppointmentStatus appActive = new AppointmentStatus(); //composition
-        appActive.active();
+        return appActive.active();
     }
 
-    public void done() {
+    public String done() {
         AppointmentStatus appDane = new AppointmentStatus(); //composition
-        appDane.done();
+        return appDane.done();
     }
 
     public String toString() {
-        return appPeopleIC + "," + appPeopleName + "," + appcentre + "," + appdate;
+        return appPeopleIC + "," + appPeopleName + "," + appcentre + "," + appdate + ",";
     }
 
 }

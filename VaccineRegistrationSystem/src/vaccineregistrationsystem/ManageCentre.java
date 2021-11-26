@@ -1,8 +1,26 @@
 package vaccineregistrationsystem;
 
+import java.awt.Font;
+import java.awt.HeadlessException;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
 import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
+import static vaccineregistrationsystem.ManageVaccine.scnnaer;
 
 public class ManageCentre extends javax.swing.JFrame {
 
@@ -11,6 +29,11 @@ public class ManageCentre extends javax.swing.JFrame {
      */
     public ManageCentre() {
         initComponents();
+        setLocationRelativeTo(null);
+        ShowCentreData();
+        ShowCmbVeccineTypeData();
+        cmbVaccineType.setSelectedIndex(-1);
+        tableCentre.setDefaultEditor(Object.class, null);
     }
 
     /**
@@ -41,6 +64,7 @@ public class ManageCentre extends javax.swing.JFrame {
         lblRegisterName6 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         taCentreAdd = new javax.swing.JTextArea();
+        btnClear = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Covid-19 Vaccine Registration System |  Manage Vaccine Centre");
@@ -49,27 +73,36 @@ public class ManageCentre extends javax.swing.JFrame {
 
         txtAmount.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
+        lblRegisterName4.setText("Centre Address:");
         lblRegisterName4.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         lblRegisterName4.setForeground(new java.awt.Color(0, 0, 0));
-        lblRegisterName4.setText("Centre Address:");
 
+        lblRegisterName5.setText("Vaccine Amount:");
         lblRegisterName5.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         lblRegisterName5.setForeground(new java.awt.Color(0, 0, 0));
-        lblRegisterName5.setText("Vaccine Amount:");
 
-        cmbVaccineType.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         cmbVaccineType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-Vaccine Type-" }));
+        cmbVaccineType.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         cmbVaccineType.setToolTipText("");
+        cmbVaccineType.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
+            public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
+            }
+            public void popupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {
+            }
+            public void popupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {
+                cmbVaccineTypePopupMenuWillBecomeVisible(evt);
+            }
+        });
 
-        jLabel4.setFont(new java.awt.Font("Algerian", 1, 24)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(0, 0, 0));
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel4.setText("Manage Vaccine Centre");
+        jLabel4.setFont(new java.awt.Font("Algerian", 1, 24)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(0, 0, 0));
 
+        btnAdd.setText("Add");
         btnAdd.setBackground(new java.awt.Color(0, 0, 0));
         btnAdd.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         btnAdd.setForeground(new java.awt.Color(255, 255, 255));
-        btnAdd.setText("Add");
         btnAdd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAddActionPerformed(evt);
@@ -84,22 +117,27 @@ public class ManageCentre extends javax.swing.JFrame {
                 "Centre Name", "Centre Address", "Vaccine Type", "Centre' Vaccine Amount"
             }
         ));
+        tableCentre.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tableCentreMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tableCentre);
 
+        btnUpdate.setText("Update");
         btnUpdate.setBackground(new java.awt.Color(0, 0, 0));
         btnUpdate.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         btnUpdate.setForeground(new java.awt.Color(255, 255, 255));
-        btnUpdate.setText("Update");
         btnUpdate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnUpdateActionPerformed(evt);
             }
         });
 
+        btnRemove.setText("Remove");
         btnRemove.setBackground(new java.awt.Color(0, 0, 0));
         btnRemove.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         btnRemove.setForeground(new java.awt.Color(255, 255, 255));
-        btnRemove.setText("Remove");
         btnRemove.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRemoveActionPerformed(evt);
@@ -113,34 +151,44 @@ public class ManageCentre extends javax.swing.JFrame {
             }
         });
 
+        btnBack1.setText("Back");
         btnBack1.setBackground(new java.awt.Color(0, 0, 0));
         btnBack1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnBack1.setForeground(new java.awt.Color(255, 255, 255));
-        btnBack1.setText("Back");
         btnBack1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBack1ActionPerformed(evt);
             }
         });
 
+        lblRegisterName1.setText("Centre Name:");
         lblRegisterName1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         lblRegisterName1.setForeground(new java.awt.Color(0, 0, 0));
-        lblRegisterName1.setText("Centre Name:");
 
         txtCentreName.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
+        lblRegisterName3.setText("Centre Name:");
         lblRegisterName3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         lblRegisterName3.setForeground(new java.awt.Color(0, 0, 0));
-        lblRegisterName3.setText("Centre Name:");
 
+        lblRegisterName6.setText("Vaccine Type:");
         lblRegisterName6.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         lblRegisterName6.setForeground(new java.awt.Color(0, 0, 0));
-        lblRegisterName6.setText("Vaccine Type:");
 
         taCentreAdd.setColumns(20);
-        taCentreAdd.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         taCentreAdd.setRows(5);
+        taCentreAdd.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jScrollPane2.setViewportView(taCentreAdd);
+
+        btnClear.setText("Clear");
+        btnClear.setBackground(new java.awt.Color(0, 0, 0));
+        btnClear.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        btnClear.setForeground(new java.awt.Color(255, 255, 255));
+        btnClear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnClearActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -156,9 +204,7 @@ public class ManageCentre extends javax.swing.JFrame {
                         .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnRemove, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(187, 187, 187)
+                        .addGap(302, 302, 302)
                         .addComponent(btnBack1)
                         .addGap(247, 247, 247))))
             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -167,22 +213,31 @@ public class ManageCentre extends javax.swing.JFrame {
                         .addContainerGap()
                         .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 873, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(19, 19, 19)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(lblRegisterName3)
-                            .addComponent(lblRegisterName4))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtCentreName, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(19, 19, 19)
+                                .addComponent(lblRegisterName4)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(36, 36, 36)
+                                .addComponent(lblRegisterName3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtCentreName, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(26, 26, 26)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(lblRegisterName6)
-                            .addComponent(lblRegisterName5))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtAmount)
-                            .addComponent(cmbVaccineType, 0, 170, Short.MAX_VALUE))))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(btnClear)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnRemove, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(lblRegisterName6)
+                                    .addComponent(lblRegisterName5))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(txtAmount)
+                                    .addComponent(cmbVaccineType, 0, 170, Short.MAX_VALUE))))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(217, 217, 217)
@@ -202,34 +257,35 @@ public class ManageCentre extends javax.swing.JFrame {
                     .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(24, 24, 24)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lblRegisterName3)
                             .addComponent(txtCentreName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(31, 31, 31)
+                                .addGap(13, 13, 13)
                                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(42, 42, 42)
-                                .addComponent(lblRegisterName4))))
+                                .addGap(24, 24, 24)
+                                .addComponent(lblRegisterName4)))
+                        .addGap(44, 44, 44)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnAdd)
+                            .addComponent(btnUpdate)
+                            .addComponent(btnRemove, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnBack1)
+                            .addComponent(btnClear)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(13, 13, 13)
+                        .addGap(28, 28, 28)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(cmbVaccineType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lblRegisterName6))
-                        .addGap(33, 33, 33)
+                        .addGap(46, 46, 46)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lblRegisterName5)
                             .addComponent(txtAmount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(44, 44, 44)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnAdd)
-                    .addComponent(btnUpdate)
-                    .addComponent(btnRemove, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnBack1))
                 .addContainerGap(20, Short.MAX_VALUE))
         );
 
@@ -249,6 +305,16 @@ public class ManageCentre extends javax.swing.JFrame {
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
 
+        if (txtCentreName.getText().isEmpty() || txtAmount.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this,
+                    "Please fill up all the fills", "Uh Oh...",
+                    JOptionPane.WARNING_MESSAGE);
+        } else {
+            Vaccine vaccineType = new Vaccine(String.valueOf(cmbVaccineType.getSelectedItem()));
+
+            int amount = Integer.parseInt(txtAmount.getText());
+            AddCentre(txtCentreName.getText(), taCentreAdd.getText(), vaccineType, amount);
+        }
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
@@ -273,9 +339,139 @@ public class ManageCentre extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_btnBack1ActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
+    private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
+        txtCentreName.setText("");
+        txtAmount.setText("");
+        cmbVaccineType.setSelectedIndex(-1);
+        taCentreAdd.setText("");
+        txtCentreName.setEnabled(true);
+    }//GEN-LAST:event_btnClearActionPerformed
+
+    private void cmbVaccineTypePopupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_cmbVaccineTypePopupMenuWillBecomeVisible
+
+        ShowCmbVeccineTypeData();
+    }//GEN-LAST:event_cmbVaccineTypePopupMenuWillBecomeVisible
+
+    private void tableCentreMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableCentreMouseClicked
+        int i = tableCentre.getSelectedRow();
+        TableModel model = tableCentre.getModel();
+
+        txtCentreName.setText(model.getValueAt(i, 0).toString());
+        txtAmount.setText(model.getValueAt(i, 1).toString());
+        cmbVaccineType.setSelectedItem(model.getValueAt(i, 2).toString());
+        taCentreAdd.setText(model.getValueAt(i, 3).toString());
+        txtCentreName.setText(model.getValueAt(i, 4).toString());
+
+        //disable to edit
+        txtCentreName.setEnabled(false);
+    }//GEN-LAST:event_tableCentreMouseClicked
+    public void ShowCentreData() {
+        // show data in the JTable
+        File fileVaccine = new File("centre.txt");
+        try ( BufferedReader br = new BufferedReader(new FileReader(fileVaccine));) {
+            tableCentre.getTableHeader().setFont(new Font("SansSerif", Font.BOLD, 15));
+
+            DefaultTableModel model = (DefaultTableModel) tableCentre.getModel();
+
+            Object[] data = br.lines().toArray();
+
+            // extratct data from lines
+            // set data to jtable model
+            for (int i = 0; i < data.length; i++) {
+                String line = data[i].toString().trim();
+                String[] dataRow = line.split("[,\n]");
+
+                model.addRow(dataRow);
+
+            }
+            br.close();
+
+        } catch (IOException ex) {
+            Logger.getLogger(ManageCentre.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+
+    public void AddCentre(String CentreName, String Address, Vaccine Type, int Amount) {
+        boolean found = false;
+        String tmpCentreName = txtCentreName.getText();
+
+        try {
+            scnnaer = new Scanner(new File("centre.txt"));
+            scnnaer.useDelimiter("[,\n]");
+
+            while (scnnaer.hasNext() && !found) {
+                tmpCentreName = scnnaer.next();
+
+                if (tmpCentreName.trim().equals(CentreName.trim())) {
+                    found = true;
+                }
+            }
+
+            //after check file
+            if (found == true) {
+
+                JOptionPane.showMessageDialog(this, "Vaccine already exist", "Uh Oh...", JOptionPane.WARNING_MESSAGE);
+
+            } else {
+
+                try {
+                    File file = new File("centre.txt");
+                    FileWriter fw = new FileWriter(file, true);
+                    BufferedWriter bw = new BufferedWriter(fw);
+
+                    Centre addCentre = new Centre(CentreName, Address, Type, Amount);
+                    bw.write(addCentre.toString());
+
+                    bw.close();
+                    fw.close();
+                    JOptionPane.showMessageDialog(this, "Add Centre Successfully", "Success", JOptionPane.INFORMATION_MESSAGE);
+
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(this, "Error saving or loading data!!!", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+
+//                Add data into jtable
+                Object[] dataRow = {CentreName, Address, cmbVaccineType.getSelectedItem(), Amount};
+                DefaultTableModel model = (DefaultTableModel) tableCentre.getModel();
+                model.addRow(dataRow);
+
+                txtCentreName.setText("");
+                txtAmount.setText("");
+                cmbVaccineType.setSelectedIndex(-1);
+                taCentreAdd.setText("");
+            }
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Something went wrong, please try again!!!", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+
+    }
+
+    public void ShowCmbVeccineTypeData() {
+        try {
+            String file = "vaccine.txt";
+            BufferedReader br = new BufferedReader(new FileReader(file));
+            List<String> vaccineTypes = new ArrayList<String>();
+            String line;
+            try {
+                while ((line = br.readLine()) != null) {
+                    String[] loginarr = line.split("[,\n]");
+                    vaccineTypes.add(loginarr[0]);
+                }
+            } catch (FileNotFoundException e) {
+                System.err.println("Error, file " + file + " didn't exist.");
+            } finally {
+                br.close();
+            }
+            DefaultComboBoxModel<String> lineArray = new DefaultComboBoxModel(vaccineTypes.toArray());
+
+            cmbVaccineType.setModel(lineArray);
+        } catch (HeadlessException | IOException e) {
+            System.out.println(e);
+        }
+    }
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -311,6 +507,7 @@ public class ManageCentre extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnBack1;
+    private javax.swing.JButton btnClear;
     private javax.swing.JButton btnRemove;
     private javax.swing.JButton btnUpdate;
     private javax.swing.JComboBox<String> cmbVaccineType;

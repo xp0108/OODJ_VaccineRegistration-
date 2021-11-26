@@ -317,7 +317,7 @@ public class ManagePeople extends javax.swing.JFrame {
                 String dob;
                 String status;
 
-                try (FileWriter fw = new FileWriter(newPeopleFile, true); BufferedWriter bw = new BufferedWriter(fw); Scanner ss = new Scanner(oldPeopleFile);) {
+                try ( FileWriter fw = new FileWriter(newPeopleFile, true);  BufferedWriter bw = new BufferedWriter(fw);  Scanner ss = new Scanner(oldPeopleFile);) {
 
                     ss.useDelimiter("[,\n]");
 
@@ -389,7 +389,7 @@ public class ManagePeople extends javax.swing.JFrame {
 
     private void txtSearchKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchKeyReleased
         DefaultTableModel model = (DefaultTableModel) tablePeople.getModel();
-        String search = txtSearch.getText().toLowerCase();
+        String search = txtSearch.getText();
         TableRowSorter<DefaultTableModel> tr = new TableRowSorter<DefaultTableModel>(model);
         tablePeople.setRowSorter(tr);
         tr.setRowFilter(RowFilter.regexFilter(search));
@@ -412,7 +412,7 @@ public class ManagePeople extends javax.swing.JFrame {
     public void ShowPeopleData() {
         // show data in the JTable
         File filePeople = new File("people.txt");
-        try (BufferedReader br = new BufferedReader(new FileReader(filePeople));) {
+        try ( BufferedReader br = new BufferedReader(new FileReader(filePeople));) {
             tablePeople.getTableHeader().setFont(new Font("SansSerif", Font.BOLD, 15));
 
             DefaultTableModel model = (DefaultTableModel) tablePeople.getModel();

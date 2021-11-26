@@ -15,6 +15,10 @@ public class Centre {
         this.CentreAmount = CentreAmount;
     }
 
+    public Centre(String CentreName) {
+        this.CentreName = CentreName;
+    }
+
 /// Constructor
     public Centre() {
     }
@@ -54,5 +58,9 @@ public class Centre {
 //    AGGREGATION 
     public void setVaccine(Vaccine vaccine) {
         this.vaccine = vaccine;
+    }
+
+    public String toString() {
+        return CentreName + "," + CentreAddress + "," + vaccine.getVaccineType() + "," + CentreAmount + "\n";
     }
 }
