@@ -471,8 +471,8 @@ public class PeopleMain extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Old Password is not match", "WARNING!!", JOptionPane.WARNING_MESSAGE);
             }
 
-        } catch (IOException e) {
-            System.out.println(e);
+        } catch (Exception e) {
+            System.out.println(e + "haha");
         }
     }
 

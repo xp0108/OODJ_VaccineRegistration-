@@ -24,9 +24,10 @@ public class Citizen extends People {
     public void setPeopleIC(String CitizenIC) {
         this.CitizenIC = CitizenIC;
     }
-
+    
+    @Override
     public String toString() {
         return CitizenIC + "," + PeopleName + "," + PeopleAddress + "," + PeopleDOB + ",No Vaccinated\n";
     }
-
+   
 }

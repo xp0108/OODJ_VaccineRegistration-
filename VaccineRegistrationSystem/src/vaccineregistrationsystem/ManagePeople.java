@@ -308,7 +308,7 @@ public class ManagePeople extends javax.swing.JFrame {
 
                 String file = "people.txt";
                 String tempPeopleFile = "TempPeople.txt";
-                File oldPeopleFile = new File("people.txt");
+                File oldPeopleFile = new File(file);
                 File newPeopleFile = new File(tempPeopleFile);
 
                 String ic;
@@ -317,7 +317,9 @@ public class ManagePeople extends javax.swing.JFrame {
                 String dob;
                 String status;
 
-                try ( FileWriter fw = new FileWriter(newPeopleFile, true);  BufferedWriter bw = new BufferedWriter(fw);  Scanner ss = new Scanner(oldPeopleFile);) {
+                try ( FileWriter fw = new FileWriter(newPeopleFile, true);  
+                        BufferedWriter bw = new BufferedWriter(fw);  
+                        Scanner ss = new Scanner(oldPeopleFile);) {
 
                     ss.useDelimiter("[,\n]");
 
@@ -355,8 +357,9 @@ public class ManagePeople extends javax.swing.JFrame {
                     }
 
                     ss.close();
-                    fw.close();
                     bw.close();
+                    fw.close();
+                    
                     System.out.println("flie close");
 
                     oldPeopleFile.delete();
