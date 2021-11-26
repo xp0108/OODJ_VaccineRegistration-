@@ -303,8 +303,8 @@ public class ManageVaccine extends javax.swing.JFrame {
         if (tableVaccine.getSelectedRowCount() == 1) {
             //single row selected than update
             String pVaccineType = txtVaccineType.getText();
-            int amountE = Integer.valueOf((String) cmbDuration.getSelectedItem());
-            int durationE = Integer.parseInt(txtAmount.getText());
+            int durationE = Integer.valueOf((String) cmbDuration.getSelectedItem());
+            int amountE = Integer.parseInt(txtAmount.getText());
 
             if (pVaccineType.equals("") || txtAmount.getText().equals("")) {
                 JOptionPane.showMessageDialog(null, "Please fill up the all the details.", "Empty text field found !", JOptionPane.ERROR_MESSAGE);
@@ -320,40 +320,29 @@ public class ManageVaccine extends javax.swing.JFrame {
                 File oldVaccineFile = new File(file);
                 File newVaccineFile = new File(tempVaccineFile);
 
-                try ( FileWriter fw = new FileWriter(newVaccineFile, true);  
-                        BufferedWriter bw = new BufferedWriter(fw);  
-                        Scanner ss = new Scanner(file);) {
+                try ( FileWriter fw = new FileWriter(newVaccineFile, true);  BufferedWriter bw = new BufferedWriter(fw);  Scanner ss = new Scanner(oldVaccineFile);) {
 
                     ss.useDelimiter("[,\n]");
 
                     while (ss.hasNext()) {
                         String vaccineType = ss.next();
-                        String amount = ss.next();
-                        String duration = ss.next();
+                        int amount = ss.nextInt();
+                        int duration = ss.nextInt();
 
                         if (pVaccineType.trim().equals(vaccineType.trim())) {
-                            bw.write(pVaccineType);
-                            bw.write(",");
-                            bw.write(durationE);
-                            bw.write(",");
-                            bw.write(amountE);
-                            bw.write("\n");
+                            Vaccine modyVaccine = new Vaccine(pVaccineType, durationE, amountE);
+                            bw.write(modyVaccine.toString());
                         } else {
-//                            Vaccine remainVaccine = new Vaccine(vaccineType, amount, duration);
-//                            bw.write(remainVaccine.toString());
-                            bw.write(vaccineType);
-                            bw.write(",");
-                            bw.write(duration);
-                            bw.write(",");
-                            bw.write(amount);
-                            bw.write("\n");
+                            Vaccine remainVaccine = new Vaccine(vaccineType, amount, duration);
+                            bw.write(remainVaccine.toString());
+
                         }
                     }
 
                     ss.close();
                     bw.close();
                     fw.close();
-                    
+
                     System.out.println("flie close");
 
                     oldVaccineFile.delete();
