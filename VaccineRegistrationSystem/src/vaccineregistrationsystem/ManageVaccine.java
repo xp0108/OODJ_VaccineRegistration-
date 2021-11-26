@@ -320,7 +320,9 @@ public class ManageVaccine extends javax.swing.JFrame {
                 File oldVaccineFile = new File(file);
                 File newVaccineFile = new File(tempVaccineFile);
 
-                try ( FileWriter fw = new FileWriter(newVaccineFile, true);  BufferedWriter bw = new BufferedWriter(fw);  Scanner ss = new Scanner(file);) {
+                try ( FileWriter fw = new FileWriter(newVaccineFile, true);  
+                        BufferedWriter bw = new BufferedWriter(fw);  
+                        Scanner ss = new Scanner(file);) {
 
                     ss.useDelimiter("[,\n]");
 
@@ -349,8 +351,9 @@ public class ManageVaccine extends javax.swing.JFrame {
                     }
 
                     ss.close();
-                    fw.close();
                     bw.close();
+                    fw.close();
+                    
                     System.out.println("flie close");
 
                     oldVaccineFile.delete();
@@ -434,10 +437,10 @@ public class ManageVaccine extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(null, "Edit Booking record fail due to " + e);
                 }
             } else {
-                assignmentjp_bookingsystem.Login loginPage = new assignmentjp_bookingsystem.Login();
-                loginPage.setVisible(false);
-                JOptionPane.showMessageDialog(null, "Cancel delete booking record");
-                this.setVisible(true);
+//                assignmentjp_bookingsystem.Login loginPage = new assignmentjp_bookingsystem.Login();
+//                loginPage.setVisible(false);
+//                JOptionPane.showMessageDialog(null, "Cancel delete booking record");
+//                this.setVisible(true);
             }
         } else {
             if (tableVaccine.getRowCount() == 0) {
@@ -482,18 +485,18 @@ public class ManageVaccine extends javax.swing.JFrame {
         txtVaccineType.setEnabled(true);
     }//GEN-LAST:event_btnClearActionPerformed
 
-    public static Scanner scnnaer;
+    public static Scanner scanner;
 
     public void AddVaccine(String VaccineType, int Duration, int Amount) {
         boolean found = false;
         String tmpVaccineType = txtVaccineType.getText();
 
         try {
-            scnnaer = new Scanner(new File("vaccine.txt"));
-            scnnaer.useDelimiter("[,\n]");
+            scanner = new Scanner(new File("vaccine.txt"));
+            scanner.useDelimiter("[,\n]");
 
-            while (scnnaer.hasNext() && !found) {
-                tmpVaccineType = scnnaer.next();
+            while (scanner.hasNext() && !found) {
+                tmpVaccineType = scanner.next();
 
                 if (tmpVaccineType.trim().equals(VaccineType.trim())) {
                     found = true;
@@ -532,6 +535,7 @@ public class ManageVaccine extends javax.swing.JFrame {
                 txtAmount.setText("");
                 cmbDuration.setSelectedIndex(-1);
             }
+            scanner.close();
 
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Something went wrong, please try again!!!", "Error", JOptionPane.ERROR_MESSAGE);

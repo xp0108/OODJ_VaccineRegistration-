@@ -25,6 +25,7 @@ public class NonCitizen extends People {
         this.PeoplePassport = PeoplePassport;
     }
 
+    @Override
     public String toString() {
         return PeoplePassport + "," + PeopleName + "," + PeopleAddress + "," + PeopleDOB + ",No Vaccinated\n";
     }
