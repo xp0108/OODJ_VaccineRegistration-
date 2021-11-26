@@ -23,6 +23,7 @@ import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
+import static vaccineregistrationsystem.ManageVaccine.scanner;
 
 public class ManageAppointment extends javax.swing.JFrame {
 
@@ -520,7 +521,8 @@ public class ManageAppointment extends javax.swing.JFrame {
         cmbAppStatus.setSelectedIndex(0);
         cmbCentre.setSelectedIndex(-1);
         dpAppDate.setText("");
-
+        txtIC.setEnabled(true);
+        txtName.setEnabled(true);
     }//GEN-LAST:event_btnClearActionPerformed
 
     private void cmbCentrePopupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_cmbCentrePopupMenuWillBecomeVisible
@@ -568,7 +570,8 @@ public class ManageAppointment extends javax.swing.JFrame {
     }//GEN-LAST:event_tableDose2MouseClicked
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
-        // TODO add your handling code here:
+        CheckDose1People(txtIC.getText(), txtName.getText());
+        AddDose1Appointment(txtIC.getText(), txtName.getText(), String.valueOf(cmbCentre.getSelectedItem()), String.valueOf(dpAppDate.getDate()), String.valueOf(cmbAppStatus.getSelectedItem()));
     }//GEN-LAST:event_btnAddActionPerformed
 
     public void ShowDose1() {
@@ -646,6 +649,111 @@ public class ManageAppointment extends javax.swing.JFrame {
             cmbCentre.setModel(lineArray);
         } catch (HeadlessException | IOException e) {
             System.out.println(e);
+        }
+    }
+
+    public void CheckDose1People(String PeopleIC, String PeopleName) {
+        boolean foundDose1People = false;
+        String tempPeopleIC = PeopleIC;
+        String tempPeopleName = PeopleName;
+        try {
+            scanner = new Scanner(new File("dose1.txt"));
+            scanner.useDelimiter("[,\n]");
+
+            while (scanner.hasNext() && !foundDose1People) {
+                tempPeopleIC = scanner.next();
+                tempPeopleName = scanner.next();
+                scanner.next();
+                scanner.next();
+                scanner.next();
+
+                if (tempPeopleIC.trim().equals(PeopleIC.trim()) || tempPeopleName.trim().equals(PeopleName.trim())) {
+                    foundDose1People = true;
+                }
+            }
+
+            //after check file
+            if (foundDose1People == true) {
+
+                JOptionPane.showMessageDialog(this, "This people have registed the Dose 1 Appointment", "Uh Oh...", JOptionPane.WARNING_MESSAGE);
+                txtIC.setText("");
+                txtName.setText("");
+                cmbAppStatus.setSelectedIndex(0);
+                cmbCentre.setSelectedIndex(-1);
+                dpAppDate.setText("");
+                txtIC.setEnabled(true);
+                txtName.setEnabled(true);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    public void AddDose1Appointment(String PeopleIC, String PeopleName, String AppCentre, String AppDate, String AppStatus) {
+        boolean foundPeople = false;
+
+        String tempPeopleIC = PeopleIC;
+        String tempPeopleName = PeopleName;
+
+        try {
+            scanner = new Scanner(new File("people.txt"));
+            scanner.useDelimiter("[,\n]");
+
+            while (scanner.hasNext() && !foundPeople) {
+                tempPeopleIC = scanner.next();
+                tempPeopleName = scanner.next();
+                scanner.next();
+                scanner.next();
+                scanner.next();
+
+                if (tempPeopleIC.trim().equals(PeopleIC.trim()) || tempPeopleName.trim().equals(PeopleName.trim())) {
+                    foundPeople = true;
+                }
+            }
+
+            //after check file
+            if (PeopleIC.equals("") || PeopleName.equals("") || AppCentre.equals("") || AppDate.equals("") || AppStatus.equals("")) {
+                JOptionPane.showMessageDialog(null, "Please fill up the all the details.", "Empty text field found !", JOptionPane.ERROR_MESSAGE);
+
+            } else if (foundPeople == false) {
+
+                JOptionPane.showMessageDialog(this, "Name and IC/Passport does not exist", "Uh Oh...", JOptionPane.WARNING_MESSAGE);
+
+            } else {
+//                add appointment
+                try {
+                    File file = new File("dose1.txt");
+                    FileWriter fw = new FileWriter(file, true);
+                    BufferedWriter bw = new BufferedWriter(fw);
+
+                    Centre centreName = new Centre(AppCentre);
+
+                    Appointment oriAppointment = new Appointment(PeopleIC, PeopleName, AppDate, centreName);
+                    oriAppointment.assignAppStatus(AppStatus);
+
+                    bw.write(oriAppointment.writeDoseFile());
+
+                    bw.close();
+                    fw.close();
+                    JOptionPane.showMessageDialog(this, "Add Dose 1 Appointment Successfully", "Success", JOptionPane.INFORMATION_MESSAGE);
+
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(this, "Error saving or loading data!!!", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+//                Add to Dose 1 table
+                Object[] dataRow = {PeopleIC, PeopleName, AppCentre, AppDate, AppStatus};
+                DefaultTableModel model = (DefaultTableModel) tableDose1.getModel();
+                model.addRow(dataRow);
+
+                txtIC.setEnabled(false);
+                txtName.setEnabled(false);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
