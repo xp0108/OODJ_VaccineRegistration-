@@ -187,7 +187,7 @@ public class Login extends javax.swing.JFrame {
                     JOptionPane.WARNING_MESSAGE);
         } else {
 
-            VerifyLogin(txtIC.getText(), txtPassowrdToStr);
+            VerifyLogin(txtIC.getText().trim(), txtPassowrdToStr);
 
         }
     }//GEN-LAST:event_btnLoginActionPerformed

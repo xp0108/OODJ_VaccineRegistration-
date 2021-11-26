@@ -1,4 +1,3 @@
-123,123,123,9999-88-44,No Vaccinated
 666,666,999,8888-55-44,No Vaccinated
 123,123,123,9999-88-44,No Vaccinated
 666,666,999,8888-55-44,No Vaccinated
