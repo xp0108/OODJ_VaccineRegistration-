@@ -1,38 +1,40 @@
 package vaccineregistrationsystem;
 
+import com.github.lgooddatepicker.components.DatePicker;
+import com.github.lgooddatepicker.components.DatePickerSettings;
 import java.awt.Font;
 import java.awt.HeadlessException;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
 import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
-/**
- *
- * @author User
- */
 public class ManageAppointment extends javax.swing.JFrame {
 
-    /**
-     * Creates new form ManageAppointment
-     */
     public ManageAppointment() {
         initComponents();
         setLocationRelativeTo(null);
         ShowDose1();
         ShowDose2();
+        ShowCentreDropDown();
         tableDose1.setDefaultEditor(Object.class, null);
         tableDose2.setDefaultEditor(Object.class, null);
+        cmbCentre.setSelectedIndex(-1);
     }
 
     /**
@@ -60,7 +62,10 @@ public class ManageAppointment extends javax.swing.JFrame {
         txtName = new javax.swing.JTextField();
         lblRegisterName1 = new javax.swing.JLabel();
         txtSearch = new javax.swing.JTextField();
-        dpAppDate = new com.github.lgooddatepicker.components.DatePicker();
+        DatePickerSettings dateSetIn = new DatePickerSettings();
+        dpAppDate = new DatePicker(dateSetIn);
+        dateSetIn.setDateRangeLimits(LocalDate.now(), LocalDate.now().plusMonths(12))
+        ;
         lblRegisterName5 = new javax.swing.JLabel();
         lblRegisterName6 = new javax.swing.JLabel();
         cmbAppStatus = new javax.swing.JComboBox<>();
@@ -70,6 +75,7 @@ public class ManageAppointment extends javax.swing.JFrame {
         lblRegisterName7 = new javax.swing.JLabel();
         cmbCentre = new javax.swing.JComboBox<>();
         btnClear = new javax.swing.JButton();
+        btnAdd = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Covid-19 Vaccine Registration System |  Manage Vaccine Appointment");
@@ -261,6 +267,16 @@ public class ManageAppointment extends javax.swing.JFrame {
             }
         });
 
+        btnAdd.setBackground(new java.awt.Color(0, 0, 0));
+        btnAdd.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        btnAdd.setForeground(new java.awt.Color(255, 255, 255));
+        btnAdd.setText("Add");
+        btnAdd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -274,19 +290,51 @@ public class ManageAppointment extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
                                 .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(btnClear)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnRemove)
                                 .addGap(255, 255, 255)
-                                .addComponent(btnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(btnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGap(47, 47, 47)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                                .addComponent(lblRegisterName5)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addComponent(dpAppDate, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                                        .addComponent(lblRegisterName4)
+                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                        .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                                        .addComponent(lblRegisterName3)
+                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                        .addComponent(txtIC, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                                        .addGap(223, 223, 223)
+                                                        .addComponent(lblRegisterName7)
+                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                        .addComponent(cmbCentre, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                                        .addGap(126, 126, 126)
+                                                        .addComponent(lblRegisterName6)
+                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                        .addComponent(cmbAppStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
+                                .addGap(0, 1, Short.MAX_VALUE)))
                         .addGap(3, 3, 3))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -294,32 +342,6 @@ public class ManageAppointment extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 348, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(219, 219, 219))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(lblRegisterName5))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(71, 71, 71)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(lblRegisterName4)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(lblRegisterName3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtIC, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblRegisterName6, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(lblRegisterName7, javax.swing.GroupLayout.Alignment.TRAILING))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(cmbCentre, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(dpAppDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(cmbAppStatus, 0, 195, Short.MAX_VALUE))
-                .addGap(116, 116, 116))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -334,16 +356,17 @@ public class ManageAppointment extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(37, 37, 37)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(41, 41, 41)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblRegisterName6)
-                            .addComponent(cmbAppStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
+                            .addComponent(cmbCentre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblRegisterName7))
+                        .addGap(29, 29, 29)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblRegisterName7)
-                            .addComponent(cmbCentre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(dpAppDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblRegisterName5))
+                        .addGap(19, 19, 19))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lblRegisterName3)
@@ -352,16 +375,17 @@ public class ManageAppointment extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lblRegisterName4)
                             .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(dpAppDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblRegisterName5))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
+                    .addComponent(lblRegisterName6)
+                    .addComponent(cmbAppStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(43, 43, 43)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnBack)
                     .addComponent(btnUpdate)
                     .addComponent(btnRemove, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnClear))
+                    .addComponent(btnClear)
+                    .addComponent(btnAdd))
                 .addContainerGap())
         );
 
@@ -389,201 +413,99 @@ public class ManageAppointment extends javax.swing.JFrame {
         tr1.setRowFilter(RowFilter.regexFilter(searchDose1));
 
         DefaultTableModel modelDose2 = (DefaultTableModel) tableDose2.getModel();
-        String searchDose2 = txtSearch.getText().toString();
+        String searchDose2 = txtSearch.getText();
         TableRowSorter<DefaultTableModel> tr2 = new TableRowSorter<DefaultTableModel>(modelDose2);
         tableDose1.setRowSorter(tr2);
         tr2.setRowFilter(RowFilter.regexFilter(searchDose2));
     }//GEN-LAST:event_txtSearchKeyReleased
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
-//        DefaultTableModel model = (DefaultTableModel) tablePeople.getModel();
-//
-//        if (tablePeople.getSelectedRowCount() == 1) {
-//            //single row selected than update
-//            String pIC = txtIC.getText();
-//            String nameE = txtName.getText();
-//            String dobE = txtDOB.getText();
-//            String addressE = taAddress.getText();
-//            String statusE = String.valueOf(cmbStatus.getSelectedItem());
-//
-//            if (nameE.equals("") || dobE.equals("") || addressE.equals("")) {
-//                JOptionPane.showMessageDialog(null, "Please fill up the all the details.", "Empty text field found !", JOptionPane.ERROR_MESSAGE);
-//
-//            } else {
-//                //update table
-//                model.setValueAt(pIC, tablePeople.getSelectedRow(), 0);
-//                model.setValueAt(nameE, tablePeople.getSelectedRow(), 1);
-//                model.setValueAt(addressE, tablePeople.getSelectedRow(), 2);
-//                model.setValueAt(dobE, tablePeople.getSelectedRow(), 3);
-//                model.setValueAt(statusE, tablePeople.getSelectedRow(), 4);
-//
-//                String file = "people.txt";
-//                String tempPeopleFile = "TempPeople.txt";
-//                File oldPeopleFile = new File("people.txt");
-//                File newPeopleFile = new File(tempPeopleFile);
-//
-//                String ic;
-//                String name;
-//                String add;
-//                String dob;
-//                String status;
-//
-//                try (FileWriter fw = new FileWriter(newPeopleFile, true); BufferedWriter bw = new BufferedWriter(fw); Scanner ss = new Scanner(oldPeopleFile);) {
-//
-//                    ss.useDelimiter("[,\n]");
-//
-//                    while (ss.hasNext()) {
-//                        ic = ss.next();
-//                        name = ss.next();
-//                        add = ss.next();
-//                        dob = ss.next();
-//                        status = ss.next();
-//
-//                        if (pIC.trim().equals(ic.trim())) {
-//                            bw.write(pIC);
-//                            bw.write(",");
-//                            bw.write(nameE);
-//                            bw.write(",");
-//                            bw.write(addressE);
-//                            bw.write(",");
-//                            bw.write(dobE);
-//                            bw.write(",");
-//                            bw.write(statusE);
-//                            bw.write("\n");
-//                        } else {
-//                            bw.write(ic);
-//                            bw.write(",");
-//                            bw.write(name);
-//                            bw.write(",");
-//                            bw.write(add);
-//                            bw.write(",");
-//                            bw.write(dob);
-//                            bw.write(",");
-//                            bw.write(status);
-//                            bw.write("\n");
-//
-//                        }
-//                    }
-//
-//                    ss.close();
-//                    fw.close();
-//                    bw.close();
-//                    System.out.println("flie close");
-//
-//                    oldPeopleFile.delete();
-//                    System.out.println("flie deleted");
-//
-//                    File dump = new File(file);
-//                    newPeopleFile.renameTo(dump);
-//                    System.out.println("flie renamed");
-//
-//                    JOptionPane.showMessageDialog(this, "Record Updated Successfully");
-//                } catch (Exception e) {
-//                    JOptionPane.showMessageDialog(null, "Edit People record fail due to " + e);
-//                }
-//
-//            }
-//        } else {
-//            if (tablePeople.getRowCount() == 0) {
-//                JOptionPane.showMessageDialog(this, "Table if Empty");
-//            } else {
-//                JOptionPane.showMessageDialog(this, "Please select a Row for Update");
-//            }
-//        }
+        DefaultTableModel modelDose1 = (DefaultTableModel) tableDose1.getModel();
+        DefaultTableModel modelDose2 = (DefaultTableModel) tableDose2.getModel();
+
+        if (tableDose1.getSelectedRowCount() == 1) {
+            //single row selected than update
+            String pIC = txtIC.getText();
+            String pName = txtName.getText();
+            String appStatusE = String.valueOf(cmbAppStatus.getSelectedItem());
+            String centreE = String.valueOf(cmbCentre.getSelectedItem());
+
+            String strAppDateE = String.valueOf(dpAppDate.getDate());
+
+            if (pIC.equals("") || pName.equals("") || appStatusE.equals("") || centreE.equals("") || strAppDateE.equals("")) {
+                JOptionPane.showMessageDialog(null, "Please fill up the all the details.", "Empty text field found !", JOptionPane.ERROR_MESSAGE);
+
+            } else {
+                //update table
+                modelDose1.setValueAt(pIC, tableDose1.getSelectedRow(), 0);
+                modelDose1.setValueAt(pName, tableDose1.getSelectedRow(), 1);
+                modelDose1.setValueAt(centreE, tableDose1.getSelectedRow(), 2);
+                modelDose1.setValueAt(strAppDateE, tableDose1.getSelectedRow(), 3);
+                modelDose1.setValueAt(appStatusE, tableDose1.getSelectedRow(), 4);
+
+                String fileDose1 = "dose1.txt";
+                String tempDose1File = "TempDose1.txt";
+                File oldDose1File = new File(fileDose1);
+                File newDose1File = new File(tempDose1File);
+
+                try ( FileWriter fw = new FileWriter(newDose1File, true);  BufferedWriter bw = new BufferedWriter(fw);  Scanner ss = new Scanner(oldDose1File);) {
+
+                    ss.useDelimiter("[,\n]");
+
+                    while (ss.hasNext()) {
+                        String IC = ss.next();
+                        String Name = ss.next();
+                        String centre = ss.next();
+                        String strAppDate = ss.next();
+                        String appStatus = ss.next();
+
+                        if (pIC.trim().equals(IC.trim()) && pName.trim().equals(Name.trim())) {
+                            //mody
+                            Centre centreNameE = new Centre(centreE);
+
+                            Appointment modyAppointment = new Appointment(pIC, pName, strAppDateE, centreNameE);
+                            modyAppointment.assignAppStatus(appStatusE);
+
+                            bw.write(modyAppointment.writeDoseFile());
+
+                        } else {
+                            //ori                      
+                            Centre centreName = new Centre(centre);
+
+                            Appointment oriAppointment = new Appointment(IC, Name, strAppDate, centreName);
+                            oriAppointment.assignAppStatus(appStatus);
+
+                            bw.write(oriAppointment.writeDoseFile());
+
+                        }
+                    }
+
+                    ss.close();
+                    bw.close();
+                    fw.close();
+
+                    oldDose1File.delete();
+
+                    File dump = new File(fileDose1);
+                    newDose1File.renameTo(dump);
+                    JOptionPane.showMessageDialog(this, "Record Updated Successfully");
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(null, "Edit Appointment record fail due to " + e);
+                    System.out.println(e);
+                }
+
+            }
+        } else {
+            if (tableDose1.getRowCount() == 0 || tableDose2.getRowCount() == 0) {
+                JOptionPane.showMessageDialog(this, "Table if Empty");
+            } else {
+                JOptionPane.showMessageDialog(this, "Please select a Row for Update");
+            }
+        }
     }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void btnRemoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveActionPerformed
-//        DefaultTableModel model = (DefaultTableModel) tablePeople.getModel();
-//
-//        if (tablePeople.getSelectedRowCount() == 1) {
-//            int deletePeopleOption = JOptionPane.showConfirmDialog(this, "Wanted to Delete this People record ?", "Delete Record",
-//                JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-//            if (deletePeopleOption == JOptionPane.YES_OPTION) {
-//
-//                // delete from table
-//                int i = tablePeople.getSelectedRow();
-//                if (i >= 0) {
-//                    // remove a row from jtable
-//                    model.removeRow(i);
-//                    System.out.println("Delete from table");
-//                }
-//
-//                //DELETE IN people.txt
-//                String peopleFile = "people.txt";
-//                String pIC = txtIC.getText();
-//
-//                String tempPeopleFile = "TempPeople.txt";
-//                File oldPeopleFile = new File("people.txt");
-//                File newPeopleFile = new File(tempPeopleFile);
-//
-//                String ic;
-//                String name;
-//                String add;
-//                String dob;
-//                String status;
-//
-//                try (FileWriter fw = new FileWriter(newPeopleFile, true); BufferedWriter bw = new BufferedWriter(fw); Scanner ss = new Scanner(oldPeopleFile);) {
-//                    ss.useDelimiter("[,\n]");
-//                    while (ss.hasNext()) {
-//                        ic = ss.next();
-//                        name = ss.next();
-//                        add = ss.next();
-//                        dob = ss.next();
-//                        status = ss.next();
-//
-//                        if (!pIC.trim().equals(ic.trim())) {
-//                            bw.write(ic);
-//                            bw.write(",");
-//                            bw.write(name);
-//                            bw.write(",");
-//                            bw.write(add);
-//                            bw.write(",");
-//                            bw.write(dob);
-//                            bw.write(",");
-//                            bw.write(status);
-//                            bw.write("\n");
-//                        }
-//                    }
-//
-//                    ss.close();
-//                    fw.close();
-//                    bw.close();
-//
-//                    oldPeopleFile.delete();
-//                    File dump = new File(peopleFile);
-//                    newPeopleFile.renameTo(dump);
-//                    JOptionPane.showMessageDialog(null, "People record delete successfully !");
-//
-//                    //clean txt
-//                    txtName.setText("");
-//                    txtIC.setText("");
-//                    txtDOB.setText("");
-//                    taAddress.setText("");
-//                    cmbStatus.setSelectedIndex(0);
-//
-//                } catch (Exception e) {
-//                    JOptionPane.showMessageDialog(null, "Edit People record fail due to " + e);
-//                }
-//
-//                //                //DELETE FROM login.txt
-//                //                String loginFile = "login.txt";
-//                //
-//                //                String tempLoginFile = "TempLogin.txt";
-//                //                File oldLoginFile = new File("login.txt");
-//                //                File newLoginFile = new File(tempLoginFile);
-//            } else {
-//                Login loginPage = new Login();
-//                loginPage.setVisible(false);
-//                JOptionPane.showMessageDialog(null, "Cancel delete People record");
-//                this.setVisible(true);
-//            }
-//        } else {
-//            if (tablePeople.getRowCount() == 0) {
-//                JOptionPane.showMessageDialog(this, "Table if Empty");
-//            } else {
-//                JOptionPane.showMessageDialog(this, "Please select a Row for Delete");
-//            }
-//        }
+
     }//GEN-LAST:event_btnRemoveActionPerformed
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
@@ -596,34 +518,13 @@ public class ManageAppointment extends javax.swing.JFrame {
         txtIC.setText("");
         txtName.setText("");
         cmbAppStatus.setSelectedIndex(0);
-        cmbCentre.setSelectedIndex(0);
+        cmbCentre.setSelectedIndex(-1);
         dpAppDate.setText("");
 
     }//GEN-LAST:event_btnClearActionPerformed
 
     private void cmbCentrePopupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_cmbCentrePopupMenuWillBecomeVisible
-
-        try {
-            String file = "centre.txt";
-            BufferedReader br = new BufferedReader(new FileReader(file));
-            List<String> centreList = new ArrayList<String>();
-            String line;
-            try {
-                while ((line = br.readLine()) != null) {
-                    String[] loginarr = line.split("[,\n]");
-                    centreList.add(loginarr[0]);
-                }
-            } catch (FileNotFoundException e) {
-                System.err.println("Error, file " + file + " didn't exist.");
-            } finally {
-                br.close();
-            }
-            DefaultComboBoxModel<String> lineArray = new DefaultComboBoxModel(centreList.toArray());
-
-            cmbCentre.setModel(lineArray);
-        } catch (HeadlessException | IOException e) {
-            System.out.println(e);
-        }
+        ShowCentreDropDown();
     }//GEN-LAST:event_cmbCentrePopupMenuWillBecomeVisible
 
     private void tableDose1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableDose1MouseClicked
@@ -632,8 +533,18 @@ public class ManageAppointment extends javax.swing.JFrame {
 
         txtIC.setText(model.getValueAt(i, 0).toString());
         txtName.setText(model.getValueAt(i, 1).toString());
-        cmbCentre.setSelectedItem(model.getValueAt(i, 2).toString());
-        dpAppDate.setText(model.getValueAt(i, 3).toString());
+        if (model.getValueAt(i, 2).toString() == "") {
+            cmbCentre.setSelectedIndex(-1);
+        } else {
+            cmbCentre.setSelectedItem(model.getValueAt(i, 2).toString());
+        }
+        txtName.setText(model.getValueAt(i, 1).toString());
+        if (model.getValueAt(i, 3).toString() == "") {
+            dpAppDate.setText("");
+        } else {
+            dpAppDate.setText(model.getValueAt(i, 3).toString());
+        }
+
         cmbAppStatus.setSelectedItem(model.getValueAt(i, 4).toString());
 
         //disable to edit
@@ -655,6 +566,10 @@ public class ManageAppointment extends javax.swing.JFrame {
         txtIC.setEnabled(false);
         txtName.setEnabled(false);
     }//GEN-LAST:event_tableDose2MouseClicked
+
+    private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnAddActionPerformed
 
     public void ShowDose1() {
         // show data in the JTable
@@ -710,6 +625,30 @@ public class ManageAppointment extends javax.swing.JFrame {
 
     }
 
+    public void ShowCentreDropDown() {
+        try {
+            String file = "centre.txt";
+            BufferedReader br = new BufferedReader(new FileReader(file));
+            List<String> centreList = new ArrayList<String>();
+            String line;
+            try {
+                while ((line = br.readLine()) != null) {
+                    String[] loginarr = line.split("[,\n]");
+                    centreList.add(loginarr[0]);
+                }
+            } catch (FileNotFoundException e) {
+                System.err.println("Error, file " + file + " didn't exist.");
+            } finally {
+                br.close();
+            }
+            DefaultComboBoxModel<String> lineArray = new DefaultComboBoxModel(centreList.toArray());
+
+            cmbCentre.setModel(lineArray);
+        } catch (HeadlessException | IOException e) {
+            System.out.println(e);
+        }
+    }
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -743,6 +682,7 @@ public class ManageAppointment extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnBack;
     private javax.swing.JButton btnClear;
     private javax.swing.JButton btnRemove;

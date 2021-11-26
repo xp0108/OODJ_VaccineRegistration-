@@ -7,10 +7,11 @@ public class Appointment {
     private String appdate;
     private Centre appcentre;
     private AppointmentStatus appointmentStatus;
+    private String appStatus;
 
     public Appointment() {
     }
-    
+
     public Appointment(String appPeopleIC, String appPeopleName, String appdate) {
         this.appPeopleIC = appPeopleIC;
         this.appPeopleName = appPeopleName;
@@ -72,8 +73,26 @@ public class Appointment {
         return appDane.done();
     }
 
-    public String toString() {
-        return appPeopleIC + "," + appPeopleName + "," + appcentre + "," + appdate + ",";
+    public String writeDoseFile() {
+        return appPeopleIC + "," + appPeopleName + "," + appcentre.getCentreName() + "," + appdate + "," + this.appStatus + "\n";
     }
 
+//    Testing
+    public void setAppStatus(String appStatus) {
+        this.appStatus = appStatus;
+    }
+
+    public String assignAppStatus(String appStatus) {
+        this.appStatus = appStatus;
+        this.appointmentStatus = new AppointmentStatus();
+
+        if (this.appointmentStatus.active().equals(appStatus)) {
+            return appStatus = this.appointmentStatus.active();
+        } else if (this.appointmentStatus.done().equals(appStatus)) {
+            return appStatus = this.appointmentStatus.done();
+        } else if (this.appointmentStatus.pending().equals(appStatus)) {
+            return appStatus = this.appointmentStatus.pending();
+        }
+        return appStatus;
+    }
 }
