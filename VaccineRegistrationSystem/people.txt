@@ -1,4 +1,0 @@
-666,xp,999,8888-55-44,No Vaccinated
-123,123,123,9999-88-44,No Vaccinated
-666,xp,999,8888-55-44,No Vaccinated
-990124-14-5101,Onn,Taman Midah,1999-01-24,No Vaccinated

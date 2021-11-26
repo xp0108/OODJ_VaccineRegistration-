@@ -54,7 +54,7 @@ public class RegisterPeople extends javax.swing.JFrame {
 
         lblRegisterName.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         lblRegisterName.setForeground(new java.awt.Color(0, 0, 0));
-        lblRegisterName.setText("Username:");
+        lblRegisterName.setText("Name:");
 
         txtRegisterName.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         txtRegisterName.addActionListener(new java.awt.event.ActionListener() {
