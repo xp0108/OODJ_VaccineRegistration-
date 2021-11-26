@@ -10,6 +10,12 @@ public class Appointment {
 
     public Appointment() {
     }
+    
+    public Appointment(String appPeopleIC, String appPeopleName, String appdate) {
+        this.appPeopleIC = appPeopleIC;
+        this.appPeopleName = appPeopleName;
+        this.appdate = appdate;
+    }
 
     public Appointment(String appPeopleIC, String appPeopleName, String appdate, Centre appcentre) {
         this.appPeopleIC = appPeopleIC;

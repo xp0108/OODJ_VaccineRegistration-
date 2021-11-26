@@ -155,6 +155,11 @@ public class PeopleMain extends javax.swing.JFrame {
         btnPeopleProfileRequestA.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         btnPeopleProfileRequestA.setForeground(new java.awt.Color(255, 255, 255));
         btnPeopleProfileRequestA.setText("Request Appointment");
+        btnPeopleProfileRequestA.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPeopleProfileRequestAActionPerformed(evt);
+            }
+        });
 
         btnPeopleProfileStatusA.setBackground(new java.awt.Color(0, 0, 0));
         btnPeopleProfileStatusA.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -316,11 +321,21 @@ public class PeopleMain extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this,
                     "Please fill up Old Password and New Password", "Uh Oh...",
                     JOptionPane.WARNING_MESSAGE);
+        } else if (txtPeopleProfileOld.getText().equals(txtPeopleProfileNew.getText())) {
+            JOptionPane.showMessageDialog(this,
+                    "New password cannot same as old password", "Uh Oh...",
+                    JOptionPane.WARNING_MESSAGE);
         } else {
             verifyOld(txtPeopleProfileOld.getText());
+            txtPeopleProfileOld.setText("");
+            txtPeopleProfileNew.setText("");
         }
 
     }//GEN-LAST:event_btnChangePasswordActionPerformed
+
+    private void btnPeopleProfileRequestAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPeopleProfileRequestAActionPerformed
+        requestApp(login.getPeopleIC().trim());
+    }//GEN-LAST:event_btnPeopleProfileRequestAActionPerformed
 
     public static Scanner y;
 
@@ -461,7 +476,6 @@ public class PeopleMain extends javax.swing.JFrame {
                     updateLoginFile(login.getPeopleIC());
 
                 }
-
             }
 
             br.close();
@@ -472,7 +486,7 @@ public class PeopleMain extends javax.swing.JFrame {
             }
 
         } catch (Exception e) {
-            System.out.println(e + "haha");
+            System.out.println(e);
         }
     }
 
@@ -494,6 +508,107 @@ public class PeopleMain extends javax.swing.JFrame {
             bw.write("\n");
 
             JOptionPane.showMessageDialog(this, "Successful Change Password", "Congratulation", JOptionPane.PLAIN_MESSAGE);
+
+            bw.close();
+            fw.close();
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "No");
+            e.printStackTrace();
+        }
+    }
+
+    public void requestApp(String ic) {
+        try {
+            String file = "dose1.txt";
+            String file1 = "people.txt";
+
+            FileReader fr = new FileReader(file);
+            BufferedReader br = new BufferedReader(fr);
+            String line;
+            boolean checkApp = false;
+
+            FileReader fr1 = new FileReader(file1);
+            BufferedReader br1 = new BufferedReader(fr1);
+            String line1;
+
+            if ((line = br.readLine()) != null) {
+                String[] apparr = line.split(",");
+
+                if (!ic.equals(apparr[0])) {
+                    checkApp = true;
+
+                    while ((line1 = br1.readLine()) != null) {
+                        String[] people = line1.split(",");
+
+                        if (ic.equals(people[0])) {
+                            System.out.println(people[0] + " " + people[1]);
+                            br.close();
+                            fr.close();
+
+                            br1.close();
+                            fr1.close();
+                            addApp(people[0], people[1]);
+                        }
+                    }
+                }
+            }
+
+            if (line == null) {
+                checkApp = true;
+
+                while ((line1 = br1.readLine()) != null) {
+                    String[] people = line1.split(",");
+
+                    if (ic.equals(people[0])) {
+                        System.out.println(people[0] + " " + people[1]);
+                        br.close();
+                        fr.close();
+
+                        br1.close();
+                        fr1.close();
+                        addApp(people[0], people[1]);
+                    }
+                }
+            }
+
+            br.close();
+            fr.close();
+
+            br1.close();
+            fr1.close();
+
+            if (checkApp == false) {
+                JOptionPane.showMessageDialog(null, "Apointment has already been made", "WARNING!!", JOptionPane.WARNING_MESSAGE);
+            }
+
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+
+    public void addApp(String ic, String name) {
+        try {
+
+            File file = new File("dose1.txt");
+            FileWriter fw = new FileWriter(file, true);
+            BufferedWriter bw = new BufferedWriter(fw);
+
+            String date = "";
+
+            Appointment appointment = new Appointment(ic, name, date);
+            bw.write(appointment.getAppPeopleIC());
+            bw.write(",");
+            bw.write(appointment.getAppPeopleName());
+            bw.write(",");
+            bw.write("");
+            bw.write(",");
+            bw.write(appointment.getAppdate());
+            bw.write(",");
+            bw.write("Pending");
+            bw.write("\n");
+
+            JOptionPane.showMessageDialog(this, "Successful Register for Appointment", "Congratulation", JOptionPane.PLAIN_MESSAGE);
 
             bw.close();
             fw.close();
