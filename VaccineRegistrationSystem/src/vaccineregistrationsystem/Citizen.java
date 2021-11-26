@@ -16,7 +16,7 @@ public class Citizen extends People {
         super(PeopleName, PeopleAddress, PeopleDOB);
         this.CitizenIC = CitizenIC;
     }
-    
+
     public String getPeopleIC() {
         return CitizenIC;
     }
@@ -25,7 +25,6 @@ public class Citizen extends People {
         this.CitizenIC = CitizenIC;
     }
 
-    @Override
     public String toString() {
         return CitizenIC + "," + PeopleName + "," + PeopleAddress + "," + PeopleDOB + ",No Vaccinated\n";
     }

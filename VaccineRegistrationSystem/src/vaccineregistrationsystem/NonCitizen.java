@@ -3,7 +3,7 @@ package vaccineregistrationsystem;
 public class NonCitizen extends People {
 
     private String PeoplePassport;
-    
+
     NonCitizen() {
     }
 
@@ -24,8 +24,7 @@ public class NonCitizen extends People {
     public void setPeopleIC(String CitizenIC) {
         this.PeoplePassport = PeoplePassport;
     }
-    
-    @Override
+
     public String toString() {
         return PeoplePassport + "," + PeopleName + "," + PeopleAddress + "," + PeopleDOB + ",No Vaccinated\n";
     }

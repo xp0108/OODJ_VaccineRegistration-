@@ -2,28 +2,24 @@ package vaccineregistrationsystem;
 
 public class Vaccine {
 
-    private int VaccineID, VaccineAmount;
-    private String VaccineType, VaccineDuration;
+    private int VaccineAmount, VaccineDuration;
+    private String VaccineType;
 
     public Vaccine() {
 
     }
 
-    public Vaccine(int VaccineID, String VaccineType, String VaccineDuration, int VaccineAmount) {
-        this.VaccineID = VaccineID;
+    public Vaccine(String VaccineType, int VaccineDuration, int VaccineAmount) {
+
         this.VaccineType = VaccineType;
         this.VaccineDuration = VaccineDuration;
         this.VaccineAmount = VaccineAmount;
     }
+
+    public Vaccine(String VaccineType) {
+        this.VaccineType = VaccineType;
+    }
 //    GETTER SETTER
-
-    public int getVaccineID() {
-        return VaccineID;
-    }
-
-    public void setVaccineID(int VaccineID) {
-        this.VaccineID = VaccineID;
-    }
 
     public int getVaccineAmount() {
         return VaccineAmount;
@@ -41,15 +37,16 @@ public class Vaccine {
         this.VaccineType = VaccineType;
     }
 
-    public String getVaccineDuration() {
+    public int getVaccineDuration() {
         return VaccineDuration;
     }
 
-    public void setVaccineDuration(String VaccineDuration) {
+    public void setVaccineDuration(int VaccineDuration) {
         this.VaccineDuration = VaccineDuration;
     }
 
     public String toString() {
-        return VaccineID + "," + VaccineType + "," + VaccineDuration + "," + VaccineAmount + "\n";
+        return VaccineType + "," + VaccineDuration + "," + VaccineAmount + "\n";
     }
+    
 }

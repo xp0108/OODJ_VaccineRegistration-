@@ -66,7 +66,7 @@ public class Login extends javax.swing.JFrame {
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel3.setText("IC/Passport:");
+        jLabel3.setText("Username:");
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(0, 0, 0));
@@ -179,16 +179,16 @@ public class Login extends javax.swing.JFrame {
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
 
         String txtPassowrdToStr = String.valueOf(txtPassword.getPassword());
-        
+
         if (txtIC.getText().isEmpty() || txtPassowrdToStr.isBlank()) {
 
             JOptionPane.showMessageDialog(this,
                     "Please fill up all the fills", "Uh Oh...",
                     JOptionPane.WARNING_MESSAGE);
         } else {
-            
+
             VerifyLogin(txtIC.getText(), txtPassowrdToStr);
-            
+
         }
     }//GEN-LAST:event_btnLoginActionPerformed
 
@@ -251,6 +251,34 @@ public class Login extends javax.swing.JFrame {
         } catch (IOException ex) {
             System.out.println("Unable to create file due to " + ex);
         }
+
+        try {
+            FileWriter fw = new FileWriter("vaccine.txt", true);
+            fw.close();
+        } catch (IOException ex) {
+            System.out.println("Unable to create file due to " + ex);
+        }
+
+        try {
+            FileWriter fw = new FileWriter("centre.txt", true);
+            fw.close();
+        } catch (IOException ex) {
+            System.out.println("Unable to create file due to " + ex);
+        }
+
+        try {
+            FileWriter fw = new FileWriter("dose1.txt", true);
+            fw.close();
+        } catch (IOException ex) {
+            System.out.println("Unable to create file due to " + ex);
+        }
+
+        try {
+            FileWriter fw = new FileWriter("dose2.txt", true);
+            fw.close();
+        } catch (IOException ex) {
+            System.out.println("Unable to create file due to " + ex);
+        }
     }
 
     public static Scanner scanner;
@@ -263,7 +291,7 @@ public class Login extends javax.swing.JFrame {
             BufferedReader br = new BufferedReader(fr);
             String line;
             boolean isLoginSuccess = false;
-            
+
             while ((line = br.readLine()) != null) {
                 String[] loginarr = line.split(",");
                 String isPeople = "People";
@@ -277,7 +305,7 @@ public class Login extends javax.swing.JFrame {
                         people.setVisible(true);
                         this.setVisible(false);
                         break;
-                        
+
                     } else {
 
                         PersonnelMain personnel = new PersonnelMain();
@@ -287,10 +315,10 @@ public class Login extends javax.swing.JFrame {
                     }
                 }
             }
-            
+
             br.close();
             fr.close();
-            
+
             if (isLoginSuccess == false) {
                 JOptionPane.showMessageDialog(null, "USERNAME/PASSWORD WRONG", "WARNING!!", JOptionPane.WARNING_MESSAGE);
             }

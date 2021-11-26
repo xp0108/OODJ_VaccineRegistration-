@@ -1,7 +1,20 @@
 package vaccineregistrationsystem;
 
+import java.awt.Font;
+import java.awt.HeadlessException;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
 /**
@@ -16,6 +29,8 @@ public class ManageAppointment extends javax.swing.JFrame {
     public ManageAppointment() {
         initComponents();
         setLocationRelativeTo(null);
+        ShowDose1();
+        ShowDose2();
         tableDose1.setDefaultEditor(Object.class, null);
         tableDose2.setDefaultEditor(Object.class, null);
     }
@@ -39,8 +54,6 @@ public class ManageAppointment extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tableDose2 = new javax.swing.JTable();
-        lblRegisterName2 = new javax.swing.JLabel();
-        txtAppID = new javax.swing.JTextField();
         lblRegisterName3 = new javax.swing.JLabel();
         txtIC = new javax.swing.JTextField();
         lblRegisterName4 = new javax.swing.JLabel();
@@ -54,6 +67,9 @@ public class ManageAppointment extends javax.swing.JFrame {
         btnUpdate = new javax.swing.JButton();
         btnRemove = new javax.swing.JButton();
         btnBack = new javax.swing.JButton();
+        lblRegisterName7 = new javax.swing.JLabel();
+        cmbCentre = new javax.swing.JComboBox<>();
+        btnClear = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Covid-19 Vaccine Registration System |  Manage Vaccine Appointment");
@@ -72,9 +88,14 @@ public class ManageAppointment extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "IC/Passport", "Name", "Date", "Status"
+                "IC/Passport", "Name", "Centre", "Date", "Status"
             }
         ));
+        tableDose1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tableDose1MouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tableDose1);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -115,9 +136,14 @@ public class ManageAppointment extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "IC/Passport", "Name", "Date", "Status"
+                "IC/Passport", "Name", "Centre", "Date", "Status"
             }
         ));
+        tableDose2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tableDose2MouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(tableDose2);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -141,26 +167,17 @@ public class ManageAppointment extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        lblRegisterName2.setText("Appoitment ID:");
-        lblRegisterName2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        lblRegisterName2.setForeground(new java.awt.Color(0, 0, 0));
-
-        txtAppID.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        txtAppID.setEnabled(false);
-
         lblRegisterName3.setText("IC/Passport:");
         lblRegisterName3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         lblRegisterName3.setForeground(new java.awt.Color(0, 0, 0));
 
         txtIC.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        txtIC.setEnabled(false);
 
         lblRegisterName4.setText("Name:");
         lblRegisterName4.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         lblRegisterName4.setForeground(new java.awt.Color(0, 0, 0));
 
         txtName.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        txtName.setEnabled(false);
 
         lblRegisterName1.setText("Search IC/Passport:");
         lblRegisterName1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -173,6 +190,8 @@ public class ManageAppointment extends javax.swing.JFrame {
             }
         });
 
+        dpAppDate.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+
         lblRegisterName5.setText("Appointment Date:");
         lblRegisterName5.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         lblRegisterName5.setForeground(new java.awt.Color(0, 0, 0));
@@ -181,7 +200,7 @@ public class ManageAppointment extends javax.swing.JFrame {
         lblRegisterName6.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         lblRegisterName6.setForeground(new java.awt.Color(0, 0, 0));
 
-        cmbAppStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-Appointment Status-", "Panding", "Active", "Done", "Cancel" }));
+        cmbAppStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-Appointment Status-", "Pending", "Active", "Done", "Cancel" }));
         cmbAppStatus.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         cmbAppStatus.setToolTipText("");
 
@@ -215,6 +234,33 @@ public class ManageAppointment extends javax.swing.JFrame {
             }
         });
 
+        lblRegisterName7.setText("Centre:");
+        lblRegisterName7.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        lblRegisterName7.setForeground(new java.awt.Color(0, 0, 0));
+
+        cmbCentre.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-Centre-" }));
+        cmbCentre.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        cmbCentre.setToolTipText("");
+        cmbCentre.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
+            public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
+            }
+            public void popupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {
+            }
+            public void popupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {
+                cmbCentrePopupMenuWillBecomeVisible(evt);
+            }
+        });
+
+        btnClear.setText("Clear");
+        btnClear.setBackground(new java.awt.Color(0, 0, 0));
+        btnClear.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        btnClear.setForeground(new java.awt.Color(255, 255, 255));
+        btnClear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnClearActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -227,19 +273,20 @@ public class ManageAppointment extends javax.swing.JFrame {
                         .addContainerGap())
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(380, 380, 380)
-                                .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(btnRemove)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE)))
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnClear)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnRemove)
+                                .addGap(255, 255, 255)
+                                .addComponent(btnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(3, 3, 3))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -248,26 +295,28 @@ public class ManageAppointment extends javax.swing.JFrame {
                 .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 348, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(219, 219, 219))
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(47, 47, 47)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(lblRegisterName4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(lblRegisterName3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtIC, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(lblRegisterName2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtAppID, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblRegisterName5, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(lblRegisterName6, javax.swing.GroupLayout.Alignment.TRAILING))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lblRegisterName5))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(71, 71, 71)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(lblRegisterName4)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(lblRegisterName3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtIC, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblRegisterName6, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(lblRegisterName7, javax.swing.GroupLayout.Alignment.TRAILING))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(cmbCentre, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(dpAppDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(cmbAppStatus, 0, 195, Short.MAX_VALUE))
                 .addGap(116, 116, 116))
@@ -285,27 +334,34 @@ public class ManageAppointment extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(29, 29, 29)
+                .addGap(37, 37, 37)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblRegisterName6)
+                            .addComponent(cmbAppStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblRegisterName7)
+                            .addComponent(cmbCentre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblRegisterName3)
+                            .addComponent(txtIC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblRegisterName4)
+                            .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblRegisterName2)
-                    .addComponent(txtAppID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(dpAppDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblRegisterName5))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblRegisterName3)
-                    .addComponent(txtIC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblRegisterName6)
-                    .addComponent(cmbAppStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblRegisterName4)
-                    .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnBack)
                     .addComponent(btnUpdate)
                     .addComponent(btnRemove, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnBack))
+                    .addComponent(btnClear))
                 .addContainerGap())
         );
 
@@ -326,11 +382,17 @@ public class ManageAppointment extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtSearchKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchKeyReleased
-        DefaultTableModel model = (DefaultTableModel) tableDose1.getModel();
-        String search = txtSearch.getText().toLowerCase();
-        TableRowSorter<DefaultTableModel> tr = new TableRowSorter<DefaultTableModel>(model);
-        tableDose1.setRowSorter(tr);
-        tr.setRowFilter(RowFilter.regexFilter(search));
+        DefaultTableModel modelDose1 = (DefaultTableModel) tableDose1.getModel();
+        String searchDose1 = txtSearch.getText();
+        TableRowSorter<DefaultTableModel> tr1 = new TableRowSorter<DefaultTableModel>(modelDose1);
+        tableDose1.setRowSorter(tr1);
+        tr1.setRowFilter(RowFilter.regexFilter(searchDose1));
+
+        DefaultTableModel modelDose2 = (DefaultTableModel) tableDose2.getModel();
+        String searchDose2 = txtSearch.getText().toString();
+        TableRowSorter<DefaultTableModel> tr2 = new TableRowSorter<DefaultTableModel>(modelDose2);
+        tableDose1.setRowSorter(tr2);
+        tr2.setRowFilter(RowFilter.regexFilter(searchDose2));
     }//GEN-LAST:event_txtSearchKeyReleased
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
@@ -530,9 +592,124 @@ public class ManageAppointment extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_btnBackActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
+    private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
+        txtIC.setText("");
+        txtName.setText("");
+        cmbAppStatus.setSelectedIndex(0);
+        cmbCentre.setSelectedIndex(0);
+        dpAppDate.setText("");
+
+    }//GEN-LAST:event_btnClearActionPerformed
+
+    private void cmbCentrePopupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_cmbCentrePopupMenuWillBecomeVisible
+
+        try {
+            String file = "centre.txt";
+            BufferedReader br = new BufferedReader(new FileReader(file));
+            List<String> centreList = new ArrayList<String>();
+            String line;
+            try {
+                while ((line = br.readLine()) != null) {
+                    String[] loginarr = line.split("[,\n]");
+                    centreList.add(loginarr[0]);
+                }
+            } catch (FileNotFoundException e) {
+                System.err.println("Error, file " + file + " didn't exist.");
+            } finally {
+                br.close();
+            }
+            DefaultComboBoxModel<String> lineArray = new DefaultComboBoxModel(centreList.toArray());
+
+            cmbCentre.setModel(lineArray);
+        } catch (HeadlessException | IOException e) {
+            System.out.println(e);
+        }
+    }//GEN-LAST:event_cmbCentrePopupMenuWillBecomeVisible
+
+    private void tableDose1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableDose1MouseClicked
+        int i = tableDose1.getSelectedRow();
+        TableModel model = tableDose1.getModel();
+
+        txtIC.setText(model.getValueAt(i, 0).toString());
+        txtName.setText(model.getValueAt(i, 1).toString());
+        cmbCentre.setSelectedItem(model.getValueAt(i, 2).toString());
+        dpAppDate.setText(model.getValueAt(i, 3).toString());
+        cmbAppStatus.setSelectedItem(model.getValueAt(i, 4).toString());
+
+        //disable to edit
+        txtIC.setEnabled(false);
+        txtName.setEnabled(false);
+    }//GEN-LAST:event_tableDose1MouseClicked
+
+    private void tableDose2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableDose2MouseClicked
+        int i = tableDose2.getSelectedRow();
+        TableModel model = tableDose2.getModel();
+
+        txtIC.setText(model.getValueAt(i, 0).toString());
+        txtName.setText(model.getValueAt(i, 1).toString());
+        cmbCentre.setSelectedItem(model.getValueAt(i, 2).toString());
+        dpAppDate.setText(model.getValueAt(i, 3).toString());
+        cmbAppStatus.setSelectedItem(model.getValueAt(i, 4).toString());
+
+        //disable to edit
+        txtIC.setEnabled(false);
+        txtName.setEnabled(false);
+    }//GEN-LAST:event_tableDose2MouseClicked
+
+    public void ShowDose1() {
+        // show data in the JTable
+        File fileDose1 = new File("dose1.txt");
+        try ( BufferedReader br = new BufferedReader(new FileReader(fileDose1));) {
+            tableDose1.getTableHeader().setFont(new Font("SansSerif", Font.BOLD, 15));
+
+            DefaultTableModel model = (DefaultTableModel) tableDose1.getModel();
+
+            Object[] data = br.lines().toArray();
+
+            // extratct data from lines
+            // set data to jtable model
+            for (int i = 0; i < data.length; i++) {
+                String line = data[i].toString().trim();
+                String[] dataRow = line.split("[,\n]");
+
+                model.addRow(dataRow);
+
+            }
+            br.close();
+
+        } catch (IOException ex) {
+            Logger.getLogger(ManageCentre.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+
+    public void ShowDose2() {
+        // show data in the JTable
+        File fileDose2 = new File("dose2.txt");
+        try ( BufferedReader br = new BufferedReader(new FileReader(fileDose2));) {
+            tableDose1.getTableHeader().setFont(new Font("SansSerif", Font.BOLD, 15));
+
+            DefaultTableModel model = (DefaultTableModel) tableDose2.getModel();
+
+            Object[] data = br.lines().toArray();
+
+            // extratct data from lines
+            // set data to jtable model
+            for (int i = 0; i < data.length; i++) {
+                String line = data[i].toString().trim();
+                String[] dataRow = line.split("[,\n]");
+
+                model.addRow(dataRow);
+
+            }
+            br.close();
+
+        } catch (IOException ex) {
+            Logger.getLogger(ManageCentre.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -567,9 +744,11 @@ public class ManageAppointment extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBack;
+    private javax.swing.JButton btnClear;
     private javax.swing.JButton btnRemove;
     private javax.swing.JButton btnUpdate;
     private javax.swing.JComboBox<String> cmbAppStatus;
+    private javax.swing.JComboBox<String> cmbCentre;
     private com.github.lgooddatepicker.components.DatePicker dpAppDate;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -580,14 +759,13 @@ public class ManageAppointment extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lblRegisterName1;
-    private javax.swing.JLabel lblRegisterName2;
     private javax.swing.JLabel lblRegisterName3;
     private javax.swing.JLabel lblRegisterName4;
     private javax.swing.JLabel lblRegisterName5;
     private javax.swing.JLabel lblRegisterName6;
+    private javax.swing.JLabel lblRegisterName7;
     private javax.swing.JTable tableDose1;
     private javax.swing.JTable tableDose2;
-    private javax.swing.JTextField txtAppID;
     private javax.swing.JTextField txtIC;
     private javax.swing.JTextField txtName;
     private javax.swing.JTextField txtSearch;

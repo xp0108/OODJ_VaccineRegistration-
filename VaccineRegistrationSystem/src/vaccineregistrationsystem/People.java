@@ -1,8 +1,5 @@
 package vaccineregistrationsystem;
 
-import java.util.Scanner;
-import javax.swing.JOptionPane;
-
 abstract public class People {
 
     protected String PeopleName;
@@ -68,9 +65,8 @@ abstract public class People {
 
     abstract public void setPeopleIC(String PeopleIC);
     
-    @Override
     public String toString() {
         return PeopleName + "," + PeopleAddress + "," + PeopleDOB + ",No Vaccinated\n";
     }
-    
+
 }
