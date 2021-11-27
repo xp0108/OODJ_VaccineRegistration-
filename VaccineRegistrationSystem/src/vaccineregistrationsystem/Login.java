@@ -300,8 +300,12 @@ public class Login extends javax.swing.JFrame {
                     isLoginSuccess = true;
 
                     if (isPeople.equals(loginarr[2])) {
+                        
+                        Citizen login = new Citizen(IC, password);
+                        login.setPeopleIC(IC);
+                        login.setPeoplePassword(password);
 
-                        PeopleMain people = new PeopleMain(new Citizen(IC, password));
+                        PeopleMain people = new PeopleMain(login);
                         people.setVisible(true);
                         this.setVisible(false);
                         break;
