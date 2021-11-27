@@ -92,6 +92,8 @@ public class Appointment {
             return appStatus = this.appointmentStatus.done();
         } else if (this.appointmentStatus.pending().equals(appStatus)) {
             return appStatus = this.appointmentStatus.pending();
+        } else if (this.appointmentStatus.cancel().equals(appStatus)) {
+            return appStatus = this.appointmentStatus.cancel();
         }
         return appStatus;
     }
