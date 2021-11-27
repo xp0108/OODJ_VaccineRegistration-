@@ -1,5 +1,6 @@
 package vaccineregistrationsystem;
 
+import java.awt.Dialog;
 import java.awt.HeadlessException;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -79,6 +80,7 @@ public class PeopleMain extends javax.swing.JFrame {
 
         txtPeopleProfileIC.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         txtPeopleProfileIC.setForeground(new java.awt.Color(0, 0, 0));
+        txtPeopleProfileIC.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         txtPeopleProfileIC.setEnabled(false);
 
         lblPeopleProfileName.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -87,6 +89,8 @@ public class PeopleMain extends javax.swing.JFrame {
 
         txtPeopleProfileName.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         txtPeopleProfileName.setForeground(new java.awt.Color(0, 0, 0));
+        txtPeopleProfileName.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        txtPeopleProfileName.setEnabled(false);
 
         lblPeopleProfileDOB.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         lblPeopleProfileDOB.setForeground(new java.awt.Color(0, 0, 0));
@@ -343,7 +347,12 @@ public class PeopleMain extends javax.swing.JFrame {
     }//GEN-LAST:event_btnPeopleProfileRequestAActionPerformed
 
     private void btnPeopleProfileStatusAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPeopleProfileStatusAActionPerformed
-        // TODO add your handling code here:
+        Citizen login = new Citizen(this.login.getPeopleIC(), this.login.getPeoplePassword());
+//        login.setPeopleIC(IC);
+//        login.setPeoplePassword(password);
+
+        PeopleAppointmentStatus peopleAppStatus = new PeopleAppointmentStatus(this.login, this, Dialog.ModalityType.APPLICATION_MODAL);
+        peopleAppStatus.setVisible(true);
     }//GEN-LAST:event_btnPeopleProfileStatusAActionPerformed
 
     public static Scanner y;
@@ -528,72 +537,53 @@ public class PeopleMain extends javax.swing.JFrame {
     }
 
     public void requestApp(String ic) {
+        //check dose1 file is there any appointment request for this user
+        // if these is already a appointment request for this user, show erroe message
+        // if no then write into the dose1 file
         try {
             String file = "dose1.txt";
-            String file1 = "people.txt";
-
             FileReader fr = new FileReader(file);
             BufferedReader br = new BufferedReader(fr);
             String line;
-            boolean checkApp = false;
+            boolean isExist = false;
 
-            FileReader fr1 = new FileReader(file1);
-            BufferedReader br1 = new BufferedReader(fr1);
-            String line1;
-
-            if ((line = br.readLine()) != null) {
+            while ((line = br.readLine()) != null) {
                 String[] apparr = line.split(",");
 
-                if (!ic.equals(apparr[0])) {
-                    checkApp = true;
-
-                    while ((line1 = br1.readLine()) != null) {
-                        String[] people = line1.split(",");
-
-                        if (ic.equals(people[0])) {
-                            System.out.println(people[0] + " " + people[1]);
-                            br.close();
-                            fr.close();
-
-                            br1.close();
-                            fr1.close();
-                            addApp(people[0], people[1]);
-                        }
-                    }
-                }
-            }
-
-            if (line == null) {
-                checkApp = true;
-
-                while ((line1 = br1.readLine()) != null) {
-                    String[] people = line1.split(",");
-
-                    if (ic.equals(people[0])) {
-                        System.out.println(people[0] + " " + people[1]);
-                        br.close();
-                        fr.close();
-
-                        br1.close();
-                        fr1.close();
-                        addApp(people[0], people[1]);
-                    }
+                if (ic.equals(apparr[0])) {
+                    isExist = true;
+                    break;
                 }
             }
 
             br.close();
             fr.close();
 
-            br1.close();
-            fr1.close();
-
-            if (checkApp == false) {
+            if (isExist == true) {
                 JOptionPane.showMessageDialog(null, "Apointment has already been made", "WARNING!!", JOptionPane.WARNING_MESSAGE);
+                return;
             }
+
+            String file1 = "people.txt";
+            fr = new FileReader(file1);
+            br = new BufferedReader(fr);
+
+            while ((line = br.readLine()) != null) {
+                String[] apparr = line.split(",");
+
+                if (ic.equals(apparr[0])) {
+                    addApp(ic, apparr[1]);
+                    break;
+                }
+            }
+            
+            br.close();
+            fr.close();
 
         } catch (Exception e) {
             System.out.println(e);
         }
+
     }
 
     public void addApp(String ic, String name) {

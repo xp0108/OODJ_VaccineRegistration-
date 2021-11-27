@@ -116,6 +116,7 @@ public class ManagePeople extends javax.swing.JFrame {
         lblRegisterName3.setText("Name:");
 
         txtName.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        txtName.setEnabled(false);
 
         lblRegisterName5.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         lblRegisterName5.setForeground(new java.awt.Color(0, 0, 0));
