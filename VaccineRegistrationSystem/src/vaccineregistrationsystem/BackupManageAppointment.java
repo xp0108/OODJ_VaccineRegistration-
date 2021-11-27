@@ -14,7 +14,6 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,9 +28,9 @@ import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 import static vaccineregistrationsystem.ManageVaccine.scanner;
 
-public class ManageAppointment extends javax.swing.JFrame {
+public class BackupManageAppointment extends javax.swing.JFrame {
 
-    public ManageAppointment() {
+    public BackupManageAppointment() {
         initComponents();
         setLocationRelativeTo(null);
         ShowDose1();
@@ -290,10 +289,10 @@ public class ManageAppointment extends javax.swing.JFrame {
             }
         });
 
+        btnAdd.setText("Add");
         btnAdd.setBackground(new java.awt.Color(0, 0, 0));
         btnAdd.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         btnAdd.setForeground(new java.awt.Color(255, 255, 255));
-        btnAdd.setText("Add");
         btnAdd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAddActionPerformed(evt);
@@ -1091,24 +1090,25 @@ public class ManageAppointment extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ManageAppointment.class
+            java.util.logging.Logger.getLogger(BackupManageAppointment.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ManageAppointment.class
+            java.util.logging.Logger.getLogger(BackupManageAppointment.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ManageAppointment.class
+            java.util.logging.Logger.getLogger(BackupManageAppointment.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ManageAppointment.class
+            java.util.logging.Logger.getLogger(BackupManageAppointment.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ManageAppointment().setVisible(true);
+                new BackupManageAppointment().setVisible(true);
             }
         });
     }
