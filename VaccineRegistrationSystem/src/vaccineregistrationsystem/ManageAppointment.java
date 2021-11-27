@@ -4,6 +4,9 @@ import com.github.lgooddatepicker.components.DatePicker;
 import com.github.lgooddatepicker.components.DatePickerSettings;
 import java.awt.Font;
 import java.awt.HeadlessException;
+import java.awt.Point;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -36,6 +39,29 @@ public class ManageAppointment extends javax.swing.JFrame {
         tableDose1.setDefaultEditor(Object.class, null);
         tableDose2.setDefaultEditor(Object.class, null);
         cmbCentre.setSelectedIndex(-1);
+
+//        Detect double click 
+        tableDose1.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent evt) {
+                if (evt.getClickCount() == 2) {
+                    Point pnt = evt.getPoint();
+                    int row = tableDose1.rowAtPoint(pnt);
+//                    deselect the row
+                    tableDose1.getSelectionModel().clearSelection();
+                }
+            }
+        });
+
+        tableDose2.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent evt) {
+                if (evt.getClickCount() == 2) {
+                    Point pnt = evt.getPoint();
+                    int row = tableDose2.rowAtPoint(pnt);
+                    tableDose2.getSelectionModel().clearSelection();
+                }
+            }
+        });
+
     }
 
     @SuppressWarnings("unchecked")
@@ -419,6 +445,12 @@ public class ManageAppointment extends javax.swing.JFrame {
         DefaultTableModel modelDose1 = (DefaultTableModel) tableDose1.getModel();
         DefaultTableModel modelDose2 = (DefaultTableModel) tableDose2.getModel();
 
+        String pIC = txtIC.getText();
+        String pName = txtName.getText();
+        String appStatusE = String.valueOf(cmbAppStatus.getSelectedItem());
+        String centreE = String.valueOf(cmbCentre.getSelectedItem());
+        String strAppDateE = String.valueOf(dpAppDate.getDate());
+
         if (tableDose1.getSelectedRowCount() == 1) {
 
             if (cmbAppStatus.getSelectedItem().equals("Done")) {
@@ -427,14 +459,13 @@ public class ManageAppointment extends javax.swing.JFrame {
                 dpAppDate.setEnabled(false);
                 txtIC.setEnabled(false);
                 txtName.setEnabled(false);
+            } else {
+                cmbAppStatus.setEnabled(true);
+                cmbCentre.setEnabled(true);
+                dpAppDate.setEnabled(true);
+                txtIC.setEnabled(false);
+                txtName.setEnabled(false);
             }
-            //single row selected than update
-            String pIC = txtIC.getText();
-            String pName = txtName.getText();
-            String appStatusE = String.valueOf(cmbAppStatus.getSelectedItem());
-            String centreE = String.valueOf(cmbCentre.getSelectedItem());
-
-            String strAppDateE = String.valueOf(dpAppDate.getDate());
 
             if (pIC.equals("") || pName.equals("") || appStatusE.equals("") || centreE.equals("") || strAppDateE.equals("")) {
                 JOptionPane.showMessageDialog(null, "Please fill up the all the details.", "Empty text field found !", JOptionPane.ERROR_MESSAGE);
@@ -504,6 +535,64 @@ public class ManageAppointment extends javax.swing.JFrame {
                     System.out.println(e);
                 }
 
+            }
+        } else if (tableDose2.getSelectedRowCount() == 1) {
+            //Update Dose 2
+            modelDose2.setValueAt(pIC, tableDose2.getSelectedRow(), 0);
+            modelDose2.setValueAt(pName, tableDose2.getSelectedRow(), 1);
+            modelDose2.setValueAt(centreE, tableDose2.getSelectedRow(), 2);
+            modelDose2.setValueAt(strAppDateE, tableDose2.getSelectedRow(), 3);
+            modelDose2.setValueAt(appStatusE, tableDose2.getSelectedRow(), 4);
+
+            String fileDose2 = "dose2.txt";
+            String tempDose2File = "TempDose2.txt";
+            File oldDose2File = new File(fileDose2);
+            File newDose2File = new File(tempDose2File);
+
+            try ( FileWriter fw = new FileWriter(newDose2File, true);  BufferedWriter bw = new BufferedWriter(fw);  Scanner ss = new Scanner(oldDose2File);) {
+
+                ss.useDelimiter("[,\n]");
+
+                while (ss.hasNext()) {
+                    String IC = ss.next();
+                    String Name = ss.next();
+                    String centre = ss.next();
+                    String strAppDate = ss.next();
+                    String appStatus = ss.next();
+
+                    if (pIC.trim().equals(IC.trim()) && pName.trim().equals(Name.trim())) {
+                        //mody
+                        Centre centreNameE = new Centre(centreE);
+
+                        Appointment modyAppointment = new Appointment(pIC, pName, strAppDateE, centreNameE);
+                        modyAppointment.assignAppStatus(appStatusE);
+
+                        bw.write(modyAppointment.writeDoseFile());
+
+                    } else {
+                        //ori                      
+                        Centre centreName = new Centre(centre);
+
+                        Appointment oriAppointment = new Appointment(IC, Name, strAppDate, centreName);
+                        oriAppointment.assignAppStatus(appStatus);
+
+                        bw.write(oriAppointment.writeDoseFile());
+
+                    }
+                }
+
+                ss.close();
+                bw.close();
+                fw.close();
+
+                oldDose2File.delete();
+
+                File dump = new File(fileDose2);
+                newDose2File.renameTo(dump);
+                JOptionPane.showMessageDialog(this, "Record Updated Successfully");
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "Edit Appointment record fail due to " + e);
+                System.out.println(e);
             }
         } else {
             if (tableDose1.getRowCount() == 0 || tableDose2.getRowCount() == 0) {
@@ -686,9 +775,11 @@ public class ManageAppointment extends javax.swing.JFrame {
             txtIC.setEnabled(false);
             txtName.setEnabled(false);
         } else {
-            //disable to edit
             txtIC.setEnabled(false);
             txtName.setEnabled(false);
+            cmbAppStatus.setEnabled(true);
+            cmbCentre.setEnabled(true);
+            dpAppDate.setEnabled(true);
         }
 
     }//GEN-LAST:event_tableDose1MouseClicked
@@ -840,7 +931,7 @@ public class ManageAppointment extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "This people have registed the Dose 1 Appointment", "Uh Oh...", JOptionPane.WARNING_MESSAGE);
                 cleanAll();
             }
-
+            scanner.close();
         } catch (Exception e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
@@ -903,6 +994,8 @@ public class ManageAppointment extends javax.swing.JFrame {
                 DefaultTableModel model = (DefaultTableModel) tableDose1.getModel();
                 model.addRow(dataRow);
 
+                scanner.close();
+
                 txtIC.setEnabled(false);
                 txtName.setEnabled(false);
             }
@@ -959,6 +1052,7 @@ public class ManageAppointment extends javax.swing.JFrame {
 
                     bw.close();
                     fw.close();
+
                     JOptionPane.showMessageDialog(this, "Add Dose 2 Appointment Successfully", "Success", JOptionPane.INFORMATION_MESSAGE);
 
                 } catch (Exception ex) {
@@ -968,6 +1062,8 @@ public class ManageAppointment extends javax.swing.JFrame {
                 Object[] dataRow = {PeopleIC, PeopleName, AppCentre, AppDate, AppStatus};
                 DefaultTableModel model = (DefaultTableModel) tableDose2.getModel();
                 model.addRow(dataRow);
+
+                scanner.close();
 
                 txtIC.setEnabled(false);
                 txtName.setEnabled(false);
