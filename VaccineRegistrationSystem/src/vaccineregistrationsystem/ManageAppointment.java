@@ -519,7 +519,6 @@ public class ManageAppointment extends javax.swing.JFrame {
                             oriAppointment.assignAppStatus(appStatus);
 
                             bw.write(oriAppointment.writeDoseFile());
-                            JOptionPane.showMessageDialog(this, "Record Updated Successfully");
                         }
                     }
 
@@ -1073,6 +1072,78 @@ public class ManageAppointment extends javax.swing.JFrame {
         } catch (Exception e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    public void UpdatePeopleStatus() {
+//        Compare 2 files 
+        String ic = txtIC.getText();
+        try {
+            String dose1File = "dose1.txt";
+            String poepleFile = "people.txt";
+
+            FileReader frDose1 = new FileReader(dose1File);
+            BufferedReader brDose1 = new BufferedReader(frDose1);
+            String line;
+            boolean checkApp = false;
+
+            FileReader frPeople = new FileReader(poepleFile);
+            BufferedReader brProple = new BufferedReader(frPeople);
+            String line1;
+
+            if ((line = brDose1.readLine()) != null) {
+                String[] apparr = line.split(",");
+
+                if (!txtIC.getText().equals(apparr[0])) {
+                    checkApp = true;
+
+                    while ((line1 = brProple.readLine()) != null) {
+                        String[] people = line1.split(",");
+
+                        if (txtIC.getText().equals(people[0])) {
+                            System.out.println(people[0] + " " + people[1]);
+                            brDose1.close();
+                            frDose1.close();
+
+                            brProple.close();
+                            frPeople.close();
+
+//                            addApp(people[0], people[1]);
+                        }
+                    }
+                }
+            }
+
+            if (line == null) {
+                checkApp = true;
+
+                while ((line1 = brProple.readLine()) != null) {
+                    String[] people = line1.split(",");
+
+                    if (ic.equals(people[0])) {
+                        System.out.println(people[0] + " " + people[1]);
+                        brDose1.close();
+                        frDose1.close();
+
+                        brProple.close();
+                        frPeople.close();
+//                        addApp(people[0], people[1]);
+                    }
+                }
+            }
+
+            brDose1.close();
+            frDose1.close();
+
+            brProple.close();
+            frPeople.close();
+
+            if (checkApp == false) {
+                JOptionPane.showMessageDialog(null, "Apointment has already been made", "WARNING!!", JOptionPane.WARNING_MESSAGE);
+            }
+
+        } catch (Exception e) {
+            System.out.println(e);
         }
     }
 

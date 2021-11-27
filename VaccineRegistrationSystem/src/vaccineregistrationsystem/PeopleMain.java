@@ -165,6 +165,11 @@ public class PeopleMain extends javax.swing.JFrame {
         btnPeopleProfileStatusA.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         btnPeopleProfileStatusA.setForeground(new java.awt.Color(255, 255, 255));
         btnPeopleProfileStatusA.setText("Check Appointment Status");
+        btnPeopleProfileStatusA.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPeopleProfileStatusAActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -336,6 +341,10 @@ public class PeopleMain extends javax.swing.JFrame {
     private void btnPeopleProfileRequestAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPeopleProfileRequestAActionPerformed
         requestApp(login.getPeopleIC().trim());
     }//GEN-LAST:event_btnPeopleProfileRequestAActionPerformed
+
+    private void btnPeopleProfileStatusAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPeopleProfileStatusAActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnPeopleProfileStatusAActionPerformed
 
     public static Scanner y;
 
