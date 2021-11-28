@@ -51,6 +51,7 @@ public class PeopleMain extends javax.swing.JFrame {
         btnChangePassword = new javax.swing.JButton();
         lblPeoplePeofileAppointment = new javax.swing.JLabel();
         btnPeopleProfileRequestA = new javax.swing.JButton();
+        btnPeopleProfileCancelA = new javax.swing.JButton();
         btnPeopleProfileStatusA = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -165,6 +166,16 @@ public class PeopleMain extends javax.swing.JFrame {
             }
         });
 
+        btnPeopleProfileCancelA.setBackground(new java.awt.Color(0, 0, 0));
+        btnPeopleProfileCancelA.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        btnPeopleProfileCancelA.setForeground(new java.awt.Color(255, 255, 255));
+        btnPeopleProfileCancelA.setText("Cancel Appointment");
+        btnPeopleProfileCancelA.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPeopleProfileCancelAActionPerformed(evt);
+            }
+        });
+
         btnPeopleProfileStatusA.setBackground(new java.awt.Color(0, 0, 0));
         btnPeopleProfileStatusA.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         btnPeopleProfileStatusA.setForeground(new java.awt.Color(255, 255, 255));
@@ -187,52 +198,53 @@ public class PeopleMain extends javax.swing.JFrame {
                         .addComponent(btnPeopleProfileBack)
                         .addGap(19, 19, 19))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(lblPeopleProfileNew)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnChangePassword)
-                        .addGap(435, 435, 435))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(txtPeopleProfileNew, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(lblPeopleProfileOld)
-                                .addComponent(txtPeopleProfileOld, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(lblPeopleProfileAddress)
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(lblPeopleProfileIC)
-                                        .addComponent(txtPeopleProfileIC, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(lblPeopleProfileDOB)
-                                        .addComponent(txtPeopleProfileDOB, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGap(54, 54, 54)
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(txtPeopleProfileName, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(lblPeopleProfileName)))
-                                .addComponent(txtPeopleProfileAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 418, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                    .addComponent(lblPeoplePeofile)
-                                    .addGap(131, 131, 131)))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(45, 45, 45)
-                                .addComponent(btnPeopleProfileSave)
-                                .addGap(67, 67, 67)
-                                .addComponent(btnPeopleProfileRefresh)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 73, Short.MAX_VALUE)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(txtPeopleProfileNew, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(lblPeopleProfileOld)
+                                        .addComponent(txtPeopleProfileOld, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(lblPeopleProfileAddress)
+                                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(lblPeopleProfileIC)
+                                                .addComponent(txtPeopleProfileIC, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(lblPeopleProfileDOB)
+                                                .addComponent(txtPeopleProfileDOB, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addGap(54, 54, 54)
+                                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(txtPeopleProfileName, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(lblPeopleProfileName)))
+                                        .addComponent(txtPeopleProfileAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 418, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                            .addComponent(lblPeoplePeofile)
+                                            .addGap(131, 131, 131)))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGap(45, 45, 45)
+                                        .addComponent(btnPeopleProfileSave)
+                                        .addGap(67, 67, 67)
+                                        .addComponent(btnPeopleProfileRefresh)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 73, Short.MAX_VALUE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(lblPeopleProfileNew)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnChangePassword)
+                                .addGap(81, 81, 81)))
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblPeoplePeofileAppointment)
                             .addComponent(btnPeopleProfileRequestA, javax.swing.GroupLayout.PREFERRED_SIZE, 311, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnPeopleProfileStatusA, javax.swing.GroupLayout.PREFERRED_SIZE, 311, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(btnPeopleProfileStatusA, javax.swing.GroupLayout.PREFERRED_SIZE, 311, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnPeopleProfileCancelA, javax.swing.GroupLayout.PREFERRED_SIZE, 311, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(43, 43, 43))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblPeoplePeofile)
-                            .addComponent(btnPeopleProfileBack))
+                        .addComponent(lblPeoplePeofile)
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lblPeopleProfileIC)
@@ -254,23 +266,28 @@ public class PeopleMain extends javax.swing.JFrame {
                             .addComponent(btnPeopleProfileSave, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(btnPeopleProfileRefresh))
                         .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(lblPeopleProfileOld)
                                 .addGap(18, 18, 18)
                                 .addComponent(txtPeopleProfileOld, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(lblPeopleProfileNew))
-                            .addComponent(btnChangePassword)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(btnChangePassword)
+                                .addGap(11, 11, 11)))
+                        .addGap(18, 18, 18)
+                        .addComponent(txtPeopleProfileNew, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(124, 124, 124)
+                        .addComponent(btnPeopleProfileBack)
+                        .addGap(18, 18, 18)
                         .addComponent(lblPeoplePeofileAppointment)
-                        .addGap(29, 29, 29)
+                        .addGap(28, 28, 28)
                         .addComponent(btnPeopleProfileRequestA, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
+                        .addComponent(btnPeopleProfileCancelA, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
                         .addComponent(btnPeopleProfileStatusA, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
-                .addComponent(txtPeopleProfileNew, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(21, Short.MAX_VALUE))
         );
 
@@ -297,7 +314,6 @@ public class PeopleMain extends javax.swing.JFrame {
     private void btnPeopleProfileRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPeopleProfileRefreshActionPerformed
 
         readFile("people.txt");
-
 
     }//GEN-LAST:event_btnPeopleProfileRefreshActionPerformed
 
@@ -348,12 +364,52 @@ public class PeopleMain extends javax.swing.JFrame {
 
     private void btnPeopleProfileStatusAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPeopleProfileStatusAActionPerformed
         Citizen login = new Citizen(this.login.getPeopleIC(), this.login.getPeoplePassword());
-//        login.setPeopleIC(IC);
-//        login.setPeoplePassword(password);
 
         PeopleAppointmentStatus peopleAppStatus = new PeopleAppointmentStatus(this.login, this, Dialog.ModalityType.APPLICATION_MODAL);
         peopleAppStatus.setVisible(true);
     }//GEN-LAST:event_btnPeopleProfileStatusAActionPerformed
+
+    private void btnPeopleProfileCancelAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPeopleProfileCancelAActionPerformed
+        try {
+            String file = "dose1.txt";
+            FileReader fr = new FileReader(file);
+            BufferedReader br = new BufferedReader(fr);
+            String line;
+            int IsDose1Done = 0;
+
+            String IC = this.login.getPeopleIC().trim();
+
+            while ((line = br.readLine()) != null) {
+                String[] arrdose1 = line.split(",");
+
+                if (IC.equals(arrdose1[0]) && arrdose1[4].equals("Done")) {
+                    IsDose1Done = 1;
+                    break;
+                } else if (IC.equals(arrdose1[0]) && !arrdose1[4].equals("Done")) {
+                    IsDose1Done = 2;
+                    break;
+                }
+            }
+            
+            br.close();
+            fr.close();
+            
+            if (IsDose1Done == 1) {
+                JOptionPane.showMessageDialog(null, "Cannot cancel appointment because Dose 1 is done or no appointmene request!!!",
+                        "WARNING!!", JOptionPane.WARNING_MESSAGE);
+            } else if (IsDose1Done == 2) {
+                deleteFile(file, this.login.getPeopleIC());
+                JOptionPane.showMessageDialog(this, "Successful Delete Appointment",
+                        "Congratulation", JOptionPane.PLAIN_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(this, "No appointment request",
+                        "Congratulation", JOptionPane.PLAIN_MESSAGE);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_btnPeopleProfileCancelAActionPerformed
 
     public static Scanner y;
 
@@ -444,7 +500,7 @@ public class PeopleMain extends javax.swing.JFrame {
             }
 
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "No");
+            System.out.println("No");
             e.printStackTrace();
         }
     }
@@ -576,7 +632,7 @@ public class PeopleMain extends javax.swing.JFrame {
                     break;
                 }
             }
-            
+
             br.close();
             fr.close();
 
@@ -621,6 +677,7 @@ public class PeopleMain extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnChangePassword;
     private javax.swing.JButton btnPeopleProfileBack;
+    private javax.swing.JButton btnPeopleProfileCancelA;
     private javax.swing.JButton btnPeopleProfileRefresh;
     private javax.swing.JButton btnPeopleProfileRequestA;
     private javax.swing.JButton btnPeopleProfileSave;
