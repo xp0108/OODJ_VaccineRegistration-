@@ -42,30 +42,30 @@ public class PersonnelMain extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(212, 227, 247));
 
-        btnPeople.setText("Manage People");
         btnPeople.setBackground(new java.awt.Color(0, 0, 0));
         btnPeople.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         btnPeople.setForeground(new java.awt.Color(255, 255, 255));
+        btnPeople.setText("Manage People");
         btnPeople.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnPeopleActionPerformed(evt);
             }
         });
 
-        btnCentre.setText("Manage Vaccine Supply");
         btnCentre.setBackground(new java.awt.Color(0, 0, 0));
         btnCentre.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         btnCentre.setForeground(new java.awt.Color(255, 255, 255));
+        btnCentre.setText("Manage Vaccine Supply");
         btnCentre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCentreActionPerformed(evt);
             }
         });
 
-        btnAppoitment.setText("Manage Vaccination Appoitment");
         btnAppoitment.setBackground(new java.awt.Color(0, 0, 0));
         btnAppoitment.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         btnAppoitment.setForeground(new java.awt.Color(255, 255, 255));
+        btnAppoitment.setText("Manage Vaccination Appointment");
         btnAppoitment.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAppoitmentActionPerformed(evt);
@@ -82,15 +82,15 @@ public class PersonnelMain extends javax.swing.JFrame {
             }
         });
 
-        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setText("Personnel Menu ");
         jLabel3.setFont(new java.awt.Font("Algerian", 1, 24)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel3.setText("Personnel Menu ");
 
-        btnLogout.setText("LOGOUT");
         btnLogout.setBackground(new java.awt.Color(0, 0, 0));
         btnLogout.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         btnLogout.setForeground(new java.awt.Color(255, 255, 255));
+        btnLogout.setText("LOGOUT");
         btnLogout.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnLogoutActionPerformed(evt);
