@@ -60,6 +60,10 @@ public class Centre {
         this.vaccine = vaccine;
     }
 
+    public Vaccine getVaccine() {
+        return vaccine;
+    }
+
     public String toString() {
         return CentreName + "," + CentreAddress + "," + vaccine.getVaccineType() + "," + CentreAmount + "\n";
     }

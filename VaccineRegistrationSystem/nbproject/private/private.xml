@@ -1,23 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
-    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="1">
-        <file>
-            <url>src/vaccineregistrationsystem/PeopleMain.java</url>
-            <bookmark id="1">
-                <name/>
-                <line>372</line>
-                <key/>
-            </bookmark>
-        </file>
-    </editor-bookmarks>
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/cheio/OneDrive/Documents/GitHub/OODJ_VaccineRegistration-/VaccineRegistrationSystem/src/vaccineregistrationsystem/Appointment.java</file>
-            <file>file:/C:/Users/cheio/OneDrive/Documents/GitHub/OODJ_VaccineRegistration-/VaccineRegistrationSystem/src/vaccineregistrationsystem/PeopleMain.java</file>
-            <file>file:/C:/Users/cheio/OneDrive/Documents/GitHub/OODJ_VaccineRegistration-/VaccineRegistrationSystem/src/vaccineregistrationsystem/AppointmentStatus.java</file>
-            <file>file:/C:/Users/cheio/OneDrive/Documents/GitHub/OODJ_VaccineRegistration-/VaccineRegistrationSystem/src/vaccineregistrationsystem/Login.java</file>
-            <file>file:/C:/Users/cheio/OneDrive/Documents/GitHub/OODJ_VaccineRegistration-/VaccineRegistrationSystem/src/vaccineregistrationsystem/PeopleAppointmentStatus.java</file>
-            <file>file:/C:/Users/cheio/OneDrive/Documents/GitHub/OODJ_VaccineRegistration-/VaccineRegistrationSystem/src/vaccineregistrationsystem/ManageAppointment.java</file>
+            <file>file:/D:/Degree%201%20-%20Sem%201/OODJ%20-%20Object%20Oriented%20Development%20With%20Java/OODJ_VaccineRegistration-/VaccineRegistrationSystem/src/vaccineregistrationsystem/Appointment.java</file>
+            <file>file:/D:/Degree%201%20-%20Sem%201/OODJ%20-%20Object%20Oriented%20Development%20With%20Java/OODJ_VaccineRegistration-/VaccineRegistrationSystem/src/vaccineregistrationsystem/AppointmentStatus.java</file>
+            <file>file:/D:/Degree%201%20-%20Sem%201/OODJ%20-%20Object%20Oriented%20Development%20With%20Java/OODJ_VaccineRegistration-/VaccineRegistrationSystem/src/vaccineregistrationsystem/Login.java</file>
+            <file>file:/D:/Degree%201%20-%20Sem%201/OODJ%20-%20Object%20Oriented%20Development%20With%20Java/OODJ_VaccineRegistration-/VaccineRegistrationSystem/src/vaccineregistrationsystem/PeopleMain.java</file>
+            <file>file:/D:/Degree%201%20-%20Sem%201/OODJ%20-%20Object%20Oriented%20Development%20With%20Java/OODJ_VaccineRegistration-/VaccineRegistrationSystem/src/vaccineregistrationsystem/ManageAppointment.java</file>
+            <file>file:/D:/Degree%201%20-%20Sem%201/OODJ%20-%20Object%20Oriented%20Development%20With%20Java/OODJ_VaccineRegistration-/VaccineRegistrationSystem/src/vaccineregistrationsystem/VaccineRegistrationSystem.java</file>
         </group>
     </open-files>
 </project-private>

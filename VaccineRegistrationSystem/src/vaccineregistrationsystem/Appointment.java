@@ -59,6 +59,7 @@ public class Appointment {
 
     public String pending() {
         AppointmentStatus appPending = new AppointmentStatus(); //composition
+//        appPending.pending();
         return appPending.pending();
     }
 
@@ -86,11 +87,13 @@ public class Appointment {
         this.appointmentStatus = new AppointmentStatus();
 
         if (this.appointmentStatus.active().equals(appStatus)) {
-            appStatus = this.appointmentStatus.active();
+            return appStatus = this.appointmentStatus.active();
         } else if (this.appointmentStatus.done().equals(appStatus)) {
-            appStatus = this.appointmentStatus.done();
+            return appStatus = this.appointmentStatus.done();
         } else if (this.appointmentStatus.pending().equals(appStatus)) {
-            appStatus = this.appointmentStatus.pending();
+            return appStatus = this.appointmentStatus.pending();
+        } else if (this.appointmentStatus.cancel().equals(appStatus)) {
+            return appStatus = this.appointmentStatus.cancel();
         }
         return appStatus;
     }
