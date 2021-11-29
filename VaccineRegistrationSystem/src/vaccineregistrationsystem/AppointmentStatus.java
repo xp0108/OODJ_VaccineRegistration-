@@ -17,4 +17,5 @@ public class AppointmentStatus {
     public String done() {
         return done;
     }
+    
 }
