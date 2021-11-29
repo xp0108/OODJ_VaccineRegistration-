@@ -1038,19 +1038,17 @@ public class ManageAppointment extends javax.swing.JFrame {
 
             } else {
 //                add appointment
+                String appDate = Dose2AppDate(AppDate, AppCentre);
                 try {
                     File file = new File("dose2.txt");
                     FileWriter fw = new FileWriter(file, true);
                     BufferedWriter bw = new BufferedWriter(fw);
 
+                    //Add month for dose 2 appointment 
                     Centre centreName = new Centre(AppCentre);
 
-                    Appointment oriAppointment = new Appointment(PeopleIC, PeopleName, AppDate, centreName);
+                    Appointment oriAppointment = new Appointment(PeopleIC, PeopleName, appDate, centreName);
                     oriAppointment.assignAppStatus(AppStatus);
-
-                    LocalDate ldAppDate = LocalDate.parse(AppDate);
-                    //Add month for dose 2 appointment 
-                    LocalDate dose2AppDate = ldAppDate.plusMonths(1);
 
                     bw.write(oriAppointment.writeDoseFile());
 
@@ -1063,7 +1061,7 @@ public class ManageAppointment extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(this, "Error saving or loading data!!!", "Error", JOptionPane.ERROR_MESSAGE);
                 }
 //                Add to Dose 1 table
-                Object[] dataRow = {PeopleIC, PeopleName, AppCentre, AppDate, AppStatus};
+                Object[] dataRow = {PeopleIC, PeopleName, AppCentre, appDate, AppStatus};
                 DefaultTableModel model = (DefaultTableModel) tableDose2.getModel();
                 model.addRow(dataRow);
 
@@ -1079,76 +1077,81 @@ public class ManageAppointment extends javax.swing.JFrame {
         }
     }
 
-    public void UpdatePeopleStatus() {
-//        Compare 2 files 
-        String ic = txtIC.getText();
+    public String Dose2AppDate(String AppDate, String cmbCentre) {
+        int vaccineDuration = 0;
         try {
-            String dose1File = "dose1.txt";
-            String poepleFile = "people.txt";
 
-            FileReader frDose1 = new FileReader(dose1File);
-            BufferedReader brDose1 = new BufferedReader(frDose1);
-            String line;
-            boolean checkApp = false;
+            String txtVaccine = "";
 
-            FileReader frPeople = new FileReader(poepleFile);
-            BufferedReader brProple = new BufferedReader(frPeople);
-            String line1;
+            Vaccine strVaccineType = new Vaccine(txtVaccine);
 
-            if ((line = brDose1.readLine()) != null) {
-                String[] apparr = line.split(",");
+            String centreFile = "centre.txt";
 
-                if (!txtIC.getText().equals(apparr[0])) {
-                    checkApp = true;
+            FileReader centreFR = new FileReader(centreFile);
+            BufferedReader centreBR = new BufferedReader(centreFR);
+            String centreLine;
 
-                    while ((line1 = brProple.readLine()) != null) {
-                        String[] people = line1.split(",");
+            while ((centreLine = centreBR.readLine()) != null) {
+                String[] centreArr = centreLine.split("[,\n]");
 
-                        if (txtIC.getText().equals(people[0])) {
-                            System.out.println(people[0] + " " + people[1]);
-                            brDose1.close();
-                            frDose1.close();
+                System.out.println("aaaa " + centreArr[0]);
+                if (cmbCentre.trim().equals(centreArr[0])) {
 
-                            brProple.close();
-                            frPeople.close();
+//                    if the centre is match, then get the centre's vaccine 
+                    System.out.println(cmbCentre + "." + centreArr[0]);
 
-//                            addApp(people[0], people[1]);
-                        }
-                    }
+                    Centre centreVaccine = new Centre();
+                    Vaccine vaccineType = new Vaccine(centreArr[2]);
+                    centreVaccine.setVaccine(vaccineType);
+
+                    strVaccineType = centreVaccine.getVaccine();
+
+                    System.out.println(strVaccineType.displayVaccineType());
+                    break;
+
                 }
             }
+            centreBR.close();
+            centreFR.close();
 
-            if (line == null) {
-                checkApp = true;
+            String vaccineFile = "vaccine.txt";
+            FileReader vaccineFR = new FileReader(vaccineFile);
+            BufferedReader vaccineBR = new BufferedReader(vaccineFR);
+            String vaccineLine;
 
-                while ((line1 = brProple.readLine()) != null) {
-                    String[] people = line1.split(",");
+//            Aggregation
+            Vaccine intVaccineDuration = new Vaccine(vaccineDuration);
 
-                    if (ic.equals(people[0])) {
-                        System.out.println(people[0] + " " + people[1]);
-                        brDose1.close();
-                        frDose1.close();
+            while ((vaccineLine = vaccineBR.readLine()) != null) {
+                String[] vaccineArr = vaccineLine.split("[,\n]");
 
-                        brProple.close();
-                        frPeople.close();
-//                        addApp(people[0], people[1]);
-                    }
+                String getVT = strVaccineType.getVaccineType();
+
+                System.out.println("bbb  " + vaccineArr[0]);
+                if (getVT.trim().equals(vaccineArr[0])) {
+                    vaccineDuration = Integer.parseInt(vaccineArr[1]);
+                    intVaccineDuration.setVaccineDuration(vaccineDuration);
+                    System.out.println(vaccineDuration);
+                    System.out.println("Vaccine Duration " + intVaccineDuration.getVaccineDuration());
+
+                    break;
+
                 }
+
             }
 
-            brDose1.close();
-            frDose1.close();
+            vaccineBR.close();
+            vaccineFR.close();
 
-            brProple.close();
-            frPeople.close();
-
-            if (checkApp == false) {
-                JOptionPane.showMessageDialog(null, "Apointment has already been made", "WARNING!!", JOptionPane.WARNING_MESSAGE);
-            }
-
-        } catch (Exception e) {
+        } catch (HeadlessException | IOException e) {
             System.out.println(e);
         }
+
+        LocalDate ldAppDate = LocalDate.parse(AppDate);
+        LocalDate dose2AppDate = ldAppDate.plusMonths(vaccineDuration);
+
+        return dose2AppDate.toString();
+
     }
 
     public static void main(String args[]) {

@@ -4,10 +4,12 @@ import java.awt.HeadlessException;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.time.LocalDate;
 
 public class VaccineRegistrationSystem {
 
     public static void main(String[] args) {
+        int txtDuration = 0;
         try {
 
             String txtCentre = "qqq";
@@ -23,7 +25,7 @@ public class VaccineRegistrationSystem {
 
             while ((centreLine = centreBR.readLine()) != null) {
                 String[] centreArr = centreLine.split("[,\n]");
-               
+
                 System.out.println("aaaa " + centreArr[0]);
                 if (txtCentre.equals(centreArr[0])) {
 
@@ -50,7 +52,6 @@ public class VaccineRegistrationSystem {
             String vaccineLine;
 
 //            Aggregation
-            int txtDuration = 0;
             Vaccine intVaccineDuration = new Vaccine(txtDuration);
 
             while ((vaccineLine = vaccineBR.readLine()) != null) {
@@ -77,6 +78,8 @@ public class VaccineRegistrationSystem {
         } catch (HeadlessException | IOException e) {
             System.out.println(e);
         }
+
+        System.out.println(LocalDate.now().plusMonths(txtDuration));
     }
 
 }
