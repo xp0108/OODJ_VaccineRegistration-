@@ -21,6 +21,13 @@ abstract public class People {
         this.PeopleDOB = PeopleDOB;
     }
 
+    People(String PeopleName, String PeopleAddress, String PeopleDOB, String PeopleStatus) {
+        this.PeopleName = PeopleName;
+        this.PeopleAddress = PeopleAddress;
+        this.PeopleDOB = PeopleDOB;
+        this.PeopleStatus = PeopleStatus;
+    }
+
     public String getPeopleName() {
         return PeopleName;
     }
@@ -64,7 +71,7 @@ abstract public class People {
     abstract public String getPeopleIC();
 
     abstract public void setPeopleIC(String PeopleIC);
-    
+
     @Override
     public String toString() {
         return PeopleName + "," + PeopleAddress + "," + PeopleDOB + ",No Vaccinated\n";
