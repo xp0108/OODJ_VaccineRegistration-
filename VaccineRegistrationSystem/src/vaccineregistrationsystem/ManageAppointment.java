@@ -687,8 +687,12 @@ public class ManageAppointment extends javax.swing.JFrame {
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         CheckDose1People(txtIC.getText(), txtName.getText());
-        AddDose1Appointment(txtIC.getText(), txtName.getText(), String.valueOf(cmbCentre.getSelectedItem()), String.valueOf(dpAppDate.getDate()), String.valueOf(cmbAppStatus.getSelectedItem()));
+        AddDose1Appointment(txtIC.getText(), txtName.getText(), 
+                String.valueOf(cmbCentre.getSelectedItem()), 
+                String.valueOf(dpAppDate.getDate()), 
+                String.valueOf(cmbAppStatus.getSelectedItem()));
     }//GEN-LAST:event_btnAddActionPerformed
+    
     public void cleanAll() {
         txtIC.setText("");
         txtName.setText("");
