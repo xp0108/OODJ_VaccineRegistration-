@@ -464,6 +464,9 @@ public class ManageAppointment extends javax.swing.JFrame {
                 Citizen updateStatus = new Citizen();
                 updateStatus.UpdatePeopleStatus("people.txt", txtIC.getText(), "Dose 1");
 
+                Centre centre = new Centre();
+                centre.UpdateCentreFileAfterDeduct(centreE);
+
             } else {
                 cmbAppStatus.setEnabled(true);
                 cmbCentre.setEnabled(true);
@@ -551,6 +554,8 @@ public class ManageAppointment extends javax.swing.JFrame {
 
                 Citizen updateStatus = new Citizen();
                 updateStatus.UpdatePeopleStatus("people.txt", txtIC.getText(), "Dose 2");
+                Centre centre = new Centre();
+                centre.UpdateCentreFileAfterDeduct(centreE);
 
             } else {
                 cmbAppStatus.setEnabled(true);
@@ -1066,7 +1071,8 @@ public class ManageAppointment extends javax.swing.JFrame {
 
             } else {
 //                add appointment
-                String appDate = Dose2AppDate(AppDate, AppCentre);
+                Appointment doseDate = new Appointment();
+                String appDate = doseDate.Dose2AppDate(AppDate, AppCentre);
                 try {
                     File file = new File("dose2.txt");
                     FileWriter fw = new FileWriter(file, true);
@@ -1103,81 +1109,6 @@ public class ManageAppointment extends javax.swing.JFrame {
             e.printStackTrace();
             JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
-    }
-
-    public String Dose2AppDate(String AppDate, String cmbCentre) {
-        int vaccineDuration = 0;
-        try {
-
-            String txtVaccine = "";
-
-            Vaccine strVaccineType = new Vaccine(txtVaccine);
-
-            String centreFile = "centre.txt";
-
-            FileReader centreFR = new FileReader(centreFile);
-            BufferedReader centreBR = new BufferedReader(centreFR);
-            String centreLine;
-
-            while ((centreLine = centreBR.readLine()) != null) {
-                String[] centreArr = centreLine.split("[,\n]");
-
-                if (cmbCentre.trim().equals(centreArr[0])) {
-
-//                    if the centre is match, then get the centre's vaccine 
-                    System.out.println(cmbCentre + "." + centreArr[0]);
-
-                    Centre centreVaccine = new Centre();
-                    Vaccine vaccineType = new Vaccine(centreArr[2]);
-                    centreVaccine.setVaccine(vaccineType);
-
-                    strVaccineType = centreVaccine.getVaccine();
-
-                    System.out.println(strVaccineType.displayVaccineType());
-                    break;
-
-                }
-            }
-            centreBR.close();
-            centreFR.close();
-
-            String vaccineFile = "vaccine.txt";
-            FileReader vaccineFR = new FileReader(vaccineFile);
-            BufferedReader vaccineBR = new BufferedReader(vaccineFR);
-            String vaccineLine;
-
-//            Aggregation
-            Vaccine intVaccineDuration = new Vaccine(vaccineDuration);
-
-            while ((vaccineLine = vaccineBR.readLine()) != null) {
-                String[] vaccineArr = vaccineLine.split("[,\n]");
-
-                String getVT = strVaccineType.getVaccineType();
-
-                if (getVT.trim().equals(vaccineArr[0])) {
-                    vaccineDuration = Integer.parseInt(vaccineArr[1]);
-                    intVaccineDuration.setVaccineDuration(vaccineDuration);
-                    System.out.println(vaccineDuration);
-                    System.out.println("Vaccine Duration " + intVaccineDuration.getVaccineDuration());
-
-                    break;
-
-                }
-
-            }
-
-            vaccineBR.close();
-            vaccineFR.close();
-
-        } catch (HeadlessException | IOException e) {
-            System.out.println(e);
-        }
-
-        LocalDate ldAppDate = LocalDate.parse(AppDate);
-        LocalDate dose2AppDate = ldAppDate.plusMonths(vaccineDuration);
-
-        return dose2AppDate.toString();
-
     }
 
     public static void main(String args[]) {

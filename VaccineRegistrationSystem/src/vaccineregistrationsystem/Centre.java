@@ -1,5 +1,13 @@
 package vaccineregistrationsystem;
 
+import java.awt.HeadlessException;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+
 public class Centre {
 
     private int CentreAmount;
@@ -55,6 +63,14 @@ public class Centre {
         this.CentreAddress = CentreAddress;
     }
 
+    public int minusOneVaccine() {
+        int updatedCentreAmount = 0;
+
+        updatedCentreAmount = CentreAmount - 1;
+
+        return updatedCentreAmount;
+    }
+
 //    AGGREGATION 
     public void setVaccine(Vaccine vaccine) {
         this.vaccine = vaccine;
@@ -67,4 +83,101 @@ public class Centre {
     public String toString() {
         return CentreName + "," + CentreAddress + "," + vaccine.getVaccineType() + "," + CentreAmount + "\n";
     }
+
+    public int UpdateCentreAmount(String cmbCentreDONE) {
+        int updatedCentreAmt = 0;
+        try {
+
+            Centre centreName = new Centre(cmbCentreDONE);
+
+            String centreFile = "centre.txt";
+
+            FileReader centreFR = new FileReader(centreFile);
+            BufferedReader centreBR = new BufferedReader(centreFR);
+            String centreLine;
+
+            while ((centreLine = centreBR.readLine()) != null) {
+                String[] centreArr = centreLine.split("[,\n]");
+
+                if (cmbCentreDONE.trim().equals(centreArr[0])) {
+
+//                    if the centre is match, then get the centre's vaccine 
+                    Centre centreAmt = new Centre();
+                    int CentreAmount = Integer.parseInt(centreArr[3]);
+                    centreAmt.setCentreAmount(CentreAmount);
+
+                    updatedCentreAmt = centreAmt.minusOneVaccine();
+
+                    break;
+
+                }
+            }
+            centreBR.close();
+            centreFR.close();
+        } catch (HeadlessException | IOException e) {
+            System.out.println(e);
+        }
+
+        return updatedCentreAmt;
+    }
+
+    public void UpdateCentreFileAfterDeduct(String cmbCentreDONE) {
+        int updateCentreAmt = 0;
+        Centre centre = new Centre();
+        updateCentreAmt = centre.UpdateCentreAmount(cmbCentreDONE);
+
+        try {
+
+            File inFile = new File("centre.txt");
+
+            if (!inFile.isFile()) {
+                System.out.println("Parameter is not an existing file");
+                return;
+            }
+
+            // Construct the new file that will later be renamed to the original
+            // filename.
+            File tempFile = new File(inFile.getAbsolutePath() + ".tmp");
+
+            FileReader fr = new FileReader("centre.txt");
+            BufferedReader br = new BufferedReader(fr);
+            PrintWriter pw = new PrintWriter(new FileWriter(tempFile));
+
+            String line = null;
+
+            while ((line = br.readLine()) != null) {
+                String[] centreDetails = line.split("[,\n]");
+
+                if (!cmbCentreDONE.trim().equals(centreDetails[0])) {
+
+                    pw.println(line);
+                    pw.flush();
+                } else if (cmbCentreDONE.trim().equals(centreDetails[0])) {
+                    Vaccine vaccine = new Vaccine(centreDetails[2]);
+                    Centre updateCentre = new Centre(centreDetails[0], centreDetails[1], vaccine, updateCentreAmt);
+                    pw.write(updateCentre.toString());
+                }
+            }
+
+            pw.close();
+            br.close();
+            fr.close();
+
+            if (!inFile.delete()) {
+                System.out.println("Could not delete file");
+                return;
+            }
+
+            // Rename the new file to the filename the original file had.
+            if (!tempFile.renameTo(inFile)) {
+                System.out.println("Could not rename file");
+            }
+
+        } catch (Exception e) {
+            System.out.println("No");
+            e.printStackTrace();
+        }
+
+    }
+
 }

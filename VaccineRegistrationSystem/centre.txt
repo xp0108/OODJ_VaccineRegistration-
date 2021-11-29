@@ -1,1 +1,1 @@
-PWTC,KL,Pfizer,200
+PWTC,KL,Pfizer,195

@@ -58,5 +58,5 @@ public class Vaccine {
         return VaccineType;
 
     }
-
+    
 }
