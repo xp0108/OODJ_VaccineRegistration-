@@ -19,6 +19,10 @@ public class Vaccine {
     public Vaccine(String VaccineType) {
         this.VaccineType = VaccineType;
     }
+
+    public Vaccine(int VaccineDuration) {
+        this.VaccineDuration = VaccineDuration;
+    }
 //    GETTER SETTER
 
     public int getVaccineAmount() {
@@ -47,6 +51,12 @@ public class Vaccine {
 
     public String toString() {
         return VaccineType + "," + VaccineDuration + "," + VaccineAmount + "\n";
+
     }
-    
+
+    public String displayVaccineType() {
+        return VaccineType;
+
+    }
+
 }

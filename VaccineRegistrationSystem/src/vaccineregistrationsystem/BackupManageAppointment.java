@@ -14,7 +14,6 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,9 +28,9 @@ import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 import static vaccineregistrationsystem.ManageVaccine.scanner;
 
-public class ManageAppointment extends javax.swing.JFrame {
+public class BackupManageAppointment extends javax.swing.JFrame {
 
-    public ManageAppointment() {
+    public BackupManageAppointment() {
         initComponents();
         setLocationRelativeTo(null);
         ShowDose1();
@@ -290,10 +289,10 @@ public class ManageAppointment extends javax.swing.JFrame {
             }
         });
 
+        btnAdd.setText("Add");
         btnAdd.setBackground(new java.awt.Color(0, 0, 0));
         btnAdd.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         btnAdd.setForeground(new java.awt.Color(255, 255, 255));
-        btnAdd.setText("Add");
         btnAdd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAddActionPerformed(evt);
@@ -519,6 +518,7 @@ public class ManageAppointment extends javax.swing.JFrame {
                             oriAppointment.assignAppStatus(appStatus);
 
                             bw.write(oriAppointment.writeDoseFile());
+                            JOptionPane.showMessageDialog(this, "Record Updated Successfully");
                         }
                     }
 
@@ -1038,16 +1038,14 @@ public class ManageAppointment extends javax.swing.JFrame {
 
             } else {
 //                add appointment
-                String appDate = Dose2AppDate(AppDate, AppCentre);
                 try {
                     File file = new File("dose2.txt");
                     FileWriter fw = new FileWriter(file, true);
                     BufferedWriter bw = new BufferedWriter(fw);
 
-                    //Add month for dose 2 appointment 
                     Centre centreName = new Centre(AppCentre);
 
-                    Appointment oriAppointment = new Appointment(PeopleIC, PeopleName, appDate, centreName);
+                    Appointment oriAppointment = new Appointment(PeopleIC, PeopleName, AppDate, centreName);
                     oriAppointment.assignAppStatus(AppStatus);
 
                     bw.write(oriAppointment.writeDoseFile());
@@ -1061,7 +1059,7 @@ public class ManageAppointment extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(this, "Error saving or loading data!!!", "Error", JOptionPane.ERROR_MESSAGE);
                 }
 //                Add to Dose 1 table
-                Object[] dataRow = {PeopleIC, PeopleName, AppCentre, appDate, AppStatus};
+                Object[] dataRow = {PeopleIC, PeopleName, AppCentre, AppDate, AppStatus};
                 DefaultTableModel model = (DefaultTableModel) tableDose2.getModel();
                 model.addRow(dataRow);
 
@@ -1075,83 +1073,6 @@ public class ManageAppointment extends javax.swing.JFrame {
             e.printStackTrace();
             JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
-    }
-
-    public String Dose2AppDate(String AppDate, String cmbCentre) {
-        int vaccineDuration = 0;
-        try {
-
-            String txtVaccine = "";
-
-            Vaccine strVaccineType = new Vaccine(txtVaccine);
-
-            String centreFile = "centre.txt";
-
-            FileReader centreFR = new FileReader(centreFile);
-            BufferedReader centreBR = new BufferedReader(centreFR);
-            String centreLine;
-
-            while ((centreLine = centreBR.readLine()) != null) {
-                String[] centreArr = centreLine.split("[,\n]");
-
-                System.out.println("aaaa " + centreArr[0]);
-                if (cmbCentre.trim().equals(centreArr[0])) {
-
-//                    if the centre is match, then get the centre's vaccine 
-                    System.out.println(cmbCentre + "." + centreArr[0]);
-
-                    Centre centreVaccine = new Centre();
-                    Vaccine vaccineType = new Vaccine(centreArr[2]);
-                    centreVaccine.setVaccine(vaccineType);
-
-                    strVaccineType = centreVaccine.getVaccine();
-
-                    System.out.println(strVaccineType.displayVaccineType());
-                    break;
-
-                }
-            }
-            centreBR.close();
-            centreFR.close();
-
-            String vaccineFile = "vaccine.txt";
-            FileReader vaccineFR = new FileReader(vaccineFile);
-            BufferedReader vaccineBR = new BufferedReader(vaccineFR);
-            String vaccineLine;
-
-//            Aggregation
-            Vaccine intVaccineDuration = new Vaccine(vaccineDuration);
-
-            while ((vaccineLine = vaccineBR.readLine()) != null) {
-                String[] vaccineArr = vaccineLine.split("[,\n]");
-
-                String getVT = strVaccineType.getVaccineType();
-
-                System.out.println("bbb  " + vaccineArr[0]);
-                if (getVT.trim().equals(vaccineArr[0])) {
-                    vaccineDuration = Integer.parseInt(vaccineArr[1]);
-                    intVaccineDuration.setVaccineDuration(vaccineDuration);
-                    System.out.println(vaccineDuration);
-                    System.out.println("Vaccine Duration " + intVaccineDuration.getVaccineDuration());
-
-                    break;
-
-                }
-
-            }
-
-            vaccineBR.close();
-            vaccineFR.close();
-
-        } catch (HeadlessException | IOException e) {
-            System.out.println(e);
-        }
-
-        LocalDate ldAppDate = LocalDate.parse(AppDate);
-        LocalDate dose2AppDate = ldAppDate.plusMonths(vaccineDuration);
-
-        return dose2AppDate.toString();
-
     }
 
     public static void main(String args[]) {
@@ -1169,24 +1090,25 @@ public class ManageAppointment extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ManageAppointment.class
+            java.util.logging.Logger.getLogger(BackupManageAppointment.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ManageAppointment.class
+            java.util.logging.Logger.getLogger(BackupManageAppointment.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ManageAppointment.class
+            java.util.logging.Logger.getLogger(BackupManageAppointment.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ManageAppointment.class
+            java.util.logging.Logger.getLogger(BackupManageAppointment.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ManageAppointment().setVisible(true);
+                new BackupManageAppointment().setVisible(true);
             }
         });
     }
