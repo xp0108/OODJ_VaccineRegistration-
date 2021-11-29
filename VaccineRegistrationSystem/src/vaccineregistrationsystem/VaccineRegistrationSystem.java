@@ -10,72 +10,67 @@ public class VaccineRegistrationSystem {
     public static void main(String[] args) {
         try {
 
-            String txtCentre = "sdf";
-
+            String txtCentre = "qqq";
             String txtVaccine = "";
+
             Vaccine strVaccineType = new Vaccine(txtVaccine);
 
-            int txtDuration = 0;
-            Vaccine intVaccineDuration = new Vaccine(txtDuration);
-
-            String vaccineFile = "vaccine.txt";
             String centreFile = "centre.txt";
-
-            FileReader vaccineFR = new FileReader(vaccineFile);
-            BufferedReader vaccineBR = new BufferedReader(vaccineFR);
-            String vaccineLine;
 
             FileReader centreFR = new FileReader(centreFile);
             BufferedReader centreBR = new BufferedReader(centreFR);
             String centreLine;
 
-            boolean isCentre = false;
-            boolean isVaccine = false;
-
             while ((centreLine = centreBR.readLine()) != null) {
                 String[] centreArr = centreLine.split("[,\n]");
-
+               
+                System.out.println("aaaa " + centreArr[0]);
                 if (txtCentre.equals(centreArr[0])) {
-                    isCentre = true;
+
 //                    if the centre is match, then get the centre's vaccine 
                     System.out.println(txtCentre + "." + centreArr[0]);
-                    if (isCentre == true) {
-                        Centre centreVaccine = new Centre();
-                        Vaccine vaccineType = new Vaccine(centreArr[2]);
-                        centreVaccine.setVaccine(vaccineType);
 
-                        strVaccineType = centreVaccine.getVaccine();
+                    Centre centreVaccine = new Centre();
+                    Vaccine vaccineType = new Vaccine(centreArr[2]);
+                    centreVaccine.setVaccine(vaccineType);
 
-                        System.out.println(strVaccineType);
-                        break;
-                    }
+                    strVaccineType = centreVaccine.getVaccine();
 
+                    System.out.println(strVaccineType.displayVaccineType());
                     break;
 
                 }
             }
-            String[] vaccineArr;
-            while ((vaccineLine = vaccineBR.readLine()) != null) {
-                vaccineArr = vaccineLine.split("[,\n]");
-                String getVT = strVaccineType.getVaccineType();
-
-                System.out.println(getVT);
-
-                if (getVT.equals(vaccineArr[0])) {
-                    isVaccine = true;
-                    intVaccineDuration.setVaccineDuration(txtDuration);
-                    System.out.println(txtDuration);
-                    System.out.println("Vaccine Duration" + intVaccineDuration.getVaccineDuration());
-                    break;
-
-                }
-                break;
-
-            }
-            System.out.println(isVaccine);
-            
             centreBR.close();
             centreFR.close();
+
+            String vaccineFile = "vaccine.txt";
+            FileReader vaccineFR = new FileReader(vaccineFile);
+            BufferedReader vaccineBR = new BufferedReader(vaccineFR);
+            String vaccineLine;
+
+//            Aggregation
+            int txtDuration = 0;
+            Vaccine intVaccineDuration = new Vaccine(txtDuration);
+
+            while ((vaccineLine = vaccineBR.readLine()) != null) {
+                String[] vaccineArr = vaccineLine.split("[,\n]");
+
+                String getVT = strVaccineType.getVaccineType();
+
+                System.out.println("bbb  " + vaccineArr[0]);
+                if (getVT.trim().equals(vaccineArr[0])) {
+                    txtDuration = Integer.parseInt(vaccineArr[1]);
+                    intVaccineDuration.setVaccineDuration(txtDuration);
+                    System.out.println(txtDuration);
+                    System.out.println("Vaccine Duration " + intVaccineDuration.getVaccineDuration());
+
+                    break;
+
+                }
+
+            }
+
             vaccineBR.close();
             vaccineFR.close();
 

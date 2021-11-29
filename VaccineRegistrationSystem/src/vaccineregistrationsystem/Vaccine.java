@@ -51,6 +51,12 @@ public class Vaccine {
 
     public String toString() {
         return VaccineType + "," + VaccineDuration + "," + VaccineAmount + "\n";
+
+    }
+
+    public String displayVaccineType() {
+        return VaccineType;
+
     }
 
 }
