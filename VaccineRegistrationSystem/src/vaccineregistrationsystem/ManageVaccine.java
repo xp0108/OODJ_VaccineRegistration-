@@ -51,7 +51,6 @@ public class ManageVaccine extends javax.swing.JFrame {
         cmbDuration = new javax.swing.JComboBox<>();
         btnAdd = new javax.swing.JButton();
         btnUpdate = new javax.swing.JButton();
-        btnRemove = new javax.swing.JButton();
         btnBack = new javax.swing.JButton();
         lbVAmount = new javax.swing.JLabel();
         btnClear = new javax.swing.JButton();
@@ -117,33 +116,23 @@ public class ManageVaccine extends javax.swing.JFrame {
         cmbDuration.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         cmbDuration.setToolTipText("");
 
-        btnAdd.setText("Add");
         btnAdd.setBackground(new java.awt.Color(0, 0, 0));
         btnAdd.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         btnAdd.setForeground(new java.awt.Color(255, 255, 255));
+        btnAdd.setText("Add");
         btnAdd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAddActionPerformed(evt);
             }
         });
 
-        btnUpdate.setText("Update");
         btnUpdate.setBackground(new java.awt.Color(0, 0, 0));
         btnUpdate.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         btnUpdate.setForeground(new java.awt.Color(255, 255, 255));
+        btnUpdate.setText("Update");
         btnUpdate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnUpdateActionPerformed(evt);
-            }
-        });
-
-        btnRemove.setText("Remove");
-        btnRemove.setBackground(new java.awt.Color(0, 0, 0));
-        btnRemove.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        btnRemove.setForeground(new java.awt.Color(255, 255, 255));
-        btnRemove.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRemoveActionPerformed(evt);
             }
         });
 
@@ -188,9 +177,7 @@ public class ManageVaccine extends javax.swing.JFrame {
                         .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnRemove, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(143, 143, 143)
+                        .addGap(162, 162, 162)
                         .addComponent(btnBack)
                         .addContainerGap())))
             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -256,8 +243,7 @@ public class ManageVaccine extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnAdd)
                             .addComponent(btnUpdate)
-                            .addComponent(btnClear)
-                            .addComponent(btnRemove, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(btnClear))
                         .addContainerGap(14, Short.MAX_VALUE))))
         );
 
@@ -367,74 +353,6 @@ public class ManageVaccine extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_btnUpdateActionPerformed
-
-    private void btnRemoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveActionPerformed
-        DefaultTableModel model = (DefaultTableModel) tableVaccine.getModel();
-
-        if (tableVaccine.getSelectedRowCount() == 1) {
-            int deleteBookingOption = JOptionPane.showConfirmDialog(this, "Wanted to Delete this booking record ?", "Delete Record",
-                    JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-            if (deleteBookingOption == JOptionPane.YES_OPTION) {
-
-                // delete from table
-                int i = tableVaccine.getSelectedRow();
-                if (i >= 0) {
-                    // remove a row from jtable
-                    model.removeRow(i);
-                    System.out.println("Delete from table");
-                }
-
-                String file = "vaccine.txt";
-                String pVaccineType = txtVaccineType.getText();
-
-                String tempVaccineFile = "TempVaccine.txt";
-                File oldVaccineFile = new File(file);
-                File newVaccineFile = new File(tempVaccineFile);
-
-                try ( FileWriter fw = new FileWriter(newVaccineFile, true);  BufferedWriter bw = new BufferedWriter(fw);  Scanner ss = new Scanner(oldVaccineFile);) {
-
-                    ss.useDelimiter("[,\n]");
-                    while (ss.hasNext()) {
-                        String vaccineType = ss.next();
-                        int amount = ss.nextInt();
-                        int duration = ss.nextInt();
-
-                        if (!pVaccineType.trim().equals(vaccineType.trim())) {
-                            Vaccine remainVaccine = new Vaccine(vaccineType, amount, duration);
-                            bw.write(remainVaccine.toString());
-                        }
-                    }
-
-                    ss.close();
-                    bw.close();
-                    fw.close();
-
-                    oldVaccineFile.delete();
-                    File dump = new File(file);
-                    newVaccineFile.renameTo(dump);
-                    JOptionPane.showMessageDialog(null, "Vaccine record delete successfully !");
-
-                    //clean txt
-                    txtVaccineType.setText("");
-                    txtAmount.setText("");
-                    cmbDuration.setSelectedIndex(0);
-                    txtVaccineType.setEnabled(true);
-
-                } catch (Exception e) {
-                    JOptionPane.showMessageDialog(null, "Edit Vaccine record fail due to " + e);
-                }
-            } else {
-                JOptionPane.showMessageDialog(null, "Cancel delete Vaccine record");
-
-            }
-        } else {
-            if (tableVaccine.getRowCount() == 0) {
-                JOptionPane.showMessageDialog(this, "Table if Empty");
-            } else {
-                JOptionPane.showMessageDialog(this, "Please select a Row for Delete");
-            }
-        }
-    }//GEN-LAST:event_btnRemoveActionPerformed
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
         PersonnelMain personnel = new PersonnelMain();
@@ -592,7 +510,6 @@ public class ManageVaccine extends javax.swing.JFrame {
     private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnBack;
     private javax.swing.JButton btnClear;
-    private javax.swing.JButton btnRemove;
     private javax.swing.JButton btnUpdate;
     private javax.swing.JComboBox<String> cmbDuration;
     private javax.swing.JLabel jLabel3;

@@ -1,89 +1,87 @@
 package vaccineregistrationsystem;
 
+import java.awt.HeadlessException;
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.io.IOException;
 
 public class VaccineRegistrationSystem {
 
     public static void main(String[] args) {
-
-//        Compare 2 files 
-        String ic = "121212";
         try {
-            String dose1File = "dose1.txt";
-            String poepleFile = "people.txt";
 
-            FileReader frDose1 = new FileReader(dose1File);
-            BufferedReader brDose1 = new BufferedReader(frDose1);
-            String lineDose1 = "";
-            boolean checkApp = false;
+            String txtCentre = "sdf";
 
-            FileReader frPeople = new FileReader(poepleFile);
-            BufferedReader brPeople = new BufferedReader(frPeople);
-            String linePeople = "";
+            String txtVaccine = "";
+            Vaccine strVaccineType = new Vaccine(txtVaccine);
 
-            if ((lineDose1 = brDose1.readLine()) != null) {
-                String[] apparr = lineDose1.split("[,\n]");
+            int txtDuration = 0;
+            Vaccine intVaccineDuration = new Vaccine(txtDuration);
 
-//                compare file 1
-                if (!ic.equals(apparr[0])) {
-                    checkApp = true;
+            String vaccineFile = "vaccine.txt";
+            String centreFile = "centre.txt";
 
-                    while ((linePeople = brPeople.readLine()) != null) {
-                        String[] people = linePeople.split("[,\n]");
+            FileReader vaccineFR = new FileReader(vaccineFile);
+            BufferedReader vaccineBR = new BufferedReader(vaccineFR);
+            String vaccineLine;
 
-                        if (ic.equals(people[0])) {
-                            System.out.println("------------1");
-                            System.out.println(people[0] + " " + people[1]);
-                            brDose1.close();
-                            frDose1.close();
+            FileReader centreFR = new FileReader(centreFile);
+            BufferedReader centreBR = new BufferedReader(centreFR);
+            String centreLine;
 
-                            brPeople.close();
-                            frPeople.close();
+            boolean isCentre = false;
+            boolean isVaccine = false;
 
-//                            addApp(people[0], people[1]);
-                        }
+            while ((centreLine = centreBR.readLine()) != null) {
+                String[] centreArr = centreLine.split("[,\n]");
+
+                if (txtCentre.equals(centreArr[0])) {
+                    isCentre = true;
+//                    if the centre is match, then get the centre's vaccine 
+                    System.out.println(txtCentre + "." + centreArr[0]);
+                    if (isCentre == true) {
+                        Centre centreVaccine = new Centre();
+                        Vaccine vaccineType = new Vaccine(centreArr[2]);
+                        centreVaccine.setVaccine(vaccineType);
+
+                        strVaccineType = centreVaccine.getVaccine();
+
+                        System.out.println(strVaccineType);
+                        break;
                     }
+
+                    break;
+
                 }
             }
+            String[] vaccineArr;
+            while ((vaccineLine = vaccineBR.readLine()) != null) {
+                vaccineArr = vaccineLine.split("[,\n]");
+                String getVT = strVaccineType.getVaccineType();
 
-            if (lineDose1 == null) {
-                checkApp = true;
+                System.out.println(getVT);
 
-                while ((linePeople = brPeople.readLine()) != null) {
-                    String[] people = linePeople.split("[,\n]");
+                if (getVT.equals(vaccineArr[0])) {
+                    isVaccine = true;
+                    intVaccineDuration.setVaccineDuration(txtDuration);
+                    System.out.println(txtDuration);
+                    System.out.println("Vaccine Duration" + intVaccineDuration.getVaccineDuration());
+                    break;
 
-//                    compare file 2
-                    if (ic.equals(people[0])) {
-                        System.out.println("-------------------");
-                        System.out.println(people[0] + " " + people[1]);
-                        brDose1.close();
-                        frDose1.close();
-
-                        brPeople.close();
-                        frPeople.close();
-//                        addApp(people[0], people[1]);
-                    }
                 }
+                break;
+
             }
+            System.out.println(isVaccine);
+            
+            centreBR.close();
+            centreFR.close();
+            vaccineBR.close();
+            vaccineFR.close();
 
-            brDose1.close();
-            frDose1.close();
-
-            brPeople.close();
-            frPeople.close();
-
-            if (checkApp == true) {
-                System.out.println("Dose1");
-                System.out.println(lineDose1);
-                  System.out.println("People");
-                System.out.println(linePeople);
-            }
-
-        } catch (Exception e) {
+        } catch (HeadlessException | IOException e) {
             System.out.println(e);
         }
-
     }
 
 }

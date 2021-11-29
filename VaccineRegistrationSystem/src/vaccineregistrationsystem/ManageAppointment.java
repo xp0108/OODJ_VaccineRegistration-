@@ -1048,6 +1048,10 @@ public class ManageAppointment extends javax.swing.JFrame {
                     Appointment oriAppointment = new Appointment(PeopleIC, PeopleName, AppDate, centreName);
                     oriAppointment.assignAppStatus(AppStatus);
 
+                    LocalDate ldAppDate = LocalDate.parse(AppDate);
+                    //Add month for dose 2 appointment 
+                    LocalDate dose2AppDate = ldAppDate.plusMonths(1);
+
                     bw.write(oriAppointment.writeDoseFile());
 
                     bw.close();
