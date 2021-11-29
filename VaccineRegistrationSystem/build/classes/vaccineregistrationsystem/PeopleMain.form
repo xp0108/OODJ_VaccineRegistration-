@@ -64,50 +64,55 @@
                           <Component id="btnPeopleProfileBack" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
                       </Group>
-                      <Group type="102" alignment="0" attributes="0">
-                          <Component id="lblPeopleProfileNew" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="32767" attributes="0"/>
-                          <Component id="btnChangePassword" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="435" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="102" alignment="0" attributes="0">
+                      <Group type="102" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="txtPeopleProfileNew" alignment="0" min="-2" pref="182" max="-2" attributes="0"/>
-                                  <Component id="lblPeopleProfileOld" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="txtPeopleProfileOld" alignment="0" min="-2" pref="182" max="-2" attributes="0"/>
-                                  <Component id="lblPeopleProfileAddress" min="-2" max="-2" attributes="0"/>
-                                  <Group type="102" alignment="0" attributes="0">
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Group type="103" groupAlignment="0" attributes="0">
                                       <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="lblPeopleProfileIC" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          <Component id="txtPeopleProfileIC" alignment="0" min="-2" pref="182" max="-2" attributes="0"/>
-                                          <Component id="lblPeopleProfileDOB" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          <Component id="txtPeopleProfileDOB" alignment="0" min="-2" pref="182" max="-2" attributes="0"/>
+                                          <Component id="txtPeopleProfileNew" alignment="0" min="-2" pref="182" max="-2" attributes="0"/>
+                                          <Component id="lblPeopleProfileOld" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="txtPeopleProfileOld" alignment="0" min="-2" pref="182" max="-2" attributes="0"/>
+                                          <Component id="lblPeopleProfileAddress" min="-2" max="-2" attributes="0"/>
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <Group type="103" groupAlignment="0" attributes="0">
+                                                  <Component id="lblPeopleProfileIC" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="txtPeopleProfileIC" alignment="0" min="-2" pref="182" max="-2" attributes="0"/>
+                                                  <Component id="lblPeopleProfileDOB" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="txtPeopleProfileDOB" alignment="0" min="-2" pref="182" max="-2" attributes="0"/>
+                                              </Group>
+                                              <EmptySpace min="-2" pref="54" max="-2" attributes="0"/>
+                                              <Group type="103" groupAlignment="0" attributes="0">
+                                                  <Component id="txtPeopleProfileName" min="-2" pref="182" max="-2" attributes="0"/>
+                                                  <Component id="lblPeopleProfileName" min="-2" max="-2" attributes="0"/>
+                                              </Group>
+                                          </Group>
+                                          <Component id="txtPeopleProfileAddress" alignment="0" min="-2" pref="418" max="-2" attributes="0"/>
+                                          <Group type="102" alignment="1" attributes="0">
+                                              <Component id="lblPeoplePeofile" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace min="-2" pref="131" max="-2" attributes="0"/>
+                                          </Group>
                                       </Group>
-                                      <EmptySpace min="-2" pref="54" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="txtPeopleProfileName" min="-2" pref="182" max="-2" attributes="0"/>
-                                          <Component id="lblPeopleProfileName" min="-2" max="-2" attributes="0"/>
+                                      <Group type="102" attributes="0">
+                                          <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
+                                          <Component id="btnPeopleProfileSave" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace min="-2" pref="67" max="-2" attributes="0"/>
+                                          <Component id="btnPeopleProfileRefresh" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
-                                  <Component id="txtPeopleProfileAddress" alignment="0" min="-2" pref="418" max="-2" attributes="0"/>
-                                  <Group type="102" alignment="1" attributes="0">
-                                      <Component id="lblPeoplePeofile" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace min="-2" pref="131" max="-2" attributes="0"/>
-                                  </Group>
+                                  <EmptySpace pref="73" max="32767" attributes="0"/>
                               </Group>
-                              <Group type="102" attributes="0">
-                                  <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
-                                  <Component id="btnPeopleProfileSave" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="67" max="-2" attributes="0"/>
-                                  <Component id="btnPeopleProfileRefresh" min="-2" max="-2" attributes="0"/>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="lblPeopleProfileNew" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="32767" attributes="0"/>
+                                  <Component id="btnChangePassword" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="81" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <EmptySpace pref="73" max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="lblPeoplePeofileAppointment" min="-2" max="-2" attributes="0"/>
                               <Component id="btnPeopleProfileRequestA" min="-2" pref="311" max="-2" attributes="0"/>
                               <Component id="btnPeopleProfileStatusA" min="-2" pref="311" max="-2" attributes="0"/>
+                              <Component id="btnPeopleProfileCancelA" min="-2" pref="311" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
                       </Group>
@@ -118,13 +123,10 @@
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
+                  <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" attributes="0">
-                          <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="lblPeoplePeofile" min="-2" max="-2" attributes="0"/>
-                              <Component id="btnPeopleProfileBack" min="-2" max="-2" attributes="0"/>
-                          </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <Component id="lblPeoplePeofile" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="lblPeopleProfileIC" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -149,7 +151,7 @@
                               <Component id="btnPeopleProfileRefresh" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="1" attributes="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" attributes="0">
                                   <Component id="lblPeopleProfileOld" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -157,20 +159,25 @@
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
                                   <Component id="lblPeopleProfileNew" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <Component id="btnChangePassword" min="-2" max="-2" attributes="0"/>
+                              <Group type="102" alignment="1" attributes="0">
+                                  <Component id="btnChangePassword" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
+                              </Group>
                           </Group>
+                          <Component id="txtPeopleProfileNew" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="124" max="-2" attributes="0"/>
+                          <Component id="btnPeopleProfileBack" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="lblPeoplePeofileAppointment" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
                           <Component id="btnPeopleProfileRequestA" min="-2" pref="122" max="-2" attributes="0"/>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Component id="btnPeopleProfileCancelA" min="-2" pref="122" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="btnPeopleProfileStatusA" min="-2" pref="122" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="txtPeopleProfileNew" min="-2" max="-2" attributes="0"/>
                   <EmptySpace pref="21" max="32767" attributes="0"/>
               </Group>
           </Group>
@@ -417,6 +424,23 @@
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnPeopleProfileRequestAActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="btnPeopleProfileCancelA">
+          <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="0" green="0" red="0" type="rgb"/>
+            </Property>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Segoe UI" size="18" style="0"/>
+            </Property>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="ff" green="ff" red="ff" type="rgb"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Cancel Appointment"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnPeopleProfileCancelAActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnPeopleProfileStatusA">
