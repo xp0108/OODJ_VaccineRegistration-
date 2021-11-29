@@ -460,6 +460,13 @@ public class ManageAppointment extends javax.swing.JFrame {
                 dpAppDate.setEnabled(false);
                 txtIC.setEnabled(false);
                 txtName.setEnabled(false);
+
+                Citizen updateStatus = new Citizen();
+                updateStatus.UpdatePeopleStatus("people.txt", txtIC.getText(), "Dose 1");
+
+                Centre centre = new Centre();
+                centre.UpdateCentreFileAfterDeduct(centreE);
+
             } else {
                 cmbAppStatus.setEnabled(true);
                 cmbCentre.setEnabled(true);
@@ -537,62 +544,88 @@ public class ManageAppointment extends javax.swing.JFrame {
 
             }
         } else if (tableDose2.getSelectedRowCount() == 1) {
-            //Update Dose 2
-            modelDose2.setValueAt(pIC, tableDose2.getSelectedRow(), 0);
-            modelDose2.setValueAt(pName, tableDose2.getSelectedRow(), 1);
-            modelDose2.setValueAt(centreE, tableDose2.getSelectedRow(), 2);
-            modelDose2.setValueAt(strAppDateE, tableDose2.getSelectedRow(), 3);
-            modelDose2.setValueAt(appStatusE, tableDose2.getSelectedRow(), 4);
 
-            String fileDose2 = "dose2.txt";
-            String tempDose2File = "TempDose2.txt";
-            File oldDose2File = new File(fileDose2);
-            File newDose2File = new File(tempDose2File);
+            if (cmbAppStatus.getSelectedItem().equals("Done")) {
+                cmbAppStatus.setEnabled(false);
+                cmbCentre.setEnabled(false);
+                dpAppDate.setEnabled(false);
+                txtIC.setEnabled(false);
+                txtName.setEnabled(false);
 
-            try ( FileWriter fw = new FileWriter(newDose2File, true);  BufferedWriter bw = new BufferedWriter(fw);  Scanner ss = new Scanner(oldDose2File);) {
+                Citizen updateStatus = new Citizen();
+                updateStatus.UpdatePeopleStatus("people.txt", txtIC.getText(), "Dose 2");
+                Centre centre = new Centre();
+                centre.UpdateCentreFileAfterDeduct(centreE);
 
-                ss.useDelimiter("[,\n]");
+            } else {
+                cmbAppStatus.setEnabled(true);
+                cmbCentre.setEnabled(true);
+                dpAppDate.setEnabled(true);
+                txtIC.setEnabled(false);
+                txtName.setEnabled(false);
+            }
 
-                while (ss.hasNext()) {
-                    String IC = ss.next();
-                    String Name = ss.next();
-                    String centre = ss.next();
-                    String strAppDate = ss.next();
-                    String appStatus = ss.next();
+            if (pIC.equals("") || pName.equals("") || appStatusE.equals("") || centreE.equals("") || strAppDateE.equals("")) {
+                JOptionPane.showMessageDialog(null, "Please fill up the all the details.", "Empty text field found !", JOptionPane.ERROR_MESSAGE);
 
-                    if (pIC.trim().equals(IC.trim()) && pName.trim().equals(Name.trim())) {
-                        //mody
-                        Centre centreNameE = new Centre(centreE);
+            } else {
+                //Update Dose 2
+                modelDose2.setValueAt(pIC, tableDose2.getSelectedRow(), 0);
+                modelDose2.setValueAt(pName, tableDose2.getSelectedRow(), 1);
+                modelDose2.setValueAt(centreE, tableDose2.getSelectedRow(), 2);
+                modelDose2.setValueAt(strAppDateE, tableDose2.getSelectedRow(), 3);
+                modelDose2.setValueAt(appStatusE, tableDose2.getSelectedRow(), 4);
 
-                        Appointment modyAppointment = new Appointment(pIC, pName, strAppDateE, centreNameE);
-                        modyAppointment.assignAppStatus(appStatusE);
+                String fileDose2 = "dose2.txt";
+                String tempDose2File = "TempDose2.txt";
+                File oldDose2File = new File(fileDose2);
+                File newDose2File = new File(tempDose2File);
 
-                        bw.write(modyAppointment.writeDoseFile());
+                try ( FileWriter fw = new FileWriter(newDose2File, true);  BufferedWriter bw = new BufferedWriter(fw);  Scanner ss = new Scanner(oldDose2File);) {
 
-                    } else {
-                        //ori                      
-                        Centre centreName = new Centre(centre);
+                    ss.useDelimiter("[,\n]");
 
-                        Appointment oriAppointment = new Appointment(IC, Name, strAppDate, centreName);
-                        oriAppointment.assignAppStatus(appStatus);
+                    while (ss.hasNext()) {
+                        String IC = ss.next();
+                        String Name = ss.next();
+                        String centre = ss.next();
+                        String strAppDate = ss.next();
+                        String appStatus = ss.next();
 
-                        bw.write(oriAppointment.writeDoseFile());
+                        if (pIC.trim().equals(IC.trim()) && pName.trim().equals(Name.trim())) {
+                            //mody
+                            Centre centreNameE = new Centre(centreE);
 
+                            Appointment modyAppointment = new Appointment(pIC, pName, strAppDateE, centreNameE);
+                            modyAppointment.assignAppStatus(appStatusE);
+
+                            bw.write(modyAppointment.writeDoseFile());
+
+                        } else {
+                            //ori                      
+                            Centre centreName = new Centre(centre);
+
+                            Appointment oriAppointment = new Appointment(IC, Name, strAppDate, centreName);
+                            oriAppointment.assignAppStatus(appStatus);
+
+                            bw.write(oriAppointment.writeDoseFile());
+
+                        }
                     }
+
+                    ss.close();
+                    bw.close();
+                    fw.close();
+
+                    oldDose2File.delete();
+
+                    File dump = new File(fileDose2);
+                    newDose2File.renameTo(dump);
+                    JOptionPane.showMessageDialog(this, "Record Updated Successfully");
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(null, "Edit Appointment record fail due to " + e);
+                    System.out.println(e);
                 }
-
-                ss.close();
-                bw.close();
-                fw.close();
-
-                oldDose2File.delete();
-
-                File dump = new File(fileDose2);
-                newDose2File.renameTo(dump);
-                JOptionPane.showMessageDialog(this, "Record Updated Successfully");
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, "Edit Appointment record fail due to " + e);
-                System.out.println(e);
             }
         } else {
             if (tableDose1.getRowCount() == 0 || tableDose2.getRowCount() == 0) {
@@ -1038,7 +1071,8 @@ public class ManageAppointment extends javax.swing.JFrame {
 
             } else {
 //                add appointment
-                String appDate = Dose2AppDate(AppDate, AppCentre);
+                Appointment doseDate = new Appointment();
+                String appDate = doseDate.Dose2AppDate(AppDate, AppCentre);
                 try {
                     File file = new File("dose2.txt");
                     FileWriter fw = new FileWriter(file, true);
@@ -1075,83 +1109,6 @@ public class ManageAppointment extends javax.swing.JFrame {
             e.printStackTrace();
             JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
-    }
-
-    public String Dose2AppDate(String AppDate, String cmbCentre) {
-        int vaccineDuration = 0;
-        try {
-
-            String txtVaccine = "";
-
-            Vaccine strVaccineType = new Vaccine(txtVaccine);
-
-            String centreFile = "centre.txt";
-
-            FileReader centreFR = new FileReader(centreFile);
-            BufferedReader centreBR = new BufferedReader(centreFR);
-            String centreLine;
-
-            while ((centreLine = centreBR.readLine()) != null) {
-                String[] centreArr = centreLine.split("[,\n]");
-
-                System.out.println("aaaa " + centreArr[0]);
-                if (cmbCentre.trim().equals(centreArr[0])) {
-
-//                    if the centre is match, then get the centre's vaccine 
-                    System.out.println(cmbCentre + "." + centreArr[0]);
-
-                    Centre centreVaccine = new Centre();
-                    Vaccine vaccineType = new Vaccine(centreArr[2]);
-                    centreVaccine.setVaccine(vaccineType);
-
-                    strVaccineType = centreVaccine.getVaccine();
-
-                    System.out.println(strVaccineType.displayVaccineType());
-                    break;
-
-                }
-            }
-            centreBR.close();
-            centreFR.close();
-
-            String vaccineFile = "vaccine.txt";
-            FileReader vaccineFR = new FileReader(vaccineFile);
-            BufferedReader vaccineBR = new BufferedReader(vaccineFR);
-            String vaccineLine;
-
-//            Aggregation
-            Vaccine intVaccineDuration = new Vaccine(vaccineDuration);
-
-            while ((vaccineLine = vaccineBR.readLine()) != null) {
-                String[] vaccineArr = vaccineLine.split("[,\n]");
-
-                String getVT = strVaccineType.getVaccineType();
-
-                System.out.println("bbb  " + vaccineArr[0]);
-                if (getVT.trim().equals(vaccineArr[0])) {
-                    vaccineDuration = Integer.parseInt(vaccineArr[1]);
-                    intVaccineDuration.setVaccineDuration(vaccineDuration);
-                    System.out.println(vaccineDuration);
-                    System.out.println("Vaccine Duration " + intVaccineDuration.getVaccineDuration());
-
-                    break;
-
-                }
-
-            }
-
-            vaccineBR.close();
-            vaccineFR.close();
-
-        } catch (HeadlessException | IOException e) {
-            System.out.println(e);
-        }
-
-        LocalDate ldAppDate = LocalDate.parse(AppDate);
-        LocalDate dose2AppDate = ldAppDate.plusMonths(vaccineDuration);
-
-        return dose2AppDate.toString();
-
     }
 
     public static void main(String args[]) {

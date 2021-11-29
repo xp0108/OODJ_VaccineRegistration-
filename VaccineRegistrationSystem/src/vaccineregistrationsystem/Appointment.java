@@ -1,5 +1,11 @@
 package vaccineregistrationsystem;
 
+import java.awt.HeadlessException;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.time.LocalDate;
+
 public class Appointment {
 
     private String appPeopleIC;
@@ -77,7 +83,6 @@ public class Appointment {
         return appPeopleIC + "," + appPeopleName + "," + appcentre.getCentreName() + "," + appdate + "," + this.appStatus + "\n";
     }
 
-//    Testing
     public void setAppStatus(String appStatus) {
         this.appStatus = appStatus;
     }
@@ -97,4 +102,80 @@ public class Appointment {
         }
         return appStatus;
     }
+
+    public String Dose2AppDate(String AppDate, String cmbCentre) {
+        int vaccineDuration = 0;
+        try {
+
+            String txtVaccine = "";
+
+            Vaccine strVaccineType = new Vaccine(txtVaccine);
+
+            String centreFile = "centre.txt";
+
+            FileReader centreFR = new FileReader(centreFile);
+            BufferedReader centreBR = new BufferedReader(centreFR);
+            String centreLine;
+
+            while ((centreLine = centreBR.readLine()) != null) {
+                String[] centreArr = centreLine.split("[,\n]");
+
+                if (cmbCentre.trim().equals(centreArr[0])) {
+
+//                    if the centre is match, then get the centre's vaccine 
+                    System.out.println(cmbCentre + "." + centreArr[0]);
+
+                    Centre centreVaccine = new Centre();
+                    Vaccine vaccineType = new Vaccine(centreArr[2]);
+                    centreVaccine.setVaccine(vaccineType);
+
+                    strVaccineType = centreVaccine.getVaccine();
+
+                    System.out.println(strVaccineType.displayVaccineType());
+                    break;
+
+                }
+            }
+            centreBR.close();
+            centreFR.close();
+
+            String vaccineFile = "vaccine.txt";
+            FileReader vaccineFR = new FileReader(vaccineFile);
+            BufferedReader vaccineBR = new BufferedReader(vaccineFR);
+            String vaccineLine;
+
+//            Aggregation
+            Vaccine intVaccineDuration = new Vaccine(vaccineDuration);
+
+            while ((vaccineLine = vaccineBR.readLine()) != null) {
+                String[] vaccineArr = vaccineLine.split("[,\n]");
+
+                String getVT = strVaccineType.getVaccineType();
+
+                if (getVT.trim().equals(vaccineArr[0])) {
+                    vaccineDuration = Integer.parseInt(vaccineArr[1]);
+                    intVaccineDuration.setVaccineDuration(vaccineDuration);
+                    System.out.println(vaccineDuration);
+                    System.out.println("Vaccine Duration " + intVaccineDuration.getVaccineDuration());
+
+                    break;
+
+                }
+
+            }
+
+            vaccineBR.close();
+            vaccineFR.close();
+
+        } catch (HeadlessException | IOException e) {
+            System.out.println(e);
+        }
+
+        LocalDate ldAppDate = LocalDate.parse(AppDate);
+        LocalDate dose2AppDate = ldAppDate.plusMonths(vaccineDuration);
+
+        return dose2AppDate.toString();
+
+    }
+
 }
