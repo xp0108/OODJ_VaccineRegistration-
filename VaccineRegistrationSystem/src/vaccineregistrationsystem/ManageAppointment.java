@@ -438,7 +438,7 @@ public class ManageAppointment extends javax.swing.JFrame {
         DefaultTableModel modelDose2 = (DefaultTableModel) tableDose2.getModel();
         String searchDose2 = txtSearch.getText();
         TableRowSorter<DefaultTableModel> tr2 = new TableRowSorter<DefaultTableModel>(modelDose2);
-        tableDose1.setRowSorter(tr2);
+        tableDose2.setRowSorter(tr2);
         tr2.setRowFilter(RowFilter.regexFilter(searchDose2));
     }//GEN-LAST:event_txtSearchKeyReleased
 
@@ -857,6 +857,8 @@ public class ManageAppointment extends javax.swing.JFrame {
         cmbAppStatus.setEnabled(true);
         cmbCentre.setEnabled(true);
         dpAppDate.setEnabled(true);
+        tableDose1.getSelectionModel().clearSelection();
+        tableDose2.getSelectionModel().clearSelection();
 
     }
 
