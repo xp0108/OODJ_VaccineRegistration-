@@ -5,10 +5,27 @@
  */
 package vaccineregistrationsystem;
 
-/**
- *
- * @author onn
- */
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.print.PageFormat;
+import java.awt.print.Printable;
+import java.awt.print.PrinterException;
+import java.awt.print.PrinterJob;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.CategoryPlot;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.data.category.DefaultCategoryDataset;
+
 public class GenerateReport extends javax.swing.JFrame {
 
     /**
@@ -16,6 +33,8 @@ public class GenerateReport extends javax.swing.JFrame {
      */
     public GenerateReport() {
         initComponents();
+        report("people.txt");
+
     }
 
     /**
@@ -30,9 +49,18 @@ public class GenerateReport extends javax.swing.JFrame {
         pnlReport = new javax.swing.JPanel();
         lblReport = new javax.swing.JLabel();
         lblNumPeople = new javax.swing.JLabel();
-        lblNumPeople1 = new javax.swing.JLabel();
+        lblNumPeopleNone = new javax.swing.JLabel();
+        txtNumPeopleNone = new javax.swing.JTextField();
+        lblNumPeopleDose1 = new javax.swing.JLabel();
+        txtNumPeopleDose1 = new javax.swing.JTextField();
+        lblNumPeopleDose2 = new javax.swing.JLabel();
+        txtNumPeopleDose2 = new javax.swing.JTextField();
+        btnReportBack = new javax.swing.JButton();
+        btnReportPrint = new javax.swing.JButton();
+        pnlReportGraph = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
         pnlReport.setBackground(new java.awt.Color(212, 227, 247));
 
@@ -44,9 +72,58 @@ public class GenerateReport extends javax.swing.JFrame {
         lblNumPeople.setForeground(new java.awt.Color(0, 0, 0));
         lblNumPeople.setText("Number of People:");
 
-        lblNumPeople1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        lblNumPeople1.setForeground(new java.awt.Color(0, 0, 0));
-        lblNumPeople1.setText("No Vaccinated:");
+        lblNumPeopleNone.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        lblNumPeopleNone.setForeground(new java.awt.Color(0, 0, 0));
+        lblNumPeopleNone.setText("No Vaccinated:");
+
+        txtNumPeopleNone.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        txtNumPeopleNone.setText("0");
+        txtNumPeopleNone.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        txtNumPeopleNone.setEnabled(false);
+
+        lblNumPeopleDose1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        lblNumPeopleDose1.setForeground(new java.awt.Color(0, 0, 0));
+        lblNumPeopleDose1.setText("Dose 1:");
+
+        txtNumPeopleDose1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        txtNumPeopleDose1.setText("0");
+        txtNumPeopleDose1.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        txtNumPeopleDose1.setEnabled(false);
+
+        lblNumPeopleDose2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        lblNumPeopleDose2.setForeground(new java.awt.Color(0, 0, 0));
+        lblNumPeopleDose2.setText("Dose 2:");
+
+        txtNumPeopleDose2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        txtNumPeopleDose2.setText("0");
+        txtNumPeopleDose2.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        txtNumPeopleDose2.setEnabled(false);
+
+        btnReportBack.setBackground(new java.awt.Color(0, 0, 0));
+        btnReportBack.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        btnReportBack.setForeground(new java.awt.Color(255, 255, 255));
+        btnReportBack.setText("Back");
+        btnReportBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnReportBackActionPerformed(evt);
+            }
+        });
+
+        btnReportPrint.setBackground(new java.awt.Color(0, 0, 0));
+        btnReportPrint.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        btnReportPrint.setForeground(new java.awt.Color(255, 255, 255));
+        btnReportPrint.setText("Print");
+        btnReportPrint.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnReportPrintActionPerformed(evt);
+            }
+        });
+
+        pnlReportGraph.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Report Bar Graph", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Cambria", 0, 18), new java.awt.Color(0, 0, 0))); // NOI18N
+        pnlReportGraph.setForeground(new java.awt.Color(0, 0, 0));
+        pnlReportGraph.setEnabled(false);
+        pnlReportGraph.setFont(new java.awt.Font("Cambria", 0, 18)); // NOI18N
+        pnlReportGraph.setLayout(new javax.swing.BoxLayout(pnlReportGraph, javax.swing.BoxLayout.LINE_AXIS));
 
         javax.swing.GroupLayout pnlReportLayout = new javax.swing.GroupLayout(pnlReport);
         pnlReport.setLayout(pnlReportLayout);
@@ -55,25 +132,59 @@ public class GenerateReport extends javax.swing.JFrame {
             .addGroup(pnlReportLayout.createSequentialGroup()
                 .addGroup(pnlReportLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlReportLayout.createSequentialGroup()
-                        .addGap(112, 112, 112)
-                        .addComponent(lblReport))
+                        .addGap(159, 159, 159)
+                        .addComponent(btnReportPrint))
                     .addGroup(pnlReportLayout.createSequentialGroup()
-                        .addGap(47, 47, 47)
+                        .addGap(50, 50, 50)
                         .addGroup(pnlReportLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblNumPeople1)
-                            .addComponent(lblNumPeople))))
-                .addContainerGap(115, Short.MAX_VALUE))
+                            .addComponent(txtNumPeopleDose1, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblNumPeopleDose2)
+                            .addComponent(txtNumPeopleDose2, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblNumPeopleNone)
+                            .addComponent(txtNumPeopleNone, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblNumPeople)
+                            .addComponent(lblNumPeopleDose1)))
+                    .addGroup(pnlReportLayout.createSequentialGroup()
+                        .addGap(111, 111, 111)
+                        .addComponent(lblReport)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
+                .addGroup(pnlReportLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlReportLayout.createSequentialGroup()
+                        .addComponent(pnlReportGraph, javax.swing.GroupLayout.PREFERRED_SIZE, 326, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(51, 51, 51))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlReportLayout.createSequentialGroup()
+                        .addComponent(btnReportBack)
+                        .addContainerGap())))
         );
         pnlReportLayout.setVerticalGroup(
             pnlReportLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlReportLayout.createSequentialGroup()
-                .addGap(32, 32, 32)
-                .addComponent(lblReport)
-                .addGap(18, 18, 18)
-                .addComponent(lblNumPeople)
-                .addGap(18, 18, 18)
-                .addComponent(lblNumPeople1)
-                .addContainerGap(365, Short.MAX_VALUE))
+                .addGroup(pnlReportLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(pnlReportLayout.createSequentialGroup()
+                        .addGap(15, 15, 15)
+                        .addComponent(btnReportBack)
+                        .addGap(36, 36, 36)
+                        .addComponent(pnlReportGraph, javax.swing.GroupLayout.PREFERRED_SIZE, 430, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pnlReportLayout.createSequentialGroup()
+                        .addGap(31, 31, 31)
+                        .addComponent(lblReport)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lblNumPeople)
+                        .addGap(18, 18, 18)
+                        .addComponent(lblNumPeopleNone)
+                        .addGap(18, 18, 18)
+                        .addComponent(txtNumPeopleNone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(lblNumPeopleDose1)
+                        .addGap(18, 18, 18)
+                        .addComponent(txtNumPeopleDose1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(lblNumPeopleDose2)
+                        .addGap(18, 18, 18)
+                        .addComponent(txtNumPeopleDose2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(37, 37, 37)
+                        .addComponent(btnReportPrint)))
+                .addContainerGap(44, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -95,6 +206,16 @@ public class GenerateReport extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnReportPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReportPrintActionPerformed
+        printComponenet(pnlReport);
+    }//GEN-LAST:event_btnReportPrintActionPerformed
+
+    private void btnReportBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReportBackActionPerformed
+        PersonnelMain personnel = new PersonnelMain();
+        personnel.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_btnReportBackActionPerformed
 
     /**
      * @param args the command line arguments
@@ -131,10 +252,134 @@ public class GenerateReport extends javax.swing.JFrame {
         });
     }
 
+    public void printComponenet(Component component) {
+        PrinterJob pj = PrinterJob.getPrinterJob();
+        pj.setJobName(" Print Component ");
+
+        pj.setPrintable(new Printable() {
+            public int print(Graphics pg, PageFormat pf, int pageNum) {
+                if (pageNum > 0) {
+                    return Printable.NO_SUCH_PAGE;
+                }
+
+                Graphics2D g2 = (Graphics2D) pg;
+                g2.translate(pf.getImageableX(), pf.getImageableY());
+                component.paint(g2);
+                return Printable.PAGE_EXISTS;
+            }
+        });
+        if (pj.printDialog() == false) {
+            return;
+        }
+
+        try {
+            pj.print();
+        } catch (PrinterException ex) {
+            // handle exception
+        }
+    }
+
+    public void report(String pathfile) {
+        Path path = Paths.get(pathfile);
+        String file = pathfile;
+
+        try {
+            FileReader fr = new FileReader(file);
+            BufferedReader br = new BufferedReader(fr);
+            String line, type;
+            long NoVac = 0;
+
+            while ((line = br.readLine()) != null) {
+                String[] apparr = line.split(",");
+
+                while (apparr[4].trim().equals("No Vaccinated")) {
+                    NoVac++;
+                    break;
+                }
+
+            }
+            txtNumPeopleNone.setText(String.valueOf(NoVac));
+
+            br.close();
+            fr.close();
+
+            fr = new FileReader(file);
+            br = new BufferedReader(fr);
+            long Dose1 = 0;
+
+            while ((line = br.readLine()) != null) {
+                String[] apparr = line.split(",");
+
+                while (apparr[4].trim().equals("Dose 1")) {
+                    Dose1++;
+                    break;
+                }
+
+            }
+            txtNumPeopleDose1.setText(String.valueOf(Dose1));
+
+            br.close();
+            fr.close();
+
+            fr = new FileReader(file);
+            br = new BufferedReader(fr);
+            long Dose2 = 0;
+
+            while ((line = br.readLine()) != null) {
+                String[] apparr = line.split(",");
+
+                while (apparr[4].trim().equals("Dose 2")) {
+                    Dose2++;
+                    break;
+                }
+
+            }
+            txtNumPeopleDose2.setText(String.valueOf(Dose2));
+
+            br.close();
+            fr.close();
+
+            DefaultCategoryDataset dcd = new DefaultCategoryDataset();
+            dcd.setValue(NoVac, "Number of People", "No Vaccine");
+            dcd.setValue(Dose1, "Number of People", "Dose 1");
+            dcd.setValue(Dose2, "Number of People", "Dose 2");
+
+            JFreeChart jchart = ChartFactory.createBarChart3D("Vaccine Status Report", "Vaccine Status", "Number of People",
+                    dcd, PlotOrientation.VERTICAL, false, false, false);
+            
+//            JFreeChart jchart1 = ChartFactory.createBarChart3D(file, pathfile, pathfile, dcd, 
+//                    PlotOrientation.HORIZONTAL, rootPaneCheckingEnabled, rootPaneCheckingEnabled, rootPaneCheckingEnabled)
+
+            CategoryPlot plot = jchart.getCategoryPlot();
+            plot.setRangeGridlinePaint(Color.black);
+
+            ChartPanel chartPanel = new ChartPanel(jchart);
+
+            pnlReportGraph.removeAll();
+            pnlReportGraph.add(chartPanel);
+            pnlReportGraph.updateUI();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnRegisterPrint;
+    private javax.swing.JButton btnRegisterPrint1;
+    private javax.swing.JButton btnRegisterPrint2;
+    private javax.swing.JButton btnReportBack;
+    private javax.swing.JButton btnReportPrint;
     private javax.swing.JLabel lblNumPeople;
-    private javax.swing.JLabel lblNumPeople1;
+    private javax.swing.JLabel lblNumPeopleDose1;
+    private javax.swing.JLabel lblNumPeopleDose2;
+    private javax.swing.JLabel lblNumPeopleNone;
     private javax.swing.JLabel lblReport;
     private javax.swing.JPanel pnlReport;
+    private javax.swing.JPanel pnlReportGraph;
+    private javax.swing.JTextField txtNumPeopleDose1;
+    private javax.swing.JTextField txtNumPeopleDose2;
+    private javax.swing.JTextField txtNumPeopleNone;
     // End of variables declaration//GEN-END:variables
 }
