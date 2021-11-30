@@ -33,7 +33,8 @@ public class ManageAppointment extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         ShowDose1();
         ShowDose2();
-        ShowCentreDropDown();
+        Centre showDropDown = new Centre();
+        showDropDown.ShowCentreDropDown(cmbCentre);
         tableDose1.setDefaultEditor(Object.class, null);
         tableDose2.setDefaultEditor(Object.class, null);
         cmbCentre.setSelectedIndex(-1);
@@ -787,7 +788,8 @@ public class ManageAppointment extends javax.swing.JFrame {
     }//GEN-LAST:event_btnClearActionPerformed
 
     private void cmbCentrePopupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_cmbCentrePopupMenuWillBecomeVisible
-        ShowCentreDropDown();
+        Centre showDropDown = new Centre();
+        showDropDown.ShowCentreDropDown(cmbCentre);
     }//GEN-LAST:event_cmbCentrePopupMenuWillBecomeVisible
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
@@ -930,30 +932,6 @@ public class ManageAppointment extends javax.swing.JFrame {
             Logger.getLogger(ManageCentre.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-    }
-
-    public void ShowCentreDropDown() {
-        try {
-            String file = "centre.txt";
-            BufferedReader br = new BufferedReader(new FileReader(file));
-            List<String> centreList = new ArrayList<String>();
-            String line;
-            try {
-                while ((line = br.readLine()) != null) {
-                    String[] loginarr = line.split("[,\n]");
-                    centreList.add(loginarr[0]);
-                }
-            } catch (FileNotFoundException e) {
-                System.err.println("Error, file " + file + " didn't exist.");
-            } finally {
-                br.close();
-            }
-            DefaultComboBoxModel<String> lineArray = new DefaultComboBoxModel(centreList.toArray());
-
-            cmbCentre.setModel(lineArray);
-        } catch (HeadlessException | IOException e) {
-            System.out.println(e);
-        }
     }
 
     public void CheckDose1People(String PeopleIC, String PeopleName) {

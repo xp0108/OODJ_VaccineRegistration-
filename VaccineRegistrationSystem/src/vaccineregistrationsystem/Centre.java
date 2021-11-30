@@ -1,12 +1,20 @@
 package vaccineregistrationsystem;
 
+import java.awt.Font;
 import java.awt.HeadlessException;
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.table.DefaultTableModel;
 
 public class Centre {
 
@@ -180,4 +188,54 @@ public class Centre {
 
     }
 
+    public void ShowCentreDropDown(javax.swing.JComboBox<String> cmbCentre) {
+        try {
+            String file = "centre.txt";
+            BufferedReader br = new BufferedReader(new FileReader(file));
+            List<String> centreList = new ArrayList<String>();
+            String line;
+            try {
+                while ((line = br.readLine()) != null) {
+                    String[] loginarr = line.split("[,\n]");
+                    centreList.add(loginarr[0]);
+                }
+            } catch (FileNotFoundException e) {
+                System.err.println("Error, file " + file + " didn't exist.");
+            } finally {
+                br.close();
+            }
+            DefaultComboBoxModel<String> lineArray = new DefaultComboBoxModel(centreList.toArray());
+
+            cmbCentre.setModel(lineArray);
+        } catch (HeadlessException | IOException e) {
+            System.out.println(e);
+        }
+    }
+
+    public void ShowCentreData(javax.swing.JTable tableCentre) {
+        // show data in the JTable
+        File fileCentre = new File("centre.txt");
+        try ( BufferedReader br = new BufferedReader(new FileReader(fileCentre));) {
+            tableCentre.getTableHeader().setFont(new Font("SansSerif", Font.BOLD, 15));
+
+            DefaultTableModel model = (DefaultTableModel) tableCentre.getModel();
+
+            Object[] data = br.lines().toArray();
+
+            // extratct data from lines
+            // set data to jtable model
+            for (int i = 0; i < data.length; i++) {
+                String line = data[i].toString().trim();
+                String[] dataRow = line.split("[,\n]");
+
+                model.addRow(dataRow);
+
+            }
+            br.close();
+
+        } catch (IOException ex) {
+            Logger.getLogger(ManageCentre.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
 }

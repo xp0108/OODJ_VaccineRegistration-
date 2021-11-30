@@ -5,10 +5,6 @@
  */
 package vaccineregistrationsystem;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.util.Scanner;
 import javax.swing.JOptionPane;
 
 /**
@@ -161,7 +157,11 @@ public class RegisterPersonnel extends javax.swing.JFrame {
                     "Please fill up all the fills", "Uh Oh...",
                     JOptionPane.WARNING_MESSAGE);
         } else {
-            checkFile(txtUsername.getText(), txtPassword.getText(), "login.txt");
+            Personnel personnel = new Personnel();
+            personnel.AddPersonnel(txtUsername.getText(), txtPassword.getText(), "login.txt");
+            Login login = new Login();
+            login.setVisible(true);
+            this.setVisible(false);
         }
     }//GEN-LAST:event_btnRegisterActionPerformed
 
@@ -206,59 +206,6 @@ public class RegisterPersonnel extends javax.swing.JFrame {
         });
     }
 
-    public static Scanner scnnaer;
-
-    public void checkFile(String PersonnelUsername, String PersonnelPassword, String filepath) {
-        boolean found = false;
-        String tempUsername = txtUsername.getText();
-
-        try {
-            scnnaer = new Scanner(new File(filepath));
-            scnnaer.useDelimiter("[,\n]");
-
-            while (scnnaer.hasNext() && !found) {
-                tempUsername = scnnaer.next();
-
-                if (tempUsername.trim().equals(PersonnelUsername.trim())) {
-                    found = true;
-                }
-            }
-
-            //after check file
-            if (found == true) {
-
-                JOptionPane.showMessageDialog(this, "Username already exist", "Uh Oh...", JOptionPane.WARNING_MESSAGE);
-
-            } else {
-
-                try {
-                    File file = new File("login.txt");
-                    FileWriter fw = new FileWriter(file, true);
-                    BufferedWriter bw = new BufferedWriter(fw);
-
-                    String username = txtUsername.getText();
-                    String password = txtPassword.getText();
-
-                    Personnel register = new Personnel(username, password);
-                    bw.write(register.toString());
-
-                    bw.close();
-                    fw.close();
-
-                    Login login = new Login();
-                    login.setVisible(true);
-                    this.setVisible(false);
-
-                } catch (Exception ex) {
-                    JOptionPane.showMessageDialog(this, "Error saving or loading data!!!", "Error", JOptionPane.ERROR_MESSAGE);
-                }
-
-            }
-
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Something went wrong, please try again!!!", "Error", JOptionPane.ERROR_MESSAGE);
-        }
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBack;

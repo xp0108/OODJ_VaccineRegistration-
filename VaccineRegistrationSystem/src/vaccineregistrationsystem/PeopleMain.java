@@ -1,21 +1,16 @@
 package vaccineregistrationsystem;
 
 import java.awt.Dialog;
-import java.awt.HeadlessException;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
-import java.io.IOException;
 import java.io.PrintWriter;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
-import static vaccineregistrationsystem.RegisterPeople.y;
 
 public class PeopleMain extends javax.swing.JFrame {
 
@@ -377,7 +372,8 @@ public class PeopleMain extends javax.swing.JFrame {
     }//GEN-LAST:event_btnChangePasswordActionPerformed
 
     private void btnPeopleProfileRequestAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPeopleProfileRequestAActionPerformed
-        requestApp(login.getPeopleIC().trim());
+        Appointment appointment = new Appointment();
+        appointment.PeopleRequestAppointment(login.getPeopleIC().trim());
     }//GEN-LAST:event_btnPeopleProfileRequestAActionPerformed
 
     private void btnPeopleProfileStatusAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPeopleProfileStatusAActionPerformed
@@ -408,10 +404,10 @@ public class PeopleMain extends javax.swing.JFrame {
                     break;
                 }
             }
-            
+
             br.close();
             fr.close();
-            
+
             if (IsDose1Done == 1) {
                 JOptionPane.showMessageDialog(null, "Cannot cancel appointment because Dose 1 is done or no appointmene request!!!",
                         "WARNING!!", JOptionPane.WARNING_MESSAGE);
@@ -611,87 +607,6 @@ public class PeopleMain extends javax.swing.JFrame {
         }
     }
 
-    public void requestApp(String ic) {
-        //check dose1 file is there any appointment request for this user
-        // if these is already a appointment request for this user, show erroe message
-        // if no then write into the dose1 file
-        try {
-            String file = "dose1.txt";
-            FileReader fr = new FileReader(file);
-            BufferedReader br = new BufferedReader(fr);
-            String line;
-            boolean isExist = false;
-
-            while ((line = br.readLine()) != null) {
-                String[] apparr = line.split(",");
-
-                if (ic.equals(apparr[0])) {
-                    isExist = true;
-                    break;
-                }
-            }
-
-            br.close();
-            fr.close();
-
-            if (isExist == true) {
-                JOptionPane.showMessageDialog(null, "Apointment has already been made", "WARNING!!", JOptionPane.WARNING_MESSAGE);
-                return;
-            }
-
-            String file1 = "people.txt";
-            fr = new FileReader(file1);
-            br = new BufferedReader(fr);
-
-            while ((line = br.readLine()) != null) {
-                String[] apparr = line.split(",");
-
-                if (ic.equals(apparr[0])) {
-                    addApp(ic, apparr[1]);
-                    break;
-                }
-            }
-
-            br.close();
-            fr.close();
-
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-
-    }
-
-    public void addApp(String ic, String name) {
-        try {
-
-            File file = new File("dose1.txt");
-            FileWriter fw = new FileWriter(file, true);
-            BufferedWriter bw = new BufferedWriter(fw);
-
-            String date = "";
-
-            Appointment appointment = new Appointment(ic, name, date);
-            bw.write(appointment.getAppPeopleIC());
-            bw.write(",");
-            bw.write(appointment.getAppPeopleName());
-            bw.write(",");
-            bw.write("");
-            bw.write(",");
-            bw.write(appointment.getAppdate());
-            bw.write(",");
-            bw.write("Pending");
-            bw.write("\n");
-
-            JOptionPane.showMessageDialog(this, "Successful Register for Appointment", "Congratulation", JOptionPane.PLAIN_MESSAGE);
-
-            bw.close();
-            fw.close();
-
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "No");
-            e.printStackTrace();
-        }
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnChangePassword;

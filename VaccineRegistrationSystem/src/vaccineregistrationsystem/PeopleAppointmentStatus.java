@@ -326,35 +326,10 @@ public class PeopleAppointmentStatus extends javax.swing.JDialog {
     }//GEN-LAST:event_btnRegisterBackActionPerformed
 
     private void btnRegisterPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegisterPrintActionPerformed
-        printComponenet(pnlAppointmentStatus);
+        Appointment appointment = new Appointment();
+        appointment.PrintAppointmentComponenet(pnlAppointmentStatus);
     }//GEN-LAST:event_btnRegisterPrintActionPerformed
 
-    public void printComponenet(Component component) {
-        PrinterJob pj = PrinterJob.getPrinterJob();
-        pj.setJobName(" Print Component ");
-
-        pj.setPrintable(new Printable() {
-            public int print(Graphics pg, PageFormat pf, int pageNum) {
-                if (pageNum > 0) {
-                    return Printable.NO_SUCH_PAGE;
-                }
-
-                Graphics2D g2 = (Graphics2D) pg;
-                g2.translate(pf.getImageableX(), pf.getImageableY());
-                component.paint(g2);
-                return Printable.PAGE_EXISTS;
-            }
-        });
-        if (pj.printDialog() == false) {
-            return;
-        }
-
-        try {
-            pj.print();
-        } catch (PrinterException ex) {
-            // handle exception
-        }
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnRegisterBack;
