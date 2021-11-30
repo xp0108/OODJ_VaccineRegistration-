@@ -2,3 +2,4 @@
 055432,xin pei,KL,2001-08-24,No Vaccinated
 123,123,123,9999-55-12,No Vaccinated
 990124-14-5101,Onn,Cheras,1999-01-24,No Vaccinated
+231,231,asd,2222-11-22,No Vaccinated
