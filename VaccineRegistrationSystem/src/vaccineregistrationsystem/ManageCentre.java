@@ -68,21 +68,26 @@ public class ManageCentre extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Covid-19 Vaccine Registration System |  Manage Vaccine Centre");
+        addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                formMouseClicked(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(212, 227, 247));
 
         txtAmount.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
-        lblRegisterName4.setText("Centre Address:");
         lblRegisterName4.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         lblRegisterName4.setForeground(new java.awt.Color(0, 0, 0));
+        lblRegisterName4.setText("Centre Address:");
 
-        lblRegisterName5.setText("Vaccine Amount:");
         lblRegisterName5.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         lblRegisterName5.setForeground(new java.awt.Color(0, 0, 0));
+        lblRegisterName5.setText("Vaccine Amount:");
 
-        cmbVaccineType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-Vaccine Type-" }));
         cmbVaccineType.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        cmbVaccineType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-Vaccine Type-" }));
         cmbVaccineType.setToolTipText("");
         cmbVaccineType.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
             public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
@@ -94,15 +99,15 @@ public class ManageCentre extends javax.swing.JFrame {
             }
         });
 
-        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel4.setText("Manage Vaccine Centre");
         jLabel4.setFont(new java.awt.Font("Algerian", 1, 24)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel4.setText("Manage Vaccine Centre");
 
-        btnAdd.setText("Add");
         btnAdd.setBackground(new java.awt.Color(0, 0, 0));
         btnAdd.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         btnAdd.setForeground(new java.awt.Color(255, 255, 255));
+        btnAdd.setText("Add");
         btnAdd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAddActionPerformed(evt);
@@ -118,26 +123,26 @@ public class ManageCentre extends javax.swing.JFrame {
             }
         ));
         tableCentre.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tableCentreMouseClicked(evt);
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                tableCentreMouseReleased(evt);
             }
         });
         jScrollPane1.setViewportView(tableCentre);
 
-        btnUpdate.setText("Update");
         btnUpdate.setBackground(new java.awt.Color(0, 0, 0));
         btnUpdate.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         btnUpdate.setForeground(new java.awt.Color(255, 255, 255));
+        btnUpdate.setText("Update");
         btnUpdate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnUpdateActionPerformed(evt);
             }
         });
 
-        btnRemove.setText("Remove");
         btnRemove.setBackground(new java.awt.Color(0, 0, 0));
         btnRemove.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         btnRemove.setForeground(new java.awt.Color(255, 255, 255));
+        btnRemove.setText("Remove");
         btnRemove.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRemoveActionPerformed(evt);
@@ -151,39 +156,39 @@ public class ManageCentre extends javax.swing.JFrame {
             }
         });
 
-        btnBack1.setText("Back");
         btnBack1.setBackground(new java.awt.Color(0, 0, 0));
         btnBack1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnBack1.setForeground(new java.awt.Color(255, 255, 255));
+        btnBack1.setText("Back");
         btnBack1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBack1ActionPerformed(evt);
             }
         });
 
-        lblRegisterName1.setText("Centre Name:");
         lblRegisterName1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         lblRegisterName1.setForeground(new java.awt.Color(0, 0, 0));
+        lblRegisterName1.setText("Centre Name:");
 
         txtCentreName.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
-        lblRegisterName3.setText("Centre Name:");
         lblRegisterName3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         lblRegisterName3.setForeground(new java.awt.Color(0, 0, 0));
+        lblRegisterName3.setText("Centre Name:");
 
-        lblRegisterName6.setText("Vaccine Type:");
         lblRegisterName6.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         lblRegisterName6.setForeground(new java.awt.Color(0, 0, 0));
+        lblRegisterName6.setText("Vaccine Type:");
 
         taCentreAdd.setColumns(20);
-        taCentreAdd.setRows(5);
         taCentreAdd.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        taCentreAdd.setRows(5);
         jScrollPane2.setViewportView(taCentreAdd);
 
-        btnClear.setText("Clear");
         btnClear.setBackground(new java.awt.Color(0, 0, 0));
         btnClear.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         btnClear.setForeground(new java.awt.Color(255, 255, 255));
+        btnClear.setText("Clear");
         btnClear.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnClearActionPerformed(evt);
@@ -486,9 +491,9 @@ public class ManageCentre extends javax.swing.JFrame {
         ShowCmbVeccineTypeData();
     }//GEN-LAST:event_cmbVaccineTypePopupMenuWillBecomeVisible
 
-    private void tableCentreMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableCentreMouseClicked
-        int i = tableCentre.getSelectedRow();
-        TableModel model = tableCentre.getModel();
+    private void tableCentreMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableCentreMouseReleased
+        int i = tableCentre.convertRowIndexToModel(tableCentre.getSelectedRow());
+        DefaultTableModel model = (DefaultTableModel) tableCentre.getModel();
 
         txtCentreName.setText(model.getValueAt(i, 0).toString());
         taCentreAdd.setText(model.getValueAt(i, 1).toString());
@@ -497,7 +502,11 @@ public class ManageCentre extends javax.swing.JFrame {
 
         //disable to edit
         txtCentreName.setEnabled(false);
-    }//GEN-LAST:event_tableCentreMouseClicked
+    }//GEN-LAST:event_tableCentreMouseReleased
+
+    private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
+         tableCentre.clearSelection();
+    }//GEN-LAST:event_formMouseClicked
     public void ShowCentreData() {
         // show data in the JTable
         File fileVaccine = new File("centre.txt");
