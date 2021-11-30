@@ -57,13 +57,18 @@ public class ManageVaccine extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Covid-19 Vaccine Registration System |  Manage Covid-19 Vaccine Supply");
+        addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                formMouseClicked(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(212, 227, 247));
 
-        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setText("Manage Covid-19 Vaccine Supply");
         jLabel3.setFont(new java.awt.Font("Algerian", 1, 24)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel3.setText("Manage Covid-19 Vaccine Supply");
 
         tableVaccine.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -77,6 +82,9 @@ public class ManageVaccine extends javax.swing.JFrame {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tableVaccineMouseClicked(evt);
             }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                tableVaccineMouseReleased(evt);
+            }
         });
         jScrollPane1.setViewportView(tableVaccine);
 
@@ -87,15 +95,15 @@ public class ManageVaccine extends javax.swing.JFrame {
             }
         });
 
-        lblRegisterName1.setText("Vaccine ID/Type:");
         lblRegisterName1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         lblRegisterName1.setForeground(new java.awt.Color(0, 0, 0));
+        lblRegisterName1.setText("Vaccine ID/Type:");
 
         txtVaccineType.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
-        lblRegisterName3.setText("Vaccine Type:");
         lblRegisterName3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         lblRegisterName3.setForeground(new java.awt.Color(0, 0, 0));
+        lblRegisterName3.setText("Vaccine Type:");
 
         txtAmount.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         txtAmount.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -104,16 +112,16 @@ public class ManageVaccine extends javax.swing.JFrame {
             }
         });
 
-        lblRegisterName4.setText("Vaccine Duration:");
         lblRegisterName4.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         lblRegisterName4.setForeground(new java.awt.Color(0, 0, 0));
+        lblRegisterName4.setText("Vaccine Duration:");
 
-        lblRegisterName5.setText("Vaccine Amount:");
         lblRegisterName5.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         lblRegisterName5.setForeground(new java.awt.Color(0, 0, 0));
+        lblRegisterName5.setText("Vaccine Amount:");
 
-        cmbDuration.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-Number of Month-", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" }));
         cmbDuration.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        cmbDuration.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-Number of Month-", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" }));
         cmbDuration.setToolTipText("");
 
         btnAdd.setBackground(new java.awt.Color(0, 0, 0));
@@ -136,10 +144,10 @@ public class ManageVaccine extends javax.swing.JFrame {
             }
         });
 
-        btnBack.setText("Back");
         btnBack.setBackground(new java.awt.Color(0, 0, 0));
         btnBack.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnBack.setForeground(new java.awt.Color(255, 255, 255));
+        btnBack.setText("Back");
         btnBack.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBackActionPerformed(evt);
@@ -361,15 +369,7 @@ public class ManageVaccine extends javax.swing.JFrame {
     }//GEN-LAST:event_btnBackActionPerformed
 
     private void tableVaccineMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableVaccineMouseClicked
-        int i = tableVaccine.getSelectedRow();
-        TableModel model = tableVaccine.getModel();
 
-        txtVaccineType.setText(model.getValueAt(i, 0).toString());
-        cmbDuration.setSelectedItem(model.getValueAt(i, 1).toString());
-        txtAmount.setText(model.getValueAt(i, 2).toString());
-
-        //disable to edit
-        txtVaccineType.setEnabled(false);
     }//GEN-LAST:event_tableVaccineMouseClicked
 
     private void txtAmountKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtAmountKeyPressed
@@ -387,6 +387,22 @@ public class ManageVaccine extends javax.swing.JFrame {
         cmbDuration.setSelectedIndex(0);
         txtVaccineType.setEnabled(true);
     }//GEN-LAST:event_btnClearActionPerformed
+
+    private void tableVaccineMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableVaccineMouseReleased
+        int i = tableVaccine.convertRowIndexToModel(tableVaccine.getSelectedRow());
+        DefaultTableModel model = (DefaultTableModel) tableVaccine.getModel();
+
+        txtVaccineType.setText(model.getValueAt(i, 0).toString());
+        cmbDuration.setSelectedItem(model.getValueAt(i, 1).toString());
+        txtAmount.setText(model.getValueAt(i, 2).toString());
+
+        //disable to edit
+        txtVaccineType.setEnabled(false);
+    }//GEN-LAST:event_tableVaccineMouseReleased
+
+    private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
+        tableVaccine.clearSelection();
+    }//GEN-LAST:event_formMouseClicked
 
     public static Scanner scanner;
 
