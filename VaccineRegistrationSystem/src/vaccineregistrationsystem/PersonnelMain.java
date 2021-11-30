@@ -211,7 +211,9 @@ public class PersonnelMain extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCentre1ActionPerformed
 
     private void btnViewReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewReportActionPerformed
-        // TODO add your handling code here:
+        GenerateReport report = new GenerateReport();
+        report.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_btnViewReportActionPerformed
 
     /**
