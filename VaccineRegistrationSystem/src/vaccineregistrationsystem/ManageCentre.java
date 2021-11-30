@@ -1,24 +1,12 @@
 package vaccineregistrationsystem;
 
-import java.awt.Font;
-import java.awt.HeadlessException;
-import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.FileWriter;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 import static vaccineregistrationsystem.ManageVaccine.scanner;
 
@@ -30,8 +18,10 @@ public class ManageCentre extends javax.swing.JFrame {
     public ManageCentre() {
         initComponents();
         setLocationRelativeTo(null);
-        ShowCentreData();
-        ShowCmbVeccineTypeData();
+        Centre centre = new Centre();
+        centre.ShowCentreData(tableCentre);
+        Vaccine vaccine = new Vaccine();
+        vaccine.ShowCmbVeccineTypeData(cmbVaccineType);
         cmbVaccineType.setSelectedIndex(-1);
         tableCentre.setDefaultEditor(Object.class, null);
     }
@@ -488,7 +478,8 @@ public class ManageCentre extends javax.swing.JFrame {
     }//GEN-LAST:event_btnClearActionPerformed
 
     private void cmbVaccineTypePopupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_cmbVaccineTypePopupMenuWillBecomeVisible
-        ShowCmbVeccineTypeData();
+        Vaccine vaccine = new Vaccine();
+        vaccine.ShowCmbVeccineTypeData(cmbVaccineType);
     }//GEN-LAST:event_cmbVaccineTypePopupMenuWillBecomeVisible
 
     private void tableCentreMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableCentreMouseReleased
@@ -505,34 +496,8 @@ public class ManageCentre extends javax.swing.JFrame {
     }//GEN-LAST:event_tableCentreMouseReleased
 
     private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
-         tableCentre.clearSelection();
+        tableCentre.clearSelection();
     }//GEN-LAST:event_formMouseClicked
-    public void ShowCentreData() {
-        // show data in the JTable
-        File fileVaccine = new File("centre.txt");
-        try ( BufferedReader br = new BufferedReader(new FileReader(fileVaccine));) {
-            tableCentre.getTableHeader().setFont(new Font("SansSerif", Font.BOLD, 15));
-
-            DefaultTableModel model = (DefaultTableModel) tableCentre.getModel();
-
-            Object[] data = br.lines().toArray();
-
-            // extratct data from lines
-            // set data to jtable model
-            for (int i = 0; i < data.length; i++) {
-                String line = data[i].toString().trim();
-                String[] dataRow = line.split("[,\n]");
-
-                model.addRow(dataRow);
-
-            }
-            br.close();
-
-        } catch (IOException ex) {
-            Logger.getLogger(ManageCentre.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-    }
 
     public void AddCentre(String CentreName, String Address, Vaccine Type, int Amount) {
         boolean found = false;
@@ -589,30 +554,6 @@ public class ManageCentre extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Something went wrong, please try again!!!", "Error", JOptionPane.ERROR_MESSAGE);
         }
 
-    }
-
-    public void ShowCmbVeccineTypeData() {
-        try {
-            String file = "vaccine.txt";
-            BufferedReader br = new BufferedReader(new FileReader(file));
-            List<String> vaccineTypes = new ArrayList<String>();
-            String line;
-            try {
-                while ((line = br.readLine()) != null) {
-                    String[] loginarr = line.split("[,\n]");
-                    vaccineTypes.add(loginarr[0]);
-                }
-            } catch (FileNotFoundException e) {
-                System.err.println("Error, file " + file + " didn't exist.");
-            } finally {
-                br.close();
-            }
-            DefaultComboBoxModel<String> lineArray = new DefaultComboBoxModel(vaccineTypes.toArray());
-
-            cmbVaccineType.setModel(lineArray);
-        } catch (HeadlessException | IOException e) {
-            System.out.println(e);
-        }
     }
 
     public static void main(String args[]) {

@@ -41,7 +41,7 @@ public class Citizen extends People {
         return CitizenIC + "," + PeopleName + "," + PeopleAddress + "," + PeopleDOB + ",No Vaccinated\n";
     }
 
-    public String writePeopleForDose() {
+    public String WritePeopleForDose() {
         return CitizenIC + "," + PeopleName + "," + PeopleAddress + "," + PeopleDOB + "," + PeopleStatus + "\n";
     }
 
@@ -74,8 +74,8 @@ public class Citizen extends People {
                     pw.flush();
                 } else if (PeopleIC.trim().equals(poepleDetail[0])) {
                     Citizen people = new Citizen(poepleDetail[0], poepleDetail[1], poepleDetail[2], poepleDetail[3], PeopleStatus);
-                    System.out.print(people.writePeopleForDose());
-                    pw.write(people.writePeopleForDose());
+                    System.out.print(people.WritePeopleForDose());
+                    pw.write(people.WritePeopleForDose());
                 }
             }
 

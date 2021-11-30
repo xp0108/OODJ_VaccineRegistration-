@@ -2,24 +2,19 @@ package vaccineregistrationsystem;
 
 import com.github.lgooddatepicker.components.DatePickerSettings;
 import java.awt.Font;
-import java.awt.HeadlessException;
 import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
@@ -33,7 +28,8 @@ public class ManageAppointment extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         ShowDose1();
         ShowDose2();
-        ShowCentreDropDown();
+        Centre showDropDown = new Centre();
+        showDropDown.ShowCentreDropDown(cmbCentre);
         tableDose1.setDefaultEditor(Object.class, null);
         tableDose2.setDefaultEditor(Object.class, null);
         cmbCentre.setSelectedIndex(-1);
@@ -511,9 +507,9 @@ public class ManageAppointment extends javax.swing.JFrame {
                                 Centre centreNameE = new Centre(centreE);
 
                                 Appointment modyAppointment = new Appointment(pIC, pName, strAppDateE, centreNameE);
-                                modyAppointment.assignAppStatus(appStatusE);
+                                modyAppointment.AssignAppStatus(appStatusE);
 
-                                bw.write(modyAppointment.writeDoseFile());
+                                bw.write(modyAppointment.WriteDoseFile());
 
                                 if (appStatusE.equals("Done")) {
 
@@ -527,9 +523,9 @@ public class ManageAppointment extends javax.swing.JFrame {
                                 Centre centreName = new Centre(centre);
 
                                 Appointment oriAppointment = new Appointment(IC, Name, strAppDate, centreName);
-                                oriAppointment.assignAppStatus(appStatus);
+                                oriAppointment.AssignAppStatus(appStatus);
 
-                                bw.write(oriAppointment.writeDoseFile());
+                                bw.write(oriAppointment.WriteDoseFile());
                             }
                         }
 
@@ -601,18 +597,18 @@ public class ManageAppointment extends javax.swing.JFrame {
                                 Centre centreNameE = new Centre(centreE);
 
                                 Appointment modyAppointment = new Appointment(pIC, pName, strAppDateE, centreNameE);
-                                modyAppointment.assignAppStatus(appStatusE);
+                                modyAppointment.AssignAppStatus(appStatusE);
 
-                                bw.write(modyAppointment.writeDoseFile());
+                                bw.write(modyAppointment.WriteDoseFile());
 
                             } else {
                                 //ori                      
                                 Centre centreName = new Centre(centre);
 
                                 Appointment oriAppointment = new Appointment(IC, Name, strAppDate, centreName);
-                                oriAppointment.assignAppStatus(appStatus);
+                                oriAppointment.AssignAppStatus(appStatus);
 
-                                bw.write(oriAppointment.writeDoseFile());
+                                bw.write(oriAppointment.WriteDoseFile());
 
                             }
                         }
@@ -683,9 +679,9 @@ public class ManageAppointment extends javax.swing.JFrame {
                                 Centre centreName = new Centre(centre);
 
                                 Appointment oriAppointment = new Appointment(IC, Name, strAppDate, centreName);
-                                oriAppointment.assignAppStatus(appStatus);
+                                oriAppointment.AssignAppStatus(appStatus);
 
-                                bw.write(oriAppointment.writeDoseFile());
+                                bw.write(oriAppointment.WriteDoseFile());
                             }
                         }
 
@@ -742,9 +738,9 @@ public class ManageAppointment extends javax.swing.JFrame {
                                 Centre centreName = new Centre(centre);
 
                                 Appointment oriAppointment = new Appointment(IC, Name, strAppDate, centreName);
-                                oriAppointment.assignAppStatus(appStatus);
+                                oriAppointment.AssignAppStatus(appStatus);
 
-                                bw.write(oriAppointment.writeDoseFile());
+                                bw.write(oriAppointment.WriteDoseFile());
                             }
                         }
 
@@ -787,7 +783,8 @@ public class ManageAppointment extends javax.swing.JFrame {
     }//GEN-LAST:event_btnClearActionPerformed
 
     private void cmbCentrePopupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_cmbCentrePopupMenuWillBecomeVisible
-        ShowCentreDropDown();
+        Centre showDropDown = new Centre();
+        showDropDown.ShowCentreDropDown(cmbCentre);
     }//GEN-LAST:event_cmbCentrePopupMenuWillBecomeVisible
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
@@ -932,30 +929,6 @@ public class ManageAppointment extends javax.swing.JFrame {
 
     }
 
-    public void ShowCentreDropDown() {
-        try {
-            String file = "centre.txt";
-            BufferedReader br = new BufferedReader(new FileReader(file));
-            List<String> centreList = new ArrayList<String>();
-            String line;
-            try {
-                while ((line = br.readLine()) != null) {
-                    String[] loginarr = line.split("[,\n]");
-                    centreList.add(loginarr[0]);
-                }
-            } catch (FileNotFoundException e) {
-                System.err.println("Error, file " + file + " didn't exist.");
-            } finally {
-                br.close();
-            }
-            DefaultComboBoxModel<String> lineArray = new DefaultComboBoxModel(centreList.toArray());
-
-            cmbCentre.setModel(lineArray);
-        } catch (HeadlessException | IOException e) {
-            System.out.println(e);
-        }
-    }
-
     public void CheckDose1People(String PeopleIC, String PeopleName) {
         boolean foundDose1People = false;
         String tempPeopleIC = PeopleIC;
@@ -1029,9 +1002,9 @@ public class ManageAppointment extends javax.swing.JFrame {
                     Centre centreName = new Centre(AppCentre);
 
                     Appointment oriAppointment = new Appointment(PeopleIC, PeopleName, AppDate, centreName);
-                    oriAppointment.assignAppStatus(AppStatus);
+                    oriAppointment.AssignAppStatus(AppStatus);
 
-                    bw.write(oriAppointment.writeDoseFile());
+                    bw.write(oriAppointment.WriteDoseFile());
 
                     bw.close();
                     fw.close();
@@ -1100,9 +1073,9 @@ public class ManageAppointment extends javax.swing.JFrame {
                     Centre centreName = new Centre(AppCentre);
 
                     Appointment oriAppointment = new Appointment(PeopleIC, PeopleName, appDate, centreName);
-                    oriAppointment.assignAppStatus(AppStatus);
+                    oriAppointment.AssignAppStatus(AppStatus);
 
-                    bw.write(oriAppointment.writeDoseFile());
+                    bw.write(oriAppointment.WriteDoseFile());
 
                     bw.close();
                     fw.close();

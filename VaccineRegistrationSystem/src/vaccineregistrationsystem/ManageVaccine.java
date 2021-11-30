@@ -6,14 +6,10 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
-import java.io.IOException;
 import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
 public class ManageVaccine extends javax.swing.JFrame {
@@ -24,7 +20,8 @@ public class ManageVaccine extends javax.swing.JFrame {
     public ManageVaccine() {
         initComponents();
         setLocationRelativeTo(null);
-        ShowVaccineData();
+        Vaccine vaccine = new Vaccine();
+        vaccine.ShowVaccineData(tableVaccine);
         tableVaccine.setDefaultEditor(Object.class, null);
     }
 
@@ -458,34 +455,6 @@ public class ManageVaccine extends javax.swing.JFrame {
 
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Something went wrong, please try again!!!", "Error", JOptionPane.ERROR_MESSAGE);
-        }
-
-    }
-
-    public void ShowVaccineData() {
-        // show data in the JTable
-        File fileVaccine = new File("vaccine.txt");
-        try ( BufferedReader br = new BufferedReader(new FileReader(fileVaccine));) {
-            tableVaccine.getTableHeader().setFont(new Font("SansSerif", Font.BOLD, 15));
-
-            DefaultTableModel model = (DefaultTableModel) tableVaccine.getModel();
-
-            Object[] data = br.lines().toArray();
-
-            // extratct data from lines
-            // set data to jtable model
-            for (int i = 0; i < data.length; i++) {
-                String line = data[i].toString().trim();
-                String[] dataRow = line.split("[,\n]");
-
-                model.addRow(dataRow);
-
-            }
-
-            br.close();
-
-        } catch (IOException ex) {
-            Logger.getLogger(ManageVaccine.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }

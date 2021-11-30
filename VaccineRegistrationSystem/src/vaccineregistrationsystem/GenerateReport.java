@@ -6,17 +6,8 @@
 package vaccineregistrationsystem;
 
 import java.awt.Color;
-import java.awt.Component;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.print.PageFormat;
-import java.awt.print.Printable;
-import java.awt.print.PrinterException;
-import java.awt.print.PrinterJob;
 import java.io.BufferedReader;
 import java.io.FileReader;
-import java.io.IOException;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import org.jfree.chart.ChartFactory;
@@ -208,7 +199,8 @@ public class GenerateReport extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnReportPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReportPrintActionPerformed
-        printComponenet(pnlReport);
+        Vaccine printReport = new Vaccine();
+        printReport.PrintVaccineComponenet(pnlReport);
     }//GEN-LAST:event_btnReportPrintActionPerformed
 
     private void btnReportBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReportBackActionPerformed
@@ -250,33 +242,6 @@ public class GenerateReport extends javax.swing.JFrame {
                 new GenerateReport().setVisible(true);
             }
         });
-    }
-
-    public void printComponenet(Component component) {
-        PrinterJob pj = PrinterJob.getPrinterJob();
-        pj.setJobName(" Print Component ");
-
-        pj.setPrintable(new Printable() {
-            public int print(Graphics pg, PageFormat pf, int pageNum) {
-                if (pageNum > 0) {
-                    return Printable.NO_SUCH_PAGE;
-                }
-
-                Graphics2D g2 = (Graphics2D) pg;
-                g2.translate(pf.getImageableX(), pf.getImageableY());
-                component.paint(g2);
-                return Printable.PAGE_EXISTS;
-            }
-        });
-        if (pj.printDialog() == false) {
-            return;
-        }
-
-        try {
-            pj.print();
-        } catch (PrinterException ex) {
-            // handle exception
-        }
     }
 
     public void report(String pathfile) {
@@ -346,10 +311,9 @@ public class GenerateReport extends javax.swing.JFrame {
 
             JFreeChart jchart = ChartFactory.createBarChart3D("Vaccine Status Report", "Vaccine Status", "Number of People",
                     dcd, PlotOrientation.VERTICAL, false, false, false);
-            
+
 //            JFreeChart jchart1 = ChartFactory.createBarChart3D(file, pathfile, pathfile, dcd, 
 //                    PlotOrientation.HORIZONTAL, rootPaneCheckingEnabled, rootPaneCheckingEnabled, rootPaneCheckingEnabled)
-
             CategoryPlot plot = jchart.getCategoryPlot();
             plot.setRangeGridlinePaint(Color.black);
 

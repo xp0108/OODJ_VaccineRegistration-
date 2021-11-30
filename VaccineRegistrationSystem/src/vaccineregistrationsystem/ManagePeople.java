@@ -423,7 +423,7 @@ public class ManagePeople extends javax.swing.JFrame {
 
         int i = tablePeople.convertRowIndexToModel(tablePeople.getSelectedRow());
         DefaultTableModel model = (DefaultTableModel) tablePeople.getModel();
-        
+
         txtIC.setText(model.getValueAt(i, 0).toString());
         txtName.setText(model.getValueAt(i, 1).toString());
         taAddress.setText(model.getValueAt(i, 2).toString());
