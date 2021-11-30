@@ -70,6 +70,11 @@ public class ManagePeople extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Covid-19 Vaccine Registration System |  Manage People");
+        addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                formMouseClicked(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(212, 227, 247));
 
@@ -89,6 +94,9 @@ public class ManagePeople extends javax.swing.JFrame {
         tablePeople.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tablePeopleMouseClicked(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                tablePeopleMouseReleased(evt);
             }
         });
         jScrollPane1.setViewportView(tablePeople);
@@ -318,9 +326,7 @@ public class ManagePeople extends javax.swing.JFrame {
                 String dob;
                 String status;
 
-                try ( FileWriter fw = new FileWriter(newPeopleFile, true);  
-                        BufferedWriter bw = new BufferedWriter(fw);  
-                        Scanner ss = new Scanner(oldPeopleFile);) {
+                try ( FileWriter fw = new FileWriter(newPeopleFile, true);  BufferedWriter bw = new BufferedWriter(fw);  Scanner ss = new Scanner(oldPeopleFile);) {
 
                     ss.useDelimiter("[,\n]");
 
@@ -360,7 +366,7 @@ public class ManagePeople extends javax.swing.JFrame {
                     ss.close();
                     bw.close();
                     fw.close();
-                    
+
                     System.out.println("flie close");
 
                     oldPeopleFile.delete();
@@ -412,6 +418,24 @@ public class ManagePeople extends javax.swing.JFrame {
         txtIC.setEnabled(false);
 
     }//GEN-LAST:event_tablePeopleMouseClicked
+
+    private void tablePeopleMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablePeopleMouseReleased
+
+        int i = tablePeople.convertRowIndexToModel(tablePeople.getSelectedRow());
+        DefaultTableModel model = (DefaultTableModel) tablePeople.getModel();
+        
+        txtIC.setText(model.getValueAt(i, 0).toString());
+        txtName.setText(model.getValueAt(i, 1).toString());
+        taAddress.setText(model.getValueAt(i, 2).toString());
+        txtDOB.setText(model.getValueAt(i, 3).toString());
+        cmbStatus.setSelectedItem(model.getValueAt(i, 4).toString());
+        //disable to edit
+        txtIC.setEnabled(false);
+    }//GEN-LAST:event_tablePeopleMouseReleased
+
+    private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
+        tablePeople.clearSelection();
+    }//GEN-LAST:event_formMouseClicked
 
     public void ShowPeopleData() {
         // show data in the JTable
