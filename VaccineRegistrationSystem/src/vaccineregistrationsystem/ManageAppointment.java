@@ -881,6 +881,8 @@ public class ManageAppointment extends javax.swing.JFrame {
         cmbAppStatus.setEnabled(true);
         cmbCentre.setEnabled(true);
         dpAppDate.setEnabled(true);
+        tableDose1.getSelectionModel().clearSelection();
+        tableDose2.getSelectionModel().clearSelection();
 
     }
     

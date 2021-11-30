@@ -432,7 +432,7 @@ public class RegisterPeople_Personnel extends javax.swing.JFrame {
 
                             JOptionPane.showMessageDialog(this, "Register Successful", "Congratulation", JOptionPane.PLAIN_MESSAGE);
 
-                            Login a = new Login();
+                            ManagePeople a = new ManagePeople();
                             a.setVisible(true);
                             this.dispose();
                         }
