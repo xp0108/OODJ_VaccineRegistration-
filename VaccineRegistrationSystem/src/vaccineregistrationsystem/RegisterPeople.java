@@ -351,8 +351,8 @@ public class RegisterPeople extends javax.swing.JFrame {
                     Pattern CitizenPattern = Pattern.compile(CitizenRegex);
                     Matcher CitizenMatcher = CitizenPattern.matcher(txtRegisterIC.getText());
 
-                    String NonCitizenRegex = "[0-9]+";
-                    Pattern NonCitizenPattern = Pattern.compile(NonCitizenRegex);
+                    //String NonCitizenRegex = "\\d+";
+                    Pattern NonCitizenPattern = Pattern.compile("^\\d+$");
                     Matcher NonCitizenMatcher = NonCitizenPattern.matcher(txtRegisterIC.getText());
 
                     String ic = txtRegisterIC.getText();
@@ -405,8 +405,8 @@ public class RegisterPeople extends javax.swing.JFrame {
                     Pattern CitizenPattern = Pattern.compile(CitizenRegex);
                     Matcher CitizenMatcher = CitizenPattern.matcher(txtRegisterIC.getText());
 
-                    String NonCitizenRegex = "[0-9]+";
-                    Pattern NonCitizenPattern = Pattern.compile(NonCitizenRegex);
+                    //String NonCitizenRegex = "\\d+";
+                    Pattern NonCitizenPattern = Pattern.compile("^\\d+$");
                     Matcher NonCitizenMatcher = NonCitizenPattern.matcher(txtRegisterIC.getText());
 
                     String IC = txtRegisterIC.getText();

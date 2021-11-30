@@ -421,7 +421,7 @@ public class PeopleMain extends javax.swing.JFrame {
                         "Congratulation", JOptionPane.PLAIN_MESSAGE);
             } else {
                 JOptionPane.showMessageDialog(this, "No appointment request",
-                        "Congratulation", JOptionPane.PLAIN_MESSAGE);
+                        "WARNING!!", JOptionPane.WARNING_MESSAGE);
             }
 
         } catch (Exception e) {
