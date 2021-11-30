@@ -86,9 +86,7 @@ public class ManageAppointment extends javax.swing.JFrame {
         lblRegisterName1 = new javax.swing.JLabel();
         txtSearch = new javax.swing.JTextField();
         DatePickerSettings dateSetIn = new DatePickerSettings();
-        dpAppDate = new DatePicker(dateSetIn);
-        dateSetIn.setDateRangeLimits(LocalDate.now(), LocalDate.now().plusMonths(12))
-        ;
+        dpAppDate = new com.github.lgooddatepicker.components.DatePicker();
         lblRegisterName5 = new javax.swing.JLabel();
         lblRegisterName6 = new javax.swing.JLabel();
         cmbAppStatus = new javax.swing.JComboBox<>();
@@ -102,6 +100,11 @@ public class ManageAppointment extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Covid-19 Vaccine Registration System |  Manage Vaccine Appointment");
+        addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                formMouseClicked(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(212, 227, 247));
 
@@ -123,6 +126,9 @@ public class ManageAppointment extends javax.swing.JFrame {
         tableDose1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tableDose1MouseClicked(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                tableDose1MouseReleased(evt);
             }
         });
         jScrollPane1.setViewportView(tableDose1);
@@ -171,6 +177,9 @@ public class ManageAppointment extends javax.swing.JFrame {
         tableDose2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tableDose2MouseClicked(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                tableDose2MouseReleased(evt);
             }
         });
         jScrollPane2.setViewportView(tableDose2);
@@ -290,10 +299,10 @@ public class ManageAppointment extends javax.swing.JFrame {
             }
         });
 
+        btnAdd.setText("Add");
         btnAdd.setBackground(new java.awt.Color(0, 0, 0));
         btnAdd.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         btnAdd.setForeground(new java.awt.Color(255, 255, 255));
-        btnAdd.setText("Add");
         btnAdd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAddActionPerformed(evt);
@@ -491,7 +500,7 @@ public class ManageAppointment extends javax.swing.JFrame {
                 File oldDose1File = new File(fileDose1);
                 File newDose1File = new File(tempDose1File);
 
-                try ( FileWriter fw = new FileWriter(newDose1File, true);  BufferedWriter bw = new BufferedWriter(fw);  Scanner ss = new Scanner(oldDose1File);) {
+                try (FileWriter fw = new FileWriter(newDose1File, true); BufferedWriter bw = new BufferedWriter(fw); Scanner ss = new Scanner(oldDose1File);) {
 
                     ss.useDelimiter("[,\n]");
 
@@ -581,7 +590,7 @@ public class ManageAppointment extends javax.swing.JFrame {
                 File oldDose2File = new File(fileDose2);
                 File newDose2File = new File(tempDose2File);
 
-                try ( FileWriter fw = new FileWriter(newDose2File, true);  BufferedWriter bw = new BufferedWriter(fw);  Scanner ss = new Scanner(oldDose2File);) {
+                try (FileWriter fw = new FileWriter(newDose2File, true); BufferedWriter bw = new BufferedWriter(fw); Scanner ss = new Scanner(oldDose2File);) {
 
                     ss.useDelimiter("[,\n]");
 
@@ -660,7 +669,7 @@ public class ManageAppointment extends javax.swing.JFrame {
                 File oldDose1File = new File(fileDose1);
                 File newDose1File = new File(tempDose1File);
 
-                try ( FileWriter fw = new FileWriter(newDose1File, true);  BufferedWriter bw = new BufferedWriter(fw);  Scanner ss = new Scanner(oldDose1File);) {
+                try (FileWriter fw = new FileWriter(newDose1File, true); BufferedWriter bw = new BufferedWriter(fw); Scanner ss = new Scanner(oldDose1File);) {
 
                     ss.useDelimiter("[,\n]");
 
@@ -719,7 +728,7 @@ public class ManageAppointment extends javax.swing.JFrame {
                 File oldDose2File = new File(fileDose2);
                 File newDose2File = new File(tempDose2File);
 
-                try ( FileWriter fw = new FileWriter(newDose2File, true);  BufferedWriter bw = new BufferedWriter(fw);  Scanner ss = new Scanner(oldDose2File);) {
+                try (FileWriter fw = new FileWriter(newDose2File, true); BufferedWriter bw = new BufferedWriter(fw); Scanner ss = new Scanner(oldDose2File);) {
 
                     ss.useDelimiter("[,\n]");
 
@@ -782,8 +791,22 @@ public class ManageAppointment extends javax.swing.JFrame {
     }//GEN-LAST:event_cmbCentrePopupMenuWillBecomeVisible
 
     private void tableDose1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableDose1MouseClicked
-        int i = tableDose1.getSelectedRow();
-        TableModel model = tableDose1.getModel();
+
+    }//GEN-LAST:event_tableDose1MouseClicked
+
+    private void tableDose2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableDose2MouseClicked
+
+    }//GEN-LAST:event_tableDose2MouseClicked
+
+    private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
+        CheckDose1People(txtIC.getText(), txtName.getText());
+        AddDose1Appointment(txtIC.getText(), txtName.getText(), String.valueOf(cmbCentre.getSelectedItem()), String.valueOf(dpAppDate.getDate()), String.valueOf(cmbAppStatus.getSelectedItem()));
+    }//GEN-LAST:event_btnAddActionPerformed
+
+    private void tableDose1MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableDose1MouseReleased
+        tableDose2.clearSelection();
+        int i = tableDose1.convertRowIndexToModel(tableDose1.getSelectedRow());
+        DefaultTableModel model = (DefaultTableModel) tableDose1.getModel();
 
         txtIC.setText(model.getValueAt(i, 0).toString());
         txtName.setText(model.getValueAt(i, 1).toString());
@@ -814,12 +837,12 @@ public class ManageAppointment extends javax.swing.JFrame {
             cmbCentre.setEnabled(true);
             dpAppDate.setEnabled(true);
         }
+    }//GEN-LAST:event_tableDose1MouseReleased
 
-    }//GEN-LAST:event_tableDose1MouseClicked
-
-    private void tableDose2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableDose2MouseClicked
-        int i = tableDose2.getSelectedRow();
-        TableModel model = tableDose2.getModel();
+    private void tableDose2MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableDose2MouseReleased
+        tableDose1.clearSelection();
+        int i = tableDose2.convertRowIndexToModel(tableDose2.getSelectedRow());
+        DefaultTableModel model = (DefaultTableModel) tableDose2.getModel();
 
         txtIC.setText(model.getValueAt(i, 0).toString());
         txtName.setText(model.getValueAt(i, 1).toString());
@@ -840,12 +863,13 @@ public class ManageAppointment extends javax.swing.JFrame {
             cmbCentre.setEnabled(true);
             dpAppDate.setEnabled(true);
         }
-    }//GEN-LAST:event_tableDose2MouseClicked
+    }//GEN-LAST:event_tableDose2MouseReleased
 
-    private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
-        CheckDose1People(txtIC.getText(), txtName.getText());
-        AddDose1Appointment(txtIC.getText(), txtName.getText(), String.valueOf(cmbCentre.getSelectedItem()), String.valueOf(dpAppDate.getDate()), String.valueOf(cmbAppStatus.getSelectedItem()));
-    }//GEN-LAST:event_btnAddActionPerformed
+    private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
+        tableDose1.clearSelection();
+        tableDose2.clearSelection();
+    }//GEN-LAST:event_formMouseClicked
+
     public void cleanAll() {
         txtIC.setText("");
         txtName.setText("");
@@ -861,11 +885,13 @@ public class ManageAppointment extends javax.swing.JFrame {
         tableDose2.getSelectionModel().clearSelection();
 
     }
+    
+
 
     public void ShowDose1() {
         // show data in the JTable
         File fileDose1 = new File("dose1.txt");
-        try ( BufferedReader br = new BufferedReader(new FileReader(fileDose1));) {
+        try (BufferedReader br = new BufferedReader(new FileReader(fileDose1));) {
             tableDose1.getTableHeader().setFont(new Font("SansSerif", Font.BOLD, 15));
 
             DefaultTableModel model = (DefaultTableModel) tableDose1.getModel();
@@ -892,7 +918,7 @@ public class ManageAppointment extends javax.swing.JFrame {
     public void ShowDose2() {
         // show data in the JTable
         File fileDose2 = new File("dose2.txt");
-        try ( BufferedReader br = new BufferedReader(new FileReader(fileDose2));) {
+        try (BufferedReader br = new BufferedReader(new FileReader(fileDose2));) {
             tableDose1.getTableHeader().setFont(new Font("SansSerif", Font.BOLD, 15));
 
             DefaultTableModel model = (DefaultTableModel) tableDose2.getModel();

@@ -21,7 +21,7 @@ public class RegisterPeople extends javax.swing.JFrame {
 
         GroupCitizenType = new javax.swing.ButtonGroup();
         jCheckBox1 = new javax.swing.JCheckBox();
-        jPanel1 = new javax.swing.JPanel();
+        pnlPeopleRegister = new javax.swing.JPanel();
         lblRegisterTitle = new javax.swing.JLabel();
         lblRegisterName = new javax.swing.JLabel();
         txtRegisterName = new javax.swing.JTextField();
@@ -46,7 +46,7 @@ public class RegisterPeople extends javax.swing.JFrame {
         setBackground(new java.awt.Color(204, 153, 255));
         setResizable(false);
 
-        jPanel1.setBackground(new java.awt.Color(212, 227, 247));
+        pnlPeopleRegister.setBackground(new java.awt.Color(212, 227, 247));
 
         lblRegisterTitle.setFont(new java.awt.Font("Segoe UI Black", 0, 48)); // NOI18N
         lblRegisterTitle.setForeground(new java.awt.Color(0, 0, 0));
@@ -144,87 +144,87 @@ public class RegisterPeople extends javax.swing.JFrame {
         txtRegisterAddress.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         txtRegisterAddress.setForeground(new java.awt.Color(0, 0, 0));
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+        javax.swing.GroupLayout pnlPeopleRegisterLayout = new javax.swing.GroupLayout(pnlPeopleRegister);
+        pnlPeopleRegister.setLayout(pnlPeopleRegisterLayout);
+        pnlPeopleRegisterLayout.setHorizontalGroup(
+            pnlPeopleRegisterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlPeopleRegisterLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnRegisterBack, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(49, 49, 49))
-            .addGroup(jPanel1Layout.createSequentialGroup()
+            .addGroup(pnlPeopleRegisterLayout.createSequentialGroup()
                 .addGap(296, 296, 296)
                 .addComponent(btnRegister, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
+            .addGroup(pnlPeopleRegisterLayout.createSequentialGroup()
                 .addGap(121, 121, 121)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGroup(pnlPeopleRegisterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlPeopleRegisterLayout.createSequentialGroup()
                         .addComponent(lblRegisterTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlPeopleRegisterLayout.createSequentialGroup()
+                        .addGroup(pnlPeopleRegisterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(pnlPeopleRegisterLayout.createSequentialGroup()
+                                .addGroup(pnlPeopleRegisterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(lblRegisterName)
                                     .addComponent(txtRegisterName, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(pnlPeopleRegisterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(lblDOB)
                                     .addComponent(txtRegisterDOB, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pnlPeopleRegisterLayout.createSequentialGroup()
+                                .addGroup(pnlPeopleRegisterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(lblRegisterIC)
                                     .addComponent(txtRegisterIC, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(89, 89, 89)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addGroup(pnlPeopleRegisterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(txtRegisterPassword, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE)
                                     .addComponent(lblRegisterPassword, javax.swing.GroupLayout.Alignment.LEADING))))
                         .addContainerGap(125, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlPeopleRegisterLayout.createSequentialGroup()
+                        .addGroup(pnlPeopleRegisterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblRegisterAddress)
                             .addComponent(txtRegisterAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 469, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addGroup(pnlPeopleRegisterLayout.createSequentialGroup()
                                 .addComponent(rdbCitizen)
                                 .addGap(33, 33, 33)
                                 .addComponent(rdbNonCitizen))
                             .addComponent(lblCitizenType))
                         .addGap(0, 0, Short.MAX_VALUE))))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+        pnlPeopleRegisterLayout.setVerticalGroup(
+            pnlPeopleRegisterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlPeopleRegisterLayout.createSequentialGroup()
+                .addGroup(pnlPeopleRegisterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlPeopleRegisterLayout.createSequentialGroup()
                         .addGap(42, 42, 42)
                         .addComponent(lblRegisterTitle))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGroup(pnlPeopleRegisterLayout.createSequentialGroup()
                         .addGap(31, 31, 31)
                         .addComponent(btnRegisterBack)))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(pnlPeopleRegisterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlPeopleRegisterLayout.createSequentialGroup()
                         .addComponent(lblRegisterPassword)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtRegisterPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGroup(pnlPeopleRegisterLayout.createSequentialGroup()
                         .addComponent(lblRegisterIC)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtRegisterIC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(pnlPeopleRegisterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(pnlPeopleRegisterLayout.createSequentialGroup()
                         .addComponent(lblCitizenType)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addGroup(pnlPeopleRegisterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(rdbCitizen)
                             .addComponent(rdbNonCitizen))
                         .addGap(18, 18, 18)
                         .addComponent(lblDOB)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtRegisterDOB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGroup(pnlPeopleRegisterLayout.createSequentialGroup()
                         .addComponent(lblRegisterName)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtRegisterName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -243,14 +243,14 @@ public class RegisterPeople extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(pnlPeopleRegister, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(pnlPeopleRegister, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -463,7 +463,6 @@ public class RegisterPeople extends javax.swing.JFrame {
     private javax.swing.JButton btnRegister;
     private javax.swing.JButton btnRegisterBack;
     private javax.swing.JCheckBox jCheckBox1;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lblCitizenType;
     private javax.swing.JLabel lblDOB;
     private javax.swing.JLabel lblRegisterAddress;
@@ -471,6 +470,7 @@ public class RegisterPeople extends javax.swing.JFrame {
     private javax.swing.JLabel lblRegisterName;
     private javax.swing.JLabel lblRegisterPassword;
     private javax.swing.JLabel lblRegisterTitle;
+    private javax.swing.JPanel pnlPeopleRegister;
     private javax.swing.JRadioButton rdbCitizen;
     private javax.swing.JRadioButton rdbNonCitizen;
     private javax.swing.JTextField txtRegisterAddress;
