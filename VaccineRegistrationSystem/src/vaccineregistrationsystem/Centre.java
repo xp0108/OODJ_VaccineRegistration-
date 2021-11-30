@@ -71,7 +71,7 @@ public class Centre {
         this.CentreAddress = CentreAddress;
     }
 
-    public int minusOneVaccine() {
+    public int MinusOneVaccine() {
         int updatedCentreAmount = 0;
 
         updatedCentreAmount = CentreAmount - 1;
@@ -114,7 +114,7 @@ public class Centre {
                     int CentreAmount = Integer.parseInt(centreArr[3]);
                     centreAmt.setCentreAmount(CentreAmount);
 
-                    updatedCentreAmt = centreAmt.minusOneVaccine();
+                    updatedCentreAmt = centreAmt.MinusOneVaccine();
 
                     break;
 
