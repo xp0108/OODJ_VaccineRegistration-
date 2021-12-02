@@ -70,6 +70,7 @@ public class ManagePeople extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Covid-19 Vaccine Registration System |  Manage People");
+        setResizable(false);
         addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 formMouseClicked(evt);
@@ -117,6 +118,7 @@ public class ManagePeople extends javax.swing.JFrame {
         lblRegisterName2.setText("IC/Passport:");
 
         txtIC.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        txtIC.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         txtIC.setEnabled(false);
 
         lblRegisterName3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -124,6 +126,7 @@ public class ManagePeople extends javax.swing.JFrame {
         lblRegisterName3.setText("Name:");
 
         txtName.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        txtName.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         txtName.setEnabled(false);
 
         lblRegisterName5.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -172,7 +175,9 @@ public class ManagePeople extends javax.swing.JFrame {
         });
 
         cmbStatus.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        cmbStatus.setForeground(new java.awt.Color(0, 0, 0));
         cmbStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-Vaccination Status-", "No Vaccinated", "Dose 1", "Dose 2" }));
+        cmbStatus.setEnabled(false);
 
         lblRegisterName7.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         lblRegisterName7.setForeground(new java.awt.Color(0, 0, 0));
@@ -406,23 +411,15 @@ public class ManagePeople extends javax.swing.JFrame {
     }//GEN-LAST:event_txtSearchKeyReleased
 
     private void tablePeopleMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablePeopleMouseClicked
-        int i = tablePeople.getSelectedRow();
-        TableModel model = tablePeople.getModel();
-
-        txtIC.setText(model.getValueAt(i, 0).toString());
-        txtName.setText(model.getValueAt(i, 1).toString());
-        taAddress.setText(model.getValueAt(i, 2).toString());
-        txtDOB.setText(model.getValueAt(i, 3).toString());
-        cmbStatus.setSelectedItem(model.getValueAt(i, 4).toString());
-        //disable to edit
-        txtIC.setEnabled(false);
 
     }//GEN-LAST:event_tablePeopleMouseClicked
 
     private void tablePeopleMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablePeopleMouseReleased
-
         int i = tablePeople.convertRowIndexToModel(tablePeople.getSelectedRow());
         DefaultTableModel model = (DefaultTableModel) tablePeople.getModel();
+        
+//        int i = tableDose1.convertRowIndexToModel(tableDose1.getSelectedRow());
+//        DefaultTableModel model = (DefaultTableModel) tableDose1.getModel();
 
         txtIC.setText(model.getValueAt(i, 0).toString());
         txtName.setText(model.getValueAt(i, 1).toString());

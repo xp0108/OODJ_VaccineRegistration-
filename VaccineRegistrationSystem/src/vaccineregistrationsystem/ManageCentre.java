@@ -300,9 +300,13 @@ public class ManageCentre extends javax.swing.JFrame {
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
 
-        if (txtCentreName.getText().isEmpty() || txtAmount.getText().isEmpty()) {
+        if (txtCentreName.getText().isEmpty() || txtAmount.getText().isEmpty() || txtAmount.getText().isBlank()) {
             JOptionPane.showMessageDialog(this,
                     "Please fill up all the fills", "Uh Oh...",
+                    JOptionPane.WARNING_MESSAGE);
+        } else if (cmbVaccineType.getSelectedItem() == null) {
+            JOptionPane.showMessageDialog(this,
+                    "Please Choose Vaccine Type", "Uh Oh...",
                     JOptionPane.WARNING_MESSAGE);
         } else {
             Vaccine vaccineType = new Vaccine(String.valueOf(cmbVaccineType.getSelectedItem()));
@@ -322,9 +326,15 @@ public class ManageCentre extends javax.swing.JFrame {
             String vaccineTypeE = String.valueOf(cmbVaccineType.getSelectedItem());
             int amountE = Integer.parseInt(txtAmount.getText());
 
-            if (pCentreName.equals("") || txtAmount.getText().equals("") || taCentreAdd.getText().equals("")) {
-                JOptionPane.showMessageDialog(null, "Please fill up the all the details.", "Empty text field found !", JOptionPane.ERROR_MESSAGE);
+            if (pCentreName.equals("") || txtAmount.getText().equals("") || taCentreAdd.getText().equals("")
+                    || cmbVaccineType.getSelectedItem().equals("")) {
+                JOptionPane.showMessageDialog(null, "Please fill up the all the details.",
+                        "Empty text field found !", JOptionPane.ERROR_MESSAGE);
 
+            } else if (cmbVaccineType.getSelectedItem() == null) {
+                JOptionPane.showMessageDialog(this,
+                        "Please Choose Vaccine Type", "Uh Oh...",
+                        JOptionPane.WARNING_MESSAGE);
             } else {
                 //update table
                 model.setValueAt(pCentreName, tableCentre.getSelectedRow(), 0);
@@ -337,7 +347,7 @@ public class ManageCentre extends javax.swing.JFrame {
                 File oldCentreFile = new File(file);
                 File newCentreFile = new File(tempCentreFile);
 
-                try ( FileWriter fw = new FileWriter(newCentreFile, true);  BufferedWriter bw = new BufferedWriter(fw);  Scanner ss = new Scanner(oldCentreFile);) {
+                try (FileWriter fw = new FileWriter(newCentreFile, true); BufferedWriter bw = new BufferedWriter(fw); Scanner ss = new Scanner(oldCentreFile);) {
 
                     ss.useDelimiter("[,\n]");
 
@@ -406,7 +416,7 @@ public class ManageCentre extends javax.swing.JFrame {
                 File oldCentreFile = new File(file);
                 File newCentreFile = new File(tempCentreFile);
 
-                try ( FileWriter fw = new FileWriter(newCentreFile, true);  BufferedWriter bw = new BufferedWriter(fw);  Scanner ss = new Scanner(oldCentreFile);) {
+                try (FileWriter fw = new FileWriter(newCentreFile, true); BufferedWriter bw = new BufferedWriter(fw); Scanner ss = new Scanner(oldCentreFile);) {
 
                     ss.useDelimiter("[,\n]");
                     while (ss.hasNext()) {
@@ -509,11 +519,15 @@ public class ManageCentre extends javax.swing.JFrame {
 
             while (scanner.hasNext() && !found) {
                 tmpCentreName = scanner.next();
+                scanner.next();
+                scanner.next();
+                scanner.next();
 
                 if (tmpCentreName.trim().equals(CentreName.trim())) {
                     found = true;
                 }
             }
+            scanner.close();
 
             //after check file
             if (found == true) {
@@ -547,7 +561,7 @@ public class ManageCentre extends javax.swing.JFrame {
                 txtAmount.setText("");
                 cmbVaccineType.setSelectedIndex(-1);
                 taCentreAdd.setText("");
-                txtCentreName.setEnabled(false);
+                txtCentreName.setEnabled(true);
             }
 
         } catch (Exception e) {

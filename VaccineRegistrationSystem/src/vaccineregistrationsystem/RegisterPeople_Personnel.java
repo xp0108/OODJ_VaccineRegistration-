@@ -351,7 +351,7 @@ public class RegisterPeople_Personnel extends javax.swing.JFrame {
                     Pattern CitizenPattern = Pattern.compile(CitizenRegex);
                     Matcher CitizenMatcher = CitizenPattern.matcher(txtRegisterIC.getText());
 
-                    String NonCitizenRegex = "[0-9]+";
+                    String NonCitizenRegex = "^\\d+$";
                     Pattern NonCitizenPattern = Pattern.compile(NonCitizenRegex);
                     Matcher NonCitizenMatcher = NonCitizenPattern.matcher(txtRegisterIC.getText());
 
@@ -405,7 +405,7 @@ public class RegisterPeople_Personnel extends javax.swing.JFrame {
                     Pattern CitizenPattern = Pattern.compile(CitizenRegex);
                     Matcher CitizenMatcher = CitizenPattern.matcher(txtRegisterIC.getText());
 
-                    String NonCitizenRegex = "[0-9]+";
+                    String NonCitizenRegex = "^\\d+$";
                     Pattern NonCitizenPattern = Pattern.compile(NonCitizenRegex);
                     Matcher NonCitizenMatcher = NonCitizenPattern.matcher(txtRegisterIC.getText());
 
@@ -454,7 +454,7 @@ public class RegisterPeople_Personnel extends javax.swing.JFrame {
 
                             JOptionPane.showMessageDialog(this, "Register Successful", "Congratulation", JOptionPane.PLAIN_MESSAGE);
 
-                            Login a = new Login();
+                            ManagePeople a = new ManagePeople();
                             a.setVisible(true);
                             this.dispose();
                         }

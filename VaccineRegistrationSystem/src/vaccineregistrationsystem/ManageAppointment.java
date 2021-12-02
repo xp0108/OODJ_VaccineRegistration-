@@ -439,202 +439,198 @@ public class ManageAppointment extends javax.swing.JFrame {
     }//GEN-LAST:event_txtSearchKeyReleased
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
-        if (cmbAppStatus.getSelectedItem().equals("Done")) {
-            JOptionPane.showMessageDialog(null, "Appointment is done. Cannot update appointment record", "Empty text field found !", JOptionPane.ERROR_MESSAGE);
-        } else {
+        DefaultTableModel modelDose1 = (DefaultTableModel) tableDose1.getModel();
+        DefaultTableModel modelDose2 = (DefaultTableModel) tableDose2.getModel();
 
-            DefaultTableModel modelDose1 = (DefaultTableModel) tableDose1.getModel();
-            DefaultTableModel modelDose2 = (DefaultTableModel) tableDose2.getModel();
+        String pIC = txtIC.getText();
+        String pName = txtName.getText();
+        String appStatusE = String.valueOf(cmbAppStatus.getSelectedItem());
+        String centreE = String.valueOf(cmbCentre.getSelectedItem());
+        String strAppDateE = String.valueOf(dpAppDate.getDate());
 
-            String pIC = txtIC.getText();
-            String pName = txtName.getText();
-            String appStatusE = String.valueOf(cmbAppStatus.getSelectedItem());
-            String centreE = String.valueOf(cmbCentre.getSelectedItem());
-            String strAppDateE = String.valueOf(dpAppDate.getDate());
+        if (tableDose1.getSelectedRowCount() == 1) {
 
-            if (tableDose1.getSelectedRowCount() == 1) {
+            if (cmbAppStatus.getSelectedItem().equals("Done")) {
+                cmbAppStatus.setEnabled(false);
+                cmbCentre.setEnabled(false);
+                dpAppDate.setEnabled(false);
+                txtIC.setEnabled(false);
+                txtName.setEnabled(false);
 
-                if (cmbAppStatus.getSelectedItem().equals("Done")) {
-                    cmbAppStatus.setEnabled(false);
-                    cmbCentre.setEnabled(false);
-                    dpAppDate.setEnabled(false);
-                    txtIC.setEnabled(false);
-                    txtName.setEnabled(false);
+                Citizen updateStatus = new Citizen();
+                updateStatus.UpdatePeopleStatus("people.txt", txtIC.getText(), "Dose 1");
 
-                    Citizen updateStatus = new Citizen();
-                    updateStatus.UpdatePeopleStatus("people.txt", txtIC.getText(), "Dose 1");
+                Centre centre = new Centre();
+                centre.UpdateCentreFileAfterDeduct(centreE);
 
-                    Centre centre = new Centre();
-                    centre.UpdateCentreFileAfterDeduct(centreE);
-
-                } else {
-                    cmbAppStatus.setEnabled(true);
-                    cmbCentre.setEnabled(true);
-                    dpAppDate.setEnabled(true);
-                    txtIC.setEnabled(false);
-                    txtName.setEnabled(false);
-                }
-
-                if (pIC.equals("") || pName.equals("") || appStatusE.equals("") || centreE.equals("") || strAppDateE.equals("")) {
-                    JOptionPane.showMessageDialog(null, "Please fill up the all the details.", "Empty text field found !", JOptionPane.ERROR_MESSAGE);
-
-                } else {
-                    //update table
-                    modelDose1.setValueAt(pIC, tableDose1.getSelectedRow(), 0);
-                    modelDose1.setValueAt(pName, tableDose1.getSelectedRow(), 1);
-                    modelDose1.setValueAt(centreE, tableDose1.getSelectedRow(), 2);
-                    modelDose1.setValueAt(strAppDateE, tableDose1.getSelectedRow(), 3);
-                    modelDose1.setValueAt(appStatusE, tableDose1.getSelectedRow(), 4);
-
-                    String fileDose1 = "dose1.txt";
-                    String tempDose1File = "TempDose1.txt";
-                    File oldDose1File = new File(fileDose1);
-                    File newDose1File = new File(tempDose1File);
-
-                    try ( FileWriter fw = new FileWriter(newDose1File, true);  BufferedWriter bw = new BufferedWriter(fw);  Scanner ss = new Scanner(oldDose1File);) {
-
-                        ss.useDelimiter("[,\n]");
-
-                        while (ss.hasNext()) {
-                            String IC = ss.next();
-                            String Name = ss.next();
-                            String centre = ss.next();
-                            String strAppDate = ss.next();
-                            String appStatus = ss.next();
-
-                            if (pIC.trim().equals(IC.trim()) && pName.trim().equals(Name.trim())) {
-                                //mody
-                                Centre centreNameE = new Centre(centreE);
-
-                                Appointment modyAppointment = new Appointment(pIC, pName, strAppDateE, centreNameE);
-                                modyAppointment.AssignAppStatus(appStatusE);
-
-                                bw.write(modyAppointment.WriteDoseFile());
-
-                                if (appStatusE.equals("Done")) {
-
-                                    AddDose2Appointment(pIC, pName, centreE, strAppDateE, "Active");
-                                } else {
-                                    JOptionPane.showMessageDialog(this, "Record Updated Successfully");
-                                }
-
-                            } else {
-                                //ori                      
-                                Centre centreName = new Centre(centre);
-
-                                Appointment oriAppointment = new Appointment(IC, Name, strAppDate, centreName);
-                                oriAppointment.AssignAppStatus(appStatus);
-
-                                bw.write(oriAppointment.WriteDoseFile());
-                            }
-                        }
-
-                        ss.close();
-                        bw.close();
-                        fw.close();
-
-                        oldDose1File.delete();
-
-                        File dump = new File(fileDose1);
-                        newDose1File.renameTo(dump);
-                    } catch (Exception e) {
-                        JOptionPane.showMessageDialog(null, "Edit Appointment record fail due to " + e);
-                        System.out.println(e);
-                    }
-
-                }
-            } else if (tableDose2.getSelectedRowCount() == 1) {
-
-                if (cmbAppStatus.getSelectedItem().equals("Done")) {
-                    cmbAppStatus.setEnabled(false);
-                    cmbCentre.setEnabled(false);
-                    dpAppDate.setEnabled(false);
-                    txtIC.setEnabled(false);
-                    txtName.setEnabled(false);
-
-                    Citizen updateStatus = new Citizen();
-                    updateStatus.UpdatePeopleStatus("people.txt", txtIC.getText(), "Dose 2");
-                    Centre centre = new Centre();
-                    centre.UpdateCentreFileAfterDeduct(centreE);
-
-                } else {
-                    cmbAppStatus.setEnabled(true);
-                    cmbCentre.setEnabled(true);
-                    dpAppDate.setEnabled(true);
-                    txtIC.setEnabled(false);
-                    txtName.setEnabled(false);
-                }
-
-                if (pIC.equals("") || pName.equals("") || appStatusE.equals("") || centreE.equals("") || strAppDateE.equals("")) {
-                    JOptionPane.showMessageDialog(null, "Please fill up the all the details.", "Empty text field found !", JOptionPane.ERROR_MESSAGE);
-
-                } else {
-                    //Update Dose 2
-                    modelDose2.setValueAt(pIC, tableDose2.getSelectedRow(), 0);
-                    modelDose2.setValueAt(pName, tableDose2.getSelectedRow(), 1);
-                    modelDose2.setValueAt(centreE, tableDose2.getSelectedRow(), 2);
-                    modelDose2.setValueAt(strAppDateE, tableDose2.getSelectedRow(), 3);
-                    modelDose2.setValueAt(appStatusE, tableDose2.getSelectedRow(), 4);
-
-                    String fileDose2 = "dose2.txt";
-                    String tempDose2File = "TempDose2.txt";
-                    File oldDose2File = new File(fileDose2);
-                    File newDose2File = new File(tempDose2File);
-
-                    try ( FileWriter fw = new FileWriter(newDose2File, true);  BufferedWriter bw = new BufferedWriter(fw);  Scanner ss = new Scanner(oldDose2File);) {
-
-                        ss.useDelimiter("[,\n]");
-
-                        while (ss.hasNext()) {
-                            String IC = ss.next();
-                            String Name = ss.next();
-                            String centre = ss.next();
-                            String strAppDate = ss.next();
-                            String appStatus = ss.next();
-
-                            if (pIC.trim().equals(IC.trim()) && pName.trim().equals(Name.trim())) {
-                                //mody
-                                Centre centreNameE = new Centre(centreE);
-
-                                Appointment modyAppointment = new Appointment(pIC, pName, strAppDateE, centreNameE);
-                                modyAppointment.AssignAppStatus(appStatusE);
-
-                                bw.write(modyAppointment.WriteDoseFile());
-
-                            } else {
-                                //ori                      
-                                Centre centreName = new Centre(centre);
-
-                                Appointment oriAppointment = new Appointment(IC, Name, strAppDate, centreName);
-                                oriAppointment.AssignAppStatus(appStatus);
-
-                                bw.write(oriAppointment.WriteDoseFile());
-
-                            }
-                        }
-
-                        ss.close();
-                        bw.close();
-                        fw.close();
-
-                        oldDose2File.delete();
-
-                        File dump = new File(fileDose2);
-                        newDose2File.renameTo(dump);
-                        JOptionPane.showMessageDialog(this, "Record Updated Successfully");
-                    } catch (Exception e) {
-                        JOptionPane.showMessageDialog(null, "Edit Appointment record fail due to " + e);
-                        System.out.println(e);
-                    }
-                }
             } else {
-                if (tableDose1.getRowCount() == 0 || tableDose2.getRowCount() == 0) {
-                    JOptionPane.showMessageDialog(this, "Table if Empty");
-                } else {
-                    JOptionPane.showMessageDialog(this, "Please select a Row for Update");
+                cmbAppStatus.setEnabled(true);
+                cmbCentre.setEnabled(true);
+                dpAppDate.setEnabled(true);
+                txtIC.setEnabled(false);
+                txtName.setEnabled(false);
+            }
+
+            if (pIC.equals("") || pName.equals("") || appStatusE.equals("") || centreE.equals("") || strAppDateE.equals("")) {
+                JOptionPane.showMessageDialog(null, "Please fill up the all the details.", "Empty text field found !", JOptionPane.ERROR_MESSAGE);
+
+            } else {
+                //update table
+                modelDose1.setValueAt(pIC, tableDose1.getSelectedRow(), 0);
+                modelDose1.setValueAt(pName, tableDose1.getSelectedRow(), 1);
+                modelDose1.setValueAt(centreE, tableDose1.getSelectedRow(), 2);
+                modelDose1.setValueAt(strAppDateE, tableDose1.getSelectedRow(), 3);
+                modelDose1.setValueAt(appStatusE, tableDose1.getSelectedRow(), 4);
+
+                String fileDose1 = "dose1.txt";
+                String tempDose1File = "TempDose1.txt";
+                File oldDose1File = new File(fileDose1);
+                File newDose1File = new File(tempDose1File);
+
+                try (FileWriter fw = new FileWriter(newDose1File, true); BufferedWriter bw = new BufferedWriter(fw); Scanner ss = new Scanner(oldDose1File);) {
+
+                    ss.useDelimiter("[,\n]");
+
+                    while (ss.hasNext()) {
+                        String IC = ss.next();
+                        String Name = ss.next();
+                        String centre = ss.next();
+                        String strAppDate = ss.next();
+                        String appStatus = ss.next();
+
+                        if (pIC.trim().equals(IC.trim()) && pName.trim().equals(Name.trim())) {
+                            //mody
+                            Centre centreNameE = new Centre(centreE);
+
+                            Appointment modyAppointment = new Appointment(pIC, pName, strAppDateE, centreNameE);
+                            modyAppointment.AssignAppStatus(appStatusE);
+
+                            bw.write(modyAppointment.WriteDoseFile());
+
+                            if (appStatusE.equals("Done")) {
+
+                                AddDose2Appointment(pIC, pName, centreE, strAppDateE, "Active");
+                            } else {
+                                JOptionPane.showMessageDialog(this, "Record Updated Successfully");
+                            }
+
+                        } else {
+                            //ori                      
+                            Centre centreName = new Centre(centre);
+
+                            Appointment oriAppointment = new Appointment(IC, Name, strAppDate, centreName);
+                            oriAppointment.AssignAppStatus(appStatus);
+
+                            bw.write(oriAppointment.WriteDoseFile());
+                        }
+                    }
+
+                    ss.close();
+                    bw.close();
+                    fw.close();
+
+                    oldDose1File.delete();
+
+                    File dump = new File(fileDose1);
+                    newDose1File.renameTo(dump);
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(null, "Edit Appointment record fail due to " + e);
+                    System.out.println(e);
+                }
+
+            }
+        } else if (tableDose2.getSelectedRowCount() == 1) {
+
+            if (cmbAppStatus.getSelectedItem().equals("Done")) {
+                cmbAppStatus.setEnabled(false);
+                cmbCentre.setEnabled(false);
+                dpAppDate.setEnabled(false);
+                txtIC.setEnabled(false);
+                txtName.setEnabled(false);
+
+                Citizen updateStatus = new Citizen();
+                updateStatus.UpdatePeopleStatus("people.txt", txtIC.getText(), "Dose 2");
+                Centre centre = new Centre();
+                centre.UpdateCentreFileAfterDeduct(centreE);
+
+            } else {
+                cmbAppStatus.setEnabled(true);
+                cmbCentre.setEnabled(true);
+                dpAppDate.setEnabled(true);
+                txtIC.setEnabled(false);
+                txtName.setEnabled(false);
+            }
+
+            if (pIC.equals("") || pName.equals("") || appStatusE.equals("") || centreE.equals("") || strAppDateE.equals("")) {
+                JOptionPane.showMessageDialog(null, "Please fill up the all the details.", "Empty text field found !", JOptionPane.ERROR_MESSAGE);
+
+            } else {
+                //Update Dose 2
+                modelDose2.setValueAt(pIC, tableDose2.getSelectedRow(), 0);
+                modelDose2.setValueAt(pName, tableDose2.getSelectedRow(), 1);
+                modelDose2.setValueAt(centreE, tableDose2.getSelectedRow(), 2);
+                modelDose2.setValueAt(strAppDateE, tableDose2.getSelectedRow(), 3);
+                modelDose2.setValueAt(appStatusE, tableDose2.getSelectedRow(), 4);
+
+                String fileDose2 = "dose2.txt";
+                String tempDose2File = "TempDose2.txt";
+                File oldDose2File = new File(fileDose2);
+                File newDose2File = new File(tempDose2File);
+
+                try (FileWriter fw = new FileWriter(newDose2File, true); BufferedWriter bw = new BufferedWriter(fw); Scanner ss = new Scanner(oldDose2File);) {
+
+                    ss.useDelimiter("[,\n]");
+
+                    while (ss.hasNext()) {
+                        String IC = ss.next();
+                        String Name = ss.next();
+                        String centre = ss.next();
+                        String strAppDate = ss.next();
+                        String appStatus = ss.next();
+
+                        if (pIC.trim().equals(IC.trim()) && pName.trim().equals(Name.trim())) {
+                            //mody
+                            Centre centreNameE = new Centre(centreE);
+
+                            Appointment modyAppointment = new Appointment(pIC, pName, strAppDateE, centreNameE);
+                            modyAppointment.AssignAppStatus(appStatusE);
+
+                            bw.write(modyAppointment.WriteDoseFile());
+
+                        } else {
+                            //ori                      
+                            Centre centreName = new Centre(centre);
+
+                            Appointment oriAppointment = new Appointment(IC, Name, strAppDate, centreName);
+                            oriAppointment.AssignAppStatus(appStatus);
+
+                            bw.write(oriAppointment.WriteDoseFile());
+
+                        }
+                    }
+
+                    ss.close();
+                    bw.close();
+                    fw.close();
+
+                    oldDose2File.delete();
+
+                    File dump = new File(fileDose2);
+                    newDose2File.renameTo(dump);
+                    JOptionPane.showMessageDialog(this, "Record Updated Successfully");
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(null, "Edit Appointment record fail due to " + e);
+                    System.out.println(e);
                 }
             }
+        } else {
+            if (tableDose1.getRowCount() == 0 || tableDose2.getRowCount() == 0) {
+                JOptionPane.showMessageDialog(this, "Table if Empty");
+            } else {
+                JOptionPane.showMessageDialog(this, "Please select a Row for Update");
+            }
         }
+
     }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void btnRemoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveActionPerformed
@@ -664,7 +660,7 @@ public class ManageAppointment extends javax.swing.JFrame {
                     File oldDose1File = new File(fileDose1);
                     File newDose1File = new File(tempDose1File);
 
-                    try ( FileWriter fw = new FileWriter(newDose1File, true);  BufferedWriter bw = new BufferedWriter(fw);  Scanner ss = new Scanner(oldDose1File);) {
+                    try (FileWriter fw = new FileWriter(newDose1File, true); BufferedWriter bw = new BufferedWriter(fw); Scanner ss = new Scanner(oldDose1File);) {
 
                         ss.useDelimiter("[,\n]");
 
@@ -723,7 +719,7 @@ public class ManageAppointment extends javax.swing.JFrame {
                     File oldDose2File = new File(fileDose2);
                     File newDose2File = new File(tempDose2File);
 
-                    try ( FileWriter fw = new FileWriter(newDose2File, true);  BufferedWriter bw = new BufferedWriter(fw);  Scanner ss = new Scanner(oldDose2File);) {
+                    try (FileWriter fw = new FileWriter(newDose2File, true); BufferedWriter bw = new BufferedWriter(fw); Scanner ss = new Scanner(oldDose2File);) {
 
                         ss.useDelimiter("[,\n]");
 
@@ -789,7 +785,10 @@ public class ManageAppointment extends javax.swing.JFrame {
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         CheckDose1People(txtIC.getText(), txtName.getText());
-        AddDose1Appointment(txtIC.getText(), txtName.getText(), String.valueOf(cmbCentre.getSelectedItem()), String.valueOf(dpAppDate.getDate()), String.valueOf(cmbAppStatus.getSelectedItem()));
+        AddDose1Appointment(txtIC.getText(), txtName.getText(),
+                String.valueOf(cmbCentre.getSelectedItem()),
+                String.valueOf(dpAppDate.getDate()),
+                String.valueOf(cmbAppStatus.getSelectedItem()));
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void tableDose1MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableDose1MouseReleased
@@ -878,7 +877,7 @@ public class ManageAppointment extends javax.swing.JFrame {
     public void ShowDose1() {
         // show data in the JTable
         File fileDose1 = new File("dose1.txt");
-        try ( BufferedReader br = new BufferedReader(new FileReader(fileDose1));) {
+        try (BufferedReader br = new BufferedReader(new FileReader(fileDose1));) {
             tableDose1.getTableHeader().setFont(new Font("SansSerif", Font.BOLD, 15));
 
             DefaultTableModel model = (DefaultTableModel) tableDose1.getModel();
@@ -905,7 +904,7 @@ public class ManageAppointment extends javax.swing.JFrame {
     public void ShowDose2() {
         // show data in the JTable
         File fileDose2 = new File("dose2.txt");
-        try ( BufferedReader br = new BufferedReader(new FileReader(fileDose2));) {
+        try (BufferedReader br = new BufferedReader(new FileReader(fileDose2));) {
             tableDose1.getTableHeader().setFont(new Font("SansSerif", Font.BOLD, 15));
 
             DefaultTableModel model = (DefaultTableModel) tableDose2.getModel();
@@ -949,13 +948,15 @@ public class ManageAppointment extends javax.swing.JFrame {
                 }
             }
 
+            scanner.close();
+
             //after check file
             if (foundDose1People == true) {
 
                 JOptionPane.showMessageDialog(this, "This people have registed the Dose 1 Appointment", "Uh Oh...", JOptionPane.WARNING_MESSAGE);
                 cleanAll();
             }
-            scanner.close();
+
         } catch (Exception e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
@@ -979,13 +980,15 @@ public class ManageAppointment extends javax.swing.JFrame {
                 scanner.next();
                 scanner.next();
 
-                if (tempPeopleIC.trim().equals(PeopleIC.trim()) || tempPeopleName.trim().equals(PeopleName.trim())) {
+                if (tempPeopleIC.trim().equals(PeopleIC.trim()) && tempPeopleName.trim().equals(PeopleName.trim())) {
                     foundPeople = true;
                 }
             }
+            scanner.close();
 
             //after check file
-            if (PeopleIC.equals("") || PeopleName.equals("") || AppCentre.equals("") || AppDate.equals("") || AppStatus.equals("")) {
+            if (PeopleIC.equals("") || PeopleName.equals("") || cmbCentre.getSelectedItem() == null || 
+                    dpAppDate.getDate() == null || AppStatus.equals("-Appointment Status-")) {
                 JOptionPane.showMessageDialog(null, "Please fill up the all the details.", "Empty text field found !", JOptionPane.ERROR_MESSAGE);
 
             } else if (foundPeople == false) {
@@ -1008,6 +1011,7 @@ public class ManageAppointment extends javax.swing.JFrame {
 
                     bw.close();
                     fw.close();
+
                     JOptionPane.showMessageDialog(this, "Add Dose 1 Appointment Successfully", "Success", JOptionPane.INFORMATION_MESSAGE);
 
                 } catch (Exception ex) {
@@ -1017,8 +1021,6 @@ public class ManageAppointment extends javax.swing.JFrame {
                 Object[] dataRow = {PeopleIC, PeopleName, AppCentre, AppDate, AppStatus};
                 DefaultTableModel model = (DefaultTableModel) tableDose1.getModel();
                 model.addRow(dataRow);
-
-                scanner.close();
 
                 txtIC.setEnabled(false);
                 txtName.setEnabled(false);
