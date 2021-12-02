@@ -40,6 +40,7 @@ public class PersonnelMain extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Personnel Menu");
+        setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(212, 227, 247));
 
