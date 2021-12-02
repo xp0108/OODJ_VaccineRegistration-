@@ -330,7 +330,6 @@ public class ManageCentre extends javax.swing.JFrame {
                     || cmbVaccineType.getSelectedItem().equals("")) {
                 JOptionPane.showMessageDialog(null, "Please fill up the all the details.",
                         "Empty text field found !", JOptionPane.ERROR_MESSAGE);
-
             } else if (cmbVaccineType.getSelectedItem() == null) {
                 JOptionPane.showMessageDialog(this,
                         "Please Choose Vaccine Type", "Uh Oh...",

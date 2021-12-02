@@ -309,7 +309,7 @@ public class ManagePeople extends javax.swing.JFrame {
             String addressE = taAddress.getText();
             String statusE = String.valueOf(cmbStatus.getSelectedItem());
 
-            if (nameE.equals("") || dobE.equals("") || addressE.equals("")) {
+            if (nameE.isBlank() || dobE.isBlank() || addressE.isBlank() || taAddress.getText().isBlank()) {
                 JOptionPane.showMessageDialog(null, "Please fill up the all the details.", "Empty text field found !", JOptionPane.ERROR_MESSAGE);
 
             } else {
