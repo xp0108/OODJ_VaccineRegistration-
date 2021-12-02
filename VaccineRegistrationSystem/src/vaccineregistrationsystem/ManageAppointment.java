@@ -471,9 +471,9 @@ public class ManageAppointment extends javax.swing.JFrame {
                 txtName.setEnabled(false);
             }
 
-            if (pIC.equals("") || pName.equals("") || appStatusE.equals("") || centreE.equals("") || strAppDateE.equals("")) {
+            if (pIC.equals("") || pName.equals("") || appStatusE.equals("-Appointment Status-") || cmbCentre.getSelectedItem() == null || 
+                    dpAppDate.getDate() == null) {
                 JOptionPane.showMessageDialog(null, "Please fill up the all the details.", "Empty text field found !", JOptionPane.ERROR_MESSAGE);
-
             } else {
                 //update table
                 modelDose1.setValueAt(pIC, tableDose1.getSelectedRow(), 0);
