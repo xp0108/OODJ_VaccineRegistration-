@@ -1,1 +1,2 @@
-PWTC,KL,Pfizer,190
+Centre1,Centre1,Type1,77
+Centre2,Centre22,Type2,20
