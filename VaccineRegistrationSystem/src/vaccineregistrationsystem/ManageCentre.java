@@ -354,7 +354,7 @@ public class ManageCentre extends javax.swing.JFrame {
                         String centreName = ss.next();
                         String centreAdd = ss.next();
                         String vaccineType = ss.next();
-                        int amount = ss.nextInt();
+                        int amount = Integer.parseInt(ss.next().replaceAll("[\r\n]", ""));
 
                         if (pCentreName.trim().equals(centreName.trim())) {
                             Vaccine vacineTypeEE = new Vaccine(vaccineTypeE);
