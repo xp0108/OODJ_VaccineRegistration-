@@ -1,3 +1,4 @@
 1241423123,Non,donno,9999-88-55,No Vaccinated
 990124-14-5101,Onn,Cheras,1999-01-24,Dose 2
 055056,xp,Kuola,5555-11-22,No Vaccinated
+123,123,Selangor,8888-55-44,No Vaccinated
