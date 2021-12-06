@@ -311,14 +311,15 @@ public class ManageVaccine extends javax.swing.JFrame {
                 File oldVaccineFile = new File(file);
                 File newVaccineFile = new File(tempVaccineFile);
 
-                try ( FileWriter fw = new FileWriter(newVaccineFile, true);  BufferedWriter bw = new BufferedWriter(fw);  Scanner ss = new Scanner(oldVaccineFile);) {
+                try (FileWriter fw = new FileWriter(newVaccineFile, true); BufferedWriter bw = new BufferedWriter(fw);
+                        Scanner ss = new Scanner(oldVaccineFile);) {
 
                     ss.useDelimiter("[,\n]");
 
                     while (ss.hasNext()) {
                         String vaccineType = ss.next();
-                        int amount = ss.nextInt();
-                        int duration = ss.nextInt();
+                        int amount = Integer.parseInt(ss.next().replaceAll("[\r\n]", ""));
+                        int duration = Integer.parseInt(ss.next().replaceAll("[\r\n]", ""));
 
                         if (pVaccineType.trim().equals(vaccineType.trim())) {
                             Vaccine modyVaccine = new Vaccine(pVaccineType, durationE, amountE);
@@ -342,11 +343,12 @@ public class ManageVaccine extends javax.swing.JFrame {
                     File dump = new File(file);
                     newVaccineFile.renameTo(dump);
                     System.out.println("flie renamed");
-
                     JOptionPane.showMessageDialog(this, "Record Updated Successfully");
+
                 } catch (Exception e) {
                     JOptionPane.showMessageDialog(null, "Edit Vaccine record fail due to " + e);
                     System.out.println(e);
+                    e.printStackTrace();
                 }
 
             }
